@@ -8,9 +8,11 @@ const PDF_MAPPING = {
   "Digital Kiosk Signage KMI 4100 & 4200": "KMI4000 All Series.pdf",
   "Interactive Whiteboard KMI 7000 Series": "KMI7000 Series.pdf",
   "Video Wall KMI 8000": "KMI8000 - LFD Video Wall.pdf",
-  "LED Outdoor for Fixed Installation": "Weather Resistance - Outdoor LED (All Series).pdf",
-  "LED Poster Display": "Creative LED All Series.pdf"
-
+  "LED Outdoor for Fixed Installation":
+    "Weather Resistance - Outdoor LED (All Series).pdf",
+  "LED Indoor for Fixed Installation":
+    "Fine Pixel - Indoor LED (All Series).pdf",
+  "LED Poster Display": "Creative LED All Series.pdf",
 };
 
 export function Download({ isOpen, onClose, product }) {

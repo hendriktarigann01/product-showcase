@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
@@ -14,8 +14,40 @@ function App() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedProductIndex, setSelectedProductIndex] = useState(0);
   const [currentView, setCurrentView] = useState("home");
-  const navigate = useNavigate();
   const [isLED, setIsLED] = useState(false);
+  const [shouldUseMorph, setShouldUseMorph] = useState(true);
+  const navigate = useNavigate();
+
+  // Detect if morph should be disabled
+  useEffect(() => {
+    const checkShouldUseMorph = () => {
+      const isMobile =
+        window.innerWidth <= 768 ||
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        );
+      const isTabFocused = !document.hidden;
+
+      setShouldUseMorph(!isMobile && isTabFocused);
+    };
+
+    const handleVisibilityChange = () => {
+      setShouldUseMorph(!document.hidden && window.innerWidth > 768);
+    };
+
+    const handleResize = () => {
+      setShouldUseMorph(window.innerWidth > 768 && !document.hidden);
+    };
+
+    checkShouldUseMorph();
+    window.addEventListener("resize", handleResize);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, []);
 
   const handleSelectProduct = (product, productIndex, isLEDValue) => {
     setSelectedProduct(product);
@@ -35,7 +67,7 @@ function App() {
 
   const handleBackToProduct = () => {
     setCurrentView("product");
-    navigate("/"); // Navigate back to main app
+    navigate("/");
   };
 
   const handleNavigateToSpec = () => {
@@ -57,7 +89,7 @@ function App() {
           <ProductDetail
             product={selectedProduct}
             productIndex={selectedProductIndex}
-            isLED={isLED} 
+            isLED={isLED}
             onBack={handleBackToHome}
             onNavigateToSpec={handleNavigateToSpec}
             onNavigateToImplementation={handleNavigateToImplementation}
@@ -100,21 +132,31 @@ function App() {
     }
   };
 
+  // Conditionally render with or without MorphTransitionProvider
+  const AppContent = () => (
+    <Routes>
+      <Route path="/" element={renderCurrentView()} />
+      <Route
+        path="/application"
+        element={
+          <Application
+            product={selectedProduct}
+            productIndex={selectedProductIndex}
+            onBack={handleBackToProduct}
+          />
+        }
+      />
+    </Routes>
+  );
+
+  // Only use MorphTransitionProvider on desktop with focused tab
+  if (!shouldUseMorph) {
+    return <AppContent />;
+  }
+
   return (
     <MorphTransitionProvider>
-      <Routes>
-        <Route path="/" element={renderCurrentView()} />
-        <Route
-          path="/application"
-          element={
-            <Application
-              product={selectedProduct}
-              productIndex={selectedProductIndex}
-              onBack={handleBackToProduct}
-            />
-          }
-        />
-      </Routes>
+      <AppContent />
     </MorphTransitionProvider>
   );
 }

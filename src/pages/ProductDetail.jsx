@@ -24,7 +24,6 @@ const PRODUCTS_WITHOUT_IMPLEMENTATION = [
   "Digital Signage KMI 2300",
   "LED Outdoor for Fixed Installation",
   "LED Indoor for Fixed Installation",
-  "LED Poster Display",
 ];
 
 function ProductDetail({
@@ -180,10 +179,10 @@ function ProductDetail({
     const isActive = selectedView === view.key;
 
     return (
-      <div className="text-center h-[100px] lg:h-[150px] flex flex-col justify-center">
+      <div className="text-center p-1 flex flex-col justify-center">
         <button
           onClick={() => setSelectedView(view.key)}
-          className={`w-full h-full rounded-lg overflow-hidden transition-all duration-200 ${
+          className={`w-auto h-auto rounded-lg overflow-hidden transition-all duration-200 ${
             isActive ? "border-2 border-teal-500 shadow-md scale-105" : ""
           }`}
         >
@@ -191,7 +190,7 @@ function ProductDetail({
             <img
               src={view.src}
               alt={view.label}
-              className="h-24 w-full object-contain"
+              className="h-10 lg:h-24 w-full object-contain"
             />
             <p className="mt-5 text-xs lg:text-sm font-medium text-gray-600">
               {view.label}
@@ -205,7 +204,7 @@ function ProductDetail({
   const MenuButton = ({ button }) => (
     <button
       key={button.id}
-      className="flex items-center justify-center gap-2 w-44 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md"
+      className="flex items-center justify-center gap-2 w-[168px] md:w-auto lg:w-44 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md"
       onClick={button.onClick}
     >
       <img src={button.icon} alt={button.label} className="w-5 h-5" />
@@ -214,35 +213,36 @@ function ProductDetail({
   );
 
   return (
-    <div className="h-screen">
-      {/* Header - Embedded */}
+    <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
+      {/* Header */}
       <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm">
-        <div className="my-6 mx-7">
+        <div className="my-6 mx-3 sm:mx-7">
           <div className="flex flex-col items-center text-center">
-            <div className="w-full flex justify-between items-center">
+            <div className="w-full flex items-start">
               <img
                 src="/logo/mjs_logo_text.png"
                 alt="MJS Logo"
-                className="h-10"
+                className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
             </div>
 
             <div className="w-full">
-              <h1 className="text-2xl font-medium text-gray-600 text-center">
+              <h1 className="text-lg sm:text-2xl font-bold text-gray-600 text-center">
                 {getProductTitle(product.name)}
               </h1>
             </div>
           </div>
         </div>
       </div>
-      
-      <div className="py-20 bg-[#e7f4f3] px-4 z-50">
-        <div className="max-w-7xl mx-auto flex flex-col justify-between">
+
+      {/* Main Content - Flex grow to fill available space */}
+      <div className="flex-grow flex items-center justify-center pt-32 pb-24 px-8">
+        <div className="max-w-7xl mx-auto w-full">
           {/* Main Content */}
-          <div className="flex my-8 flex-col lg:flex-row items-center justify-center flex-grow gap-8 lg:gap-16">
+          <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-8 lg:gap-16">
             {/* Main Image */}
             <div
-              className={`w-[320px] h-[220px] lg:w-[650px] lg:h-[420px] flex items-center justify-center transition-all duration-700 ${
+              className={`w-[320px] h-[230px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center transition-all duration-700 ${
                 isVisible
                   ? "opacity-100 transform translate-y-0"
                   : "opacity-0 transform translate-y-5"
@@ -259,9 +259,9 @@ function ProductDetail({
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="h-[220px] lg:h-[420px] flex items-center">
+            <div className="h-[230px] md:h-[300px] lg:h-[400px]md:mt-0 flex items-center">
               <div
-                className={`grid grid-cols-2 gap-14 w-[280px] lg:w-[320px] transition-all duration-700 delay-200 ${
+                className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible
                     ? "opacity-100 transform translate-x-0"
                     : "opacity-0 transform translate-x-10"
@@ -276,7 +276,7 @@ function ProductDetail({
 
           {/* Menu Buttons */}
           <div
-            className={`flex flex-wrap items-center justify-center gap-5 transition-all duration-700 delay-400 ${
+            className={`flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-5 transition-all duration-700 delay-400 ${
               isVisible
                 ? "opacity-100 transform translate-y-0"
                 : "opacity-0 transform translate-y-5"
@@ -288,25 +288,30 @@ function ProductDetail({
           </div>
         </div>
       </div>
-      {/* Contact Info - Embedded */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3] z-50">
-        <div className="my-7 mx-7">
-          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2">
+
+      {/* Contact Info */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">
+        <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
+          <div className="flex justify-between items-center flex-wrap">
+            {/* Website */}
+            <div className="flex items-start gap-2 w-auto lg:mx-0">
               <img
                 src="/icons/icon-web.svg"
                 alt="Website"
                 className="w-4 h-4"
               />
-              <span>mjsolution.co.id</span>
+              <span className="text-xs lg:text-sm">mjsolution.co.id</span>
             </div>
-            <div className="flex items-center gap-2">
+
+            {/* Phone */}
+            <div className="flex items-end gap-2 w-auto lg:mx-0">
               <img src="/icons/icon-call.svg" alt="Call" className="w-4 h-4" />
-              <span>(+62) 811-1122-492</span>
+              <span className="text-xs lg:text-sm">(+62) 811-1122-492</span>
             </div>
           </div>
         </div>
       </div>
+
       <Download
         isOpen={isDownloadPopupOpen}
         onClose={() => setIsDownloadPopupOpen(false)}

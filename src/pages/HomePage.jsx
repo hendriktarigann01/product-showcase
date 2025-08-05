@@ -64,7 +64,7 @@ function Carousel3D({ slides, goToSlide, onSlideChange, currentIndex }) {
   };
 
   return (
-    <div className="relative w-[95%] sm:w-[92%] md:w-[90%] mx-auto h-[416px]">
+    <div className="relative w-[95%] sm:w-[92%] md:w-[90%] mx-auto h-[370px] sm:h-[416px]">
       <div className="relative w-full h-full flex items-center justify-center preserve-3d">
         {slides.map((slide, index) => (
           <div
@@ -189,26 +189,26 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
   };
 
   return (
-    <div className="h-screen overflow-hidden">
-      {/* Header - Embedded */}
+    <div className="min-h-screen flex flex-col bg-white overflow-hidden">
+      {/* Header - Fixed */}
       <div className="fixed top-0 left-0 right-0 bg-white backdrop-blur-sm z-50">
-        <div className="my-6 mx-7">
+        <div className="my-6 mx-3 sm:mx-7">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex items-start">
               <img
                 src="/logo/mjs_logo_text.png"
                 alt="MJS Logo"
-                className="h-10"
+                className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
             </div>
 
             <div className="w-full">
-              <h1 className="text-2xl font-bold text-gray-600 text-center">
+              <h1 className="text-lg sm:text-2xl font-bold text-gray-600 text-center">
                 Our Product
               </h1>
               <p
-                key={currentIndex} // penting untuk trigger re-render
-                className="text-gray-600 text-lg text-center animate-fade-in-up"
+                key={currentIndex}
+                className="text-gray-600 text-sm sm:text-lg text-center animate-fade-in-up"
               >
                 {selectedProducts[currentIndex]?.name || ""}
               </p>
@@ -217,9 +217,9 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="pt-32 pb-20 px-8 bg-white">
-        <div className="max-w-6xl mx-auto">
+      {/* Main Content - Flex grow to fill available space */}
+      <div className="flex-grow flex items-center justify-center pt-32 pb-24 px-8">
+        <div className="max-w-7xl mx-auto w-full">
           {/* Background Circle */}
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center justify-center">
@@ -249,14 +249,14 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
               />
             </div>
 
-            {/* Select Button - centered and always visible */}
-            <div className="absolute bottom-[-50px] left-1/2 transform -translate-x-1/2 z-20">
+            {/* Select Button - centered below carousel */}
+            <div className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 z-20">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
-              const currentProduct = selectedProducts[currentIndex];
-              const imageElement = imageRefs.current[currentProduct.name]; // ✅ ini kuncinya
-              handleSelectProduct(currentProduct, imageElement);
+                  const currentProduct = selectedProducts[currentIndex];
+                  const imageElement = imageRefs.current[currentProduct.name];
+                  handleSelectProduct(currentProduct, imageElement);
                 }}
                 className={`bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-2 shadow-lg ${
                   carouselVisible
@@ -275,7 +275,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className={`absolute left-4 top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
+              className={`absolute left-0 sm:left-20 top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
                 carouselVisible
                   ? "opacity-100 scale-100"
                   : "opacity-50 scale-95"
@@ -287,7 +287,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
 
             <button
               onClick={nextSlide}
-              className={`absolute right-4 top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
+              className={`absolute right-0 sm:right-20 top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
                 carouselVisible
                   ? "opacity-100 scale-100"
                   : "opacity-50 scale-95"
@@ -302,19 +302,11 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
 
       {/* Contact Info - Embedded */}
       <div className="fixed bottom-0 left-0 right-0 bg-white z-50">
-        <div className="my-7 mx-7">
-          <div className="flex justify-between items-center text-sm text-gray-600">
-            <div className="flex items-center justify-start gap-2 w-40">
-              <img
-                src="/icons/icon-web.svg"
-                alt="Website"
-                className="w-4 h-4"
-              />
-              <span>mjsolution.co.id</span>
-            </div>
-
-            <label className="flex items-center justify-between cursor-pointer">
-              <span className="text-sm font-medium text-gray-300">
+        <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
+          {/* Baris Toggle: tampil di tengah dan hanya di mobile */}
+          <div className="flex justify-center mb-2 lg:hidden">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <span className="text-xs font-medium text-gray-400">
                 LED Display
               </span>
 
@@ -332,14 +324,52 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
                 ></label>
               </div>
 
-              <span className="text-sm font-medium text-gray-300">
+              <span className="text-xs font-medium text-gray-400">
                 LCD Display
               </span>
             </label>
+          </div>
+          {/* Baris Website & Phone (dan toggle di desktop) */}
+          <div className="flex justify-between items-center flex-wrap">
+            {/* Website */}
+            <div className="flex items-start gap-2 w-auto lg:mx-0">
+              <img
+                src="/icons/icon-web.svg"
+                alt="Website"
+                className="w-4 h-4"
+              />
+              <span className="text-xs lg:text-sm">mjsolution.co.id</span>
+            </div>
 
-            <div className="flex items-center justify-end gap-2 w-40">
+            {/* Toggle - hanya muncul di desktop */}
+            <div className="hidden lg:flex items-center gap-2">
+              <span className="text-sm font-medium text-gray-400">
+                LED Display
+              </span>
+
+              <div className="relative inline-block w-11 h-5 mx-3">
+                <input
+                  id="display-toggle"
+                  type="checkbox"
+                  checked={isLED}
+                  onChange={() => setIsLED(!isLED)}
+                  className="peer appearance-none w-11 h-4 bg-slate-100 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
+                />
+                <label
+                  htmlFor="display-toggle"
+                  className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
+                ></label>
+              </div>
+
+              <span className="text-sm font-medium text-gray-400">
+                LCD Display
+              </span>
+            </div>
+
+            {/* Phone */}
+            <div className="flex items-end gap-2 w-auto lg:mx-0">
               <img src="/icons/icon-call.svg" alt="Call" className="w-4 h-4" />
-              <span>(+62) 811-1122-492</span>
+              <span className="text-xs lg:text-sm">(+62) 811-1122-492</span>
             </div>
           </div>
         </div>

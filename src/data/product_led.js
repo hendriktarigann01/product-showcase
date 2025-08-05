@@ -392,7 +392,33 @@ export const products_led = [
     id: 3,
     name: "LED Poster Display",
     image: "/products_led/poster/front.svg",
-    image_implement: [],
+    image_implement: [
+      {
+        id: "multi casade",
+        title: "Multi Casade",
+        image: "/products_led/poster/implementation/front_implement_1.svg",
+      },
+      {
+        id: "wall mounted",
+        title: "Wall Mounted",
+        image: "/products_led/poster/implementation/front_implement_2.svg",
+      },
+      {
+        id: "creative",
+        title: "Creative",
+        image: "/products_led/poster/implementation/front_implement_3.svg",
+      },
+      {
+        id: "standing bracked",
+        title: "Standing Bracked",
+        image: "/products_led/poster/implementation/front_implement_4.svg",
+      },
+      {
+        id: "base standing",
+        title: "Base Standing",
+        image: "/products_led/poster/implementation/front_implement_5.svg",
+      },
+    ],
     image_spec1: "/products_led/poster/specification/specs_1.svg",
     image_spec2: "/products_led/poster/specification/specs_2.svg",
     download: "/products_led/poster/downloads/download_qr.svg",
@@ -450,7 +476,94 @@ export const products_led = [
       },
     ],
     specs: [],
-    app_room: [],
-    app: [],
+    app_room: [
+      {
+        id: 1,
+        appId: 1,
+        title: "Hotel",
+        x: 32,
+        y: 54,
+        style: {
+          left: 102,
+          top: 103,
+          width: 425.52,
+          height: 305.1,
+          zIndex: 2,
+        },
+      },
+      {
+        id: 2,
+        appId: 2,
+        title: "Shopping Area",
+        x: 50,
+        y: 35,
+        style: {
+          left: 55,
+          top: 37,
+          width: 800,
+          height: 305.1,
+          zIndex: 1,
+        },
+      },
+      {
+        id: 3,
+        appId: 3,
+        title: "Restaurant",
+        x: 65,
+        y: 67,
+        style: {
+          left: 390,
+          top: 170,
+          width: 413,
+          height: 313,
+          zIndex: 3,
+        },
+      },
+    ],
+    app: [
+      {
+        id: 1,
+        image: "/products_led/poster/application/app_1.svg",
+        title: "HOTEL",
+        content:
+          "Application of digital signage to enhance communication, branding, and guest service experiences in hospitality environments, such as:",
+        type: [
+          {
+            resorts: true,
+            hospitals: true,
+            government_offices: true,
+          },
+        ],
+      },
+      {
+        id: 2,
+        image: "/products_led/poster/application/app_2.svg",
+        title: "SHOPPING AREA",
+        content:
+          "Displaying promotional media, information, and visual decorations. With bright and flexible displays, these LEDs support a modern and efficient visitor experience.",
+        type: [
+          {
+            fashion: true,
+            shoes: true,
+            accessories: true,
+            electronics_and_more: true,
+          },
+        ],
+      },
+      {
+        id: 3,
+        image: "/products_led/poster/application/app_3.svg",
+        title: "RESTAURANT",
+        content:
+          "Application of digital signage to enhance communication, information delivery, and service efficiency in public and customer-oriented environments, such as:",
+        type: [
+          {
+            restaurants: true,
+            hospitals: true,
+            government_offices: true,
+          },
+        ],
+      },
+    ],
   },
 ];

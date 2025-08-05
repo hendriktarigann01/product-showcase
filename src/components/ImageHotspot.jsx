@@ -101,7 +101,7 @@ const ImageHotspot = ({
 
   const InfoCard = ({ hotspot }) => (
     <div
-      className="absolute z-50 w-64 bg-white rounded-xl shadow-2xl border border-gray-200 animate-in fade-in-0 slide-in-from-top-4 duration-300"
+      className="absolute z-50 w-[90%] max-w-xs sm:max-w-sm md:max-w-md lg:max-w-xs bg-white rounded-xl shadow-2xl border border-gray-200 animate-in fade-in-0 slide-in-from-top-4 duration-300"
       style={getCardPosition(hotspot)}
       onClick={(e) => e.stopPropagation()}
     >
@@ -145,9 +145,12 @@ const ImageHotspot = ({
   );
 
   return (
-    <div className="relative w-full h-full" onClick={handleBackgroundClick}>
+    <div
+      className="relative w-full h-full z-50"
+      onClick={handleBackgroundClick}
+    >
       {/* Main Image */}
-      <div className="w-full h-[420px] flex items-center justify-center overflow-hidden">
+      <div className="w-full h-[300px] sm:h-[400px] flex items-center justify-center overflow-hidden">
         <img
           src={imageSrc}
           alt={`${productName} - Interactive View`}
