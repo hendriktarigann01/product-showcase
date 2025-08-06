@@ -41,9 +41,9 @@ const Implementation = ({ product, onBack }) => {
       </div>
 
       {/* Main section */}
-      <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 pt-24 pb-10">
+      <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 pt-24 pb-10 w-full">
         {/* Main Product Image */}
-        <div className="w-[600px] h-[320px] flex justify-center items-center">
+        <div className="w-full max-w-[600px] h-[200px] sm:h-[260px] md:h-[300px] lg:h-[320px] flex justify-center items-center">
           <img
             src={selectedOptionData?.image}
             alt={selectedOptionData?.title}
@@ -52,31 +52,33 @@ const Implementation = ({ product, onBack }) => {
         </div>
 
         {/* Implementation Options */}
-        <div className="flex flex-wrap justify-center gap-5 mt-8 max-w-4xl">
-          {ImplementationOptions.map((option) => (
-            <button
-              key={option.id}
-              onClick={() => setSelectedOption(option.id)}
-              className={`relative p-2 rounded-lg border transition-all duration-200 flex flex-col items-center w-32 ${
-                selectedOption === option.id
-                  ? "border-[#4ECDC4] bg-[#4ECDC4]/10"
-                  : "border-gray-200 hover:border-gray-300"
-              }`}
-            >
-              <img
-                src={option.image}
-                alt={option.title}
-                className="max-h-20 object-contain mb-2"
-              />
-              <h3 className="text-xs font-medium text-gray-700 text-center">
-                {option.title}
-              </h3>
+        <div className="mt-8 w-full max-w-4xl">
+          <div className="flex gap-4 overflow-x-auto pb-2 lg:flex-wrap lg:justify-center">
+            {ImplementationOptions.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => setSelectedOption(option.id)}
+                className={`relative p-2 rounded-lg border transition-all duration-200 flex-shrink-0 flex flex-col items-center w-28 sm:w-32 ${
+                  selectedOption === option.id
+                    ? "border-[#4ECDC4] bg-[#4ECDC4]/10"
+                    : "border-gray-200 hover:border-gray-300"
+                }`}
+              >
+                <img
+                  src={option.image}
+                  alt={option.title}
+                  className="max-h-16 sm:max-h-20 object-contain mb-2"
+                />
+                <h3 className="text-[10px] sm:text-xs font-medium text-gray-700 text-center">
+                  {option.title}
+                </h3>
 
-              {selectedOption === option.id && (
-                <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#4ECDC4] rounded-full"></div>
-              )}
-            </button>
-          ))}
+                {selectedOption === option.id && (
+                  <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#4ECDC4] rounded-full"></div>
+                )}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
