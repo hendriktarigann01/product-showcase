@@ -204,7 +204,7 @@ function ProductDetail({
   const MenuButton = ({ button }) => (
     <button
       key={button.id}
-      className="flex items-center justify-center gap-2 w-[168px] md:w-auto lg:w-44 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md"
+      className="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
       onClick={button.onClick}
     >
       <img src={button.icon} alt={button.label} className="w-5 h-5" />
@@ -276,7 +276,7 @@ function ProductDetail({
 
           {/* Menu Buttons */}
           <div
-            className={`flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-5 transition-all duration-700 delay-400 ${
+            className={`text-xs lg:text-sm flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-5 transition-all duration-700 delay-400 ${
               isVisible
                 ? "opacity-100 transform translate-y-0"
                 : "opacity-0 transform translate-y-5"

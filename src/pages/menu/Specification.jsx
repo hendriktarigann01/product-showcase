@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { MoveLeft, MoveRight } from "lucide-react";
 import { Spec1 } from "../../components/specs/lcd/Spec1";
 import { Spec2 } from "../../components/specs/lcd/Spec2";
 import { Spec3 } from "../../components/specs/lcd/Spec3";
@@ -132,7 +132,7 @@ function SingleImageDisplay({ image, productName }) {
         <img
           src={image}
           alt={`${productName} specification`}
-          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 mt-4 lg:mt-10 object-contain"
+          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 mt-4 md:mt-8 lg:mt-10 object-contain"
         />
       </div>
     </div>
@@ -206,9 +206,15 @@ const Specification = ({ product, onBack }) => {
       return <Spec2 spec={currentSpec} layout={layoutType} />;
     }
 
-    if (Array.isArray(currentSpec?.specs)) {
+    if (
+      currentSpec?.size &&
+      currentSpec?.os &&
+      currentSpec?.android &&
+      currentSpec?.windows &&
+      (currentSpec?.ram || currentSpec?.storage)
+    ) {
       console.log("Using Spec3");
-      return <Spec3 specs={currentSpec.specs} layout={layoutType} />;
+      return <Spec3 specs={[currentSpec]} layout={layoutType} />;
     }
 
     if (
@@ -266,7 +272,7 @@ const Specification = ({ product, onBack }) => {
               <img
                 src="/logo/mjs_logo_text.png"
                 alt="MJS Logo"
-                className="h-8 md:h-10"
+                className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
                 onClick={handleBack}
@@ -288,7 +294,7 @@ const Specification = ({ product, onBack }) => {
       {hasMultipleImages ? (
         // Multiple images - gunakan carousel layout yang sudah ada
         <>
-          <div className="pt-12 sm:pt-14 md:pt-16 px-4 sm:px-6 md:px-8 pb-4">
+          <div className="pt-12 sm:pt-13 px-4 sm:px-6 md:px-8 pb-4">
             <div className="max-w-7xl mx-auto">
               <div className="relative flex items-center justify-center">
                 <Carousel3D
@@ -298,18 +304,15 @@ const Specification = ({ product, onBack }) => {
                 />
                 <button
                   onClick={prevSlide}
-                  className="absolute -left-2 sm:left-2 md:left-4 top-1/2 sm:top-3/4 transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute -left-2 sm:left-2 md:left-4 top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
                 >
-                  <ChevronLeft
-                    size={16}
-                    className="sm:w-5 sm:h-5 md:w-6 md:h-6"
-                  />
+                  <MoveLeft size={16} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute -right-2 sm:right-2 md:right-4 top-1/2 sm:top-3/4 transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute -right-2 sm:right-2 md:right-4 top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
                 >
-                  <ChevronRight
+                  <MoveRight
                     size={16}
                     className="sm:w-5 sm:h-5 md:w-6 md:h-6"
                   />
@@ -323,7 +326,7 @@ const Specification = ({ product, onBack }) => {
         // Single image - responsive layout
         <div className="min-h-screen px-4 sm:px-6 md:px-8 pt-16 sm:pt-20 md:pt-24 pb-20">
           <div className="max-w-7xl w-full mx-auto">
-            <div className="flex flex-col lg:flex-row items-center justify-center lg:items-start gap-4 sm:gap-6 md:gap-8">
+            <div className="flex flex-col my-5 lg:flex-row items-center justify-center lg:items-start gap-2 sm:gap-4 md:gap-6">
               {/* Single Image */}
               <div className="w-full lg:flex-1 flex justify-center my-auto">
                 <SingleImageDisplay

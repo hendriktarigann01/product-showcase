@@ -35,68 +35,93 @@ export function Spec4({ spec, layout = "default" }) {
 
   const opts = optional_components?.[0] || {};
 
-  // Layout untuk side-by-side (single image) - sama seperti Spec5
+  // Layout untuk side-by-side (single image) - responsive version
   if (layout === "side") {
     return (
-      <div className="flex justify-center items-center px-4 mt-10  ">
-        <table className="w-full h-auto text-left text-sm text-gray-600">
-          <tbody>
-            <tr className="align-top">
-              <td className="py-2 font-medium w-36">
-                {formatFieldName("size")}
-              </td>
-              <td className="px-4 py-3 w-36">{size}</td>
-            </tr>
-            <tr className="align-top">
-              <td className="py-2 font-medium">
-                {formatFieldName("brightness")}
-              </td>
-              <td className="px-4 py-3">{brightness}</td>
-            </tr>
-            <tr className="align-top">
-              <td className="py-2 font-medium">
-                {formatFieldName("resolution")}
-              </td>
-              <td className="px-4 py-3">{resolution}</td>
-            </tr>
-            <tr className="align-top">
-              <td className="py-2 font-medium">{formatFieldName("os")}</td>
-              <td className="px-4 py-3">{os}</td>
-            </tr>
-            <tr className="align-top">
-              <td className="py-2 font-medium">
-                {formatFieldName("optional_components")}
-              </td>
-              <td className="px-4 py-3">
-                <div className="space-y-1">
-                  {Object.entries(opts).map(([key, val]) =>
-                    val ? (
-                      <div className="flex gap-4 items-center justify-start">
-                        <div className="w-5 h-5 bg-teal-500 rounded-full flex justify-center items-center">
-                          <Check size={12} className="text-white" />
+      <div className="flex justify-center items-center px-4 mt-10">
+        <div className="w-full max-w-md lg:max-w-none">
+          <table className="w-full text-left text-xs lg:text-sm text-gray-600">
+            <tbody>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("size")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 w-44 sm:w-36 sm:table-cell">
+                  {size}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("brightness")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {brightness}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("resolution")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {resolution}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("os")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {os}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("optional_components")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  <div className="space-y-1">
+                    {Object.entries(opts).map(([key, val]) =>
+                      val ? (
+                        <div
+                          key={key}
+                          className="flex gap-2 sm:gap-4 items-center justify-start"
+                        >
+                          <div className="w-5 h-5 bg-teal-500 rounded-full flex justify-center items-center flex-shrink-0">
+                            <Check size={12} className="text-white" />
+                          </div>
+                          <span className="text-xs lg:text-sm">
+                            {formatFieldName(key)}
+                          </span>
                         </div>
-                        <span className="text-sm">{formatFieldName(key)}</span>
-                      </div>
-                    ) : null
-                  )}
-                </div>
-              </td>
-            </tr>
-            <tr className="align-top">
-              <td className="py-2 font-medium">{formatFieldName("display")}</td>
-              <td className="px-4 py-3">{display}</td>
-            </tr>
-            <tr className="align-top">
-              <td className="py-2 font-medium">
-                {formatFieldName("max_power_consumption")}
-              </td>
-              <td className="px-4 py-3">{max_power_consumption}</td>
-            </tr>
-          </tbody>
-        </table>
+                      ) : null
+                    )}
+                  </div>
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("display")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {display}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("max_power_consumption")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {max_power_consumption}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
+
+  return null;
 }
 
 export default Spec4;

@@ -13,6 +13,7 @@ const formatFieldName = (key) => fieldMappings[key] || key;
 const formatValue = (value) => value || "-";
 const isBoolean = (value) => typeof value === "boolean";
 
+
 export function Spec2({ spec }) {
   if (!spec || !Array.isArray(spec.options)) return null;
 
@@ -29,35 +30,41 @@ export function Spec2({ spec }) {
   const brightnessLevels = Object.keys(brightnessGroups);
 
   return (
-    <div className="px-8 mt-3">
-      <table className="table-auto w-3/4 text-left text-sm text-gray-600 mx-auto">
+    <div className="px-0 lg:px-8">
+      <table className="table-auto w-full lg:w-3/4 text-left text-[11px] lg:text-sm text-gray-600 mx-auto">
         <tbody>
           {/* Brightness Row */}
           <tr>
-            <td className="py-2 font-medium w-36">
+            <td className="py-2 font-medium w-24 lg:w-36">
               {formatFieldName("brightness")}
             </td>
             {brightnessLevels.map((brightness, index) => (
               <td
                 key={index}
-                className="px-6 py-2 text-center font-medium"
+                className="px-0 lg:px-6 py-2 text-center font-medium"
                 colSpan={brightnessGroups[brightness].length}
               >
-                <span className="text-sm">{formatValue(brightness)}</span>
+                <span className="text-[11px] lg:text-sm">
+                  {formatValue(brightness)}
+                </span>
               </td>
             ))}
           </tr>
 
           {/* B2B Row */}
           <tr>
-            <td className="py-2 font-medium w-36">{formatFieldName("b2b")}</td>
+            <td className="py-2 font-medium w-24 lg:w-36">
+              {formatFieldName("b2b")}
+            </td>
             {brightnessLevels.map((brightness) =>
               brightnessGroups[brightness].map((option, optIndex) => (
                 <td
                   key={`${brightness}-${optIndex}`}
-                  className="px-6 py-2 text-center"
+                  className="px-0 lg:px-6 py-2 text-center"
                 >
-                  <span className="text-sm">{formatValue(option.b2b)}</span>
+                  <span className="text-[11px] lg:text-sm">
+                    {formatValue(option.b2b)}
+                  </span>
                 </td>
               ))
             )}
@@ -65,16 +72,16 @@ export function Spec2({ spec }) {
 
           {/* Unit Size Row */}
           <tr>
-            <td className="py-2 font-medium w-36">
+            <td className="py-2 font-medium w-24 lg:w-36">
               {formatFieldName("unit_size_mm")}
             </td>
             {brightnessLevels.map((brightness) =>
               brightnessGroups[brightness].map((option, optIndex) => (
                 <td
                   key={`${brightness}-${optIndex}`}
-                  className="px-6 py-2 text-center"
+                  className="px-0 lg:px-6 py-2 text-center"
                 >
-                  <span className="text-sm">
+                  <span className="text-[11px] lg:text-sm">
                     {formatValue(option.unit_size_mm)}
                   </span>
                 </td>
@@ -84,14 +91,14 @@ export function Spec2({ spec }) {
 
           {/* Available Row */}
           <tr>
-            <td className="py-2 font-medium w-36">
+            <td className="py-2 font-medium w-24 lg:w-36">
               {formatFieldName("available")}
             </td>
             {brightnessLevels.map((brightness) =>
               brightnessGroups[brightness].map((option, optIndex) => (
                 <td
                   key={`${brightness}-${optIndex}`}
-                  className="px-6 py-2 text-center"
+                  className="px-0 lg:px-6 py-2 text-center"
                 >
                   {isBoolean(option.available) ? (
                     option.available ? (
@@ -104,7 +111,7 @@ export function Spec2({ spec }) {
                       </div>
                     )
                   ) : (
-                    <span className="text-sm">
+                    <span className="text-[11px] lg:text-sm">
                       {formatValue(option.available)}
                     </span>
                   )}

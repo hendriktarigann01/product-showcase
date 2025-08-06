@@ -20,51 +20,69 @@ export function Spec5({ spec, layout = "default" }) {
   const { size, brightness, resolution, application, display_ratio, power } =
     spec;
 
-  // Layout untuk side-by-side (single image)
+  // Layout untuk side-by-side (single image) - responsive version
   if (layout === "side") {
     return (
-      <div className="flex justify-center items-center h-screen px-4">
-        <table className="w-full h-auto text-left text-sm text-gray-600">
-          <tbody>
-            <tr className="align-middle">
-              <td className="py-2 font-medium w-36">
-                {formatFieldName("size")}
-              </td>
-              <td className="px-4 py-3 w-36">{size}</td>
-            </tr>
-            <tr className="align-middle">
-              <td className="py-2 font-medium">
-                {formatFieldName("brightness")}
-              </td>
-              <td className="px-4 py-3">{brightness}</td>
-            </tr>
-            <tr className="align-middle">
-              <td className="py-2 font-medium">
-                {formatFieldName("resolution")}
-              </td>
-              <td className="px-4 py-3">{resolution}</td>
-            </tr>
-            <tr className="align-middle">
-              <td className="py-2 font-medium">
-                {formatFieldName("application")}
-              </td>
-              <td className="px-4 py-3">{application}</td>
-            </tr>
-            <tr className="align-middle">
-              <td className="py-2 font-medium">
-                {formatFieldName("display_ratio")}
-              </td>
-              <td className="px-4 py-3">{display_ratio}</td>
-            </tr>
-            <tr className="align-middle">
-              <td className="py-2 font-medium">{formatFieldName("power")}</td>
-              <td className="px-4 py-3">{power}</td>
-            </tr>
-          </tbody>
-        </table>
+      <div className="flex justify-center items-center px-4 lg:mt-24">
+        <div className="w-full max-w-md lg:max-w-none">
+          <table className="w-full text-left text-xs lg:text-sm text-gray-600">
+            <tbody>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("size")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 w-44 sm:w-36 sm:table-cell">
+                  {size}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("brightness")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {brightness}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("resolution")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {resolution}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("application")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {application}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("display_ratio")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {display_ratio}
+                </td>
+              </tr>
+              <tr className="align-top">
+                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
+                  {formatFieldName("power")}
+                </td>
+                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
+                  {power}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
+
+  return null;
 }
 
 export default Spec5;

@@ -818,7 +818,7 @@ export const products = [
     ],
     specs: [
       {
-        type: '43"',
+        type: "KMI 2000",
         size: '43" 55" 65"',
         touchscreen: false,
         os: "Android/Windows",
@@ -829,7 +829,7 @@ export const products = [
         storage: "8GB",
       },
       {
-        type: '55"',
+        type: "KMI 2100",
         size: '43" 55" 65"',
         touchscreen: "Infrared Touchscreen",
         os: "Android/Windows",
@@ -840,7 +840,7 @@ export const products = [
         storage: "8GB",
       },
       {
-        type: '65"',
+        type: "KMI 2200",
         size: '43" 55" 65"',
         touchscreen: "Capacitive Touchscreen",
         os: "Android/Windows",
@@ -1051,7 +1051,7 @@ export const products = [
     ],
     specs: [
       {
-        size: '43"',
+        size: "KMI 2300",
         brightness: "350cd/m2",
         resolution: "1920 x 1080 or 3840 x 2160",
         os: "Android 9.0",

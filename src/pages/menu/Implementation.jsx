@@ -12,10 +12,10 @@ const Implementation = ({ product, onBack }) => {
     ImplementationOptions[0];
 
   return (
-    <div className="max-h-screen flex flex-col bg-[#e7f4f3]">
-      {/* Header - Embedded */}
-      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-50">
-        <div className="my-6 mx-6">
+    <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
+      {/* Header */}
+      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm">
+        <div className="my-6 mx-3 sm:mx-7">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center">
               <img
@@ -42,11 +42,6 @@ const Implementation = ({ product, onBack }) => {
 
       {/* Main section */}
       <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 pt-24 pb-10">
-        {/* Title */}
-        <h2 className="text-lg font-semibold mb-4 text-center text-gray-700">
-          {selectedOptionData?.title}
-        </h2>
-
         {/* Main Product Image */}
         <div className="w-[600px] h-[320px] flex justify-center items-center">
           <img
