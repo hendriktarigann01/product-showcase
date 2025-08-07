@@ -101,7 +101,7 @@ function ProductDetail({
 
   const getCurrentImageData = () => {
     const availableViews = getAvailableViews();
-    console.log("availableViews:", availableViews);
+    // console.log("availableViews:", availableViews);
     const currentView = availableViews.find(
       (view) => view.key === selectedView
     );
@@ -121,9 +121,11 @@ function ProductDetail({
         : selectedView === "side"
         ? product.side_hotspots || []
         : [];
-    productIndex;
 
-    return { src: currentView.src, hotspots };
+    return {
+      src: currentView.src,
+      hotspots: hotspots,
+    };
   };
 
   const getMenuButtons = () => {
@@ -215,15 +217,21 @@ function ProductDetail({
   return (
     <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm">
-        <div className="my-6 mx-3 sm:mx-7">
+      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] z-50 backdrop-blur-sm">
+        <div className="my-4 mx-4 md:my-6 md:mx-6">
           <div className="flex flex-col items-center text-center">
-            <div className="w-full flex items-start">
+            <div className="w-full flex justify-between items-center">
               <img
                 src="/logo/mjs_logo_text.png"
                 alt="MJS Logo"
                 className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
+              <button
+                onClick={onBack}
+                className="w-2 h-2 p-5 md:p-7 invisible flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
+              >
+                Back
+              </button>
             </div>
 
             <div className="w-full">
@@ -259,7 +267,7 @@ function ProductDetail({
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="h-[230px] md:h-[300px] lg:h-[400px]md:mt-0 flex items-center">
+            <div className="h-[230px] md:h-[300px] lg:h-[400px]md:mt-0 flex items-center -z-0">
               <div
                 className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible

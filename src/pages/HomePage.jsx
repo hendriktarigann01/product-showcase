@@ -116,11 +116,11 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
 
   const selectedProducts = isLED ? products_led : products;
   const handleSelectProduct = (product, imageElement) => {
-    console.log("✔ Klik:", product.name);
-    console.log(
-      "✔ expected list:",
-      selectedProducts.map((p) => p.name)
-    );
+    // console.log("✔ Klik:", product.name);
+    // console.log(
+    //   "✔ expected list:",
+    //   selectedProducts.map((p) => p.name)
+    // );
 
     const productIndex = selectedProducts.findIndex(
       (p) => p.name === product.name

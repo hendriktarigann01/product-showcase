@@ -10,10 +10,64 @@ const Application = ({
   const [product, setProduct] = useState(propProduct);
   const [selectedApp, setSelectedApp] = useState(null);
   const [selectedAppId, setSelectedAppId] = useState(null);
+  const [containerDimensions, setContainerDimensions] = useState({
+    width: 910,
+    height: 490,
+  });
   const imageRefs = useRef({});
   const hotspotRefs = useRef({});
+  const containerRef = useRef(null);
   const { startTransition, isTransitioning, endTransition } =
     useMorphTransition();
+
+  // Calculate responsive dimensions
+  useEffect(() => {
+    const calculateDimensions = () => {
+      if (!containerRef.current) return;
+
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      // Base dimensions
+      const baseWidth = 910;
+      const baseHeight = 490;
+      const aspectRatio = baseWidth / baseHeight;
+
+      let newWidth, newHeight;
+
+      if (screenWidth <= 768) {
+        // Mobile: use most of screen width with padding
+        const availableWidth = screenWidth - 32; // 16px padding on each side
+        const availableHeight = screenHeight - 200; // Account for header and footer
+
+        if (availableWidth / aspectRatio <= availableHeight) {
+          newWidth = availableWidth;
+          newHeight = availableWidth / aspectRatio;
+        } else {
+          newHeight = availableHeight;
+          newWidth = availableHeight * aspectRatio;
+        }
+      } else if (screenWidth <= 1024) {
+        // Tablet: scale down proportionally
+        const scale = Math.min((screenWidth / baseWidth) * 0.8, 1);
+        newWidth = baseWidth * scale;
+        newHeight = baseHeight * scale;
+      } else {
+        // Desktop: use base dimensions
+        newWidth = baseWidth;
+        newHeight = baseHeight;
+      }
+
+      setContainerDimensions({
+        width: Math.floor(newWidth),
+        height: Math.floor(newHeight),
+      });
+    };
+
+    calculateDimensions();
+    window.addEventListener("resize", calculateDimensions);
+    return () => window.removeEventListener("resize", calculateDimensions);
+  }, []);
 
   useEffect(() => {
     if (!propProduct) {
@@ -21,21 +75,15 @@ const Application = ({
       const savedIndex = localStorage.getItem("selectedProductIndex");
 
       if (savedProduct) setProduct(JSON.parse(savedProduct));
-      // productIndex state dihapus karena tidak digunakan
-      // Jika tetap diperlukan untuk debugging, bisa uncomment line berikut:
-      // if (savedIndex) console.log('Product Index:', parseInt(savedIndex));
     }
   }, [propProduct, propIndex]);
 
   useEffect(() => {
-    // Pindahkan handleBackFromDetail ke dalam useEffect untuk menghindari dependency issue
     const handleBackFromDetail = () => {
-      // Back dari detail ke application (tidak keluar dari application)
       setSelectedApp(null);
       setSelectedAppId(null);
       endTransition();
 
-      // Update URL untuk kembali ke application view
       window.history.pushState(
         { view: "application" },
         "",
@@ -51,7 +99,7 @@ const Application = ({
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [selectedApp, endTransition]); // Tambahkan endTransition ke dependency array
+  }, [selectedApp, endTransition]);
 
   // Helper function to determine if this is LED Outdoor product
   const isLEDOutdoorProduct = (product) => {
@@ -63,29 +111,45 @@ const Application = ({
 
   // Helper function to get the correct image source
   const getImageSource = (appImage) => {
-    // Hanya untuk LED Outdoor, gunakan image_full jika ada, fallback ke image
     if (isLEDOutdoorProduct(product)) {
       return appImage.image_full;
     }
-    // Untuk produk lainnya (LED Indoor, dll), tetap gunakan image biasa
     return appImage.image;
   };
 
+  // Calculate responsive positioning and sizing
+  const getResponsiveStyle = (originalStyle) => {
+    const scaleX = containerDimensions.width / 910;
+    const scaleY = containerDimensions.height / 490;
+
+    return {
+      left: originalStyle.left * scaleX,
+      top: originalStyle.top * scaleY,
+      width: originalStyle.width * scaleX,
+      height: originalStyle.height * scaleY,
+      zIndex: originalStyle.zIndex,
+    };
+  };
+
+  // Calculate responsive hotspot positioning
+  const getResponsiveHotspotPosition = (x, y) => {
+    return {
+      x: x, // Keep percentage-based positioning
+      y: y,
+    };
+  };
+
   const handleImageClick = (appId) => {
-    // Get applications data - handle both regular products and LED products
     const appImages = product?.app || [];
     const selectedAppData = appImages.find((item) => item.id === appId);
     if (!selectedAppData || isTransitioning) return;
 
-    // Get the clicked image element for transition
     const clickedImageElement = imageRefs.current[appId];
     const hotspotElement = hotspotRefs.current[appId];
 
     if (clickedImageElement && hotspotElement) {
-      // Get the correct image source for transition
       const imageSource = getImageSource(selectedAppData);
 
-      // Start forward transition
       startTransition(clickedImageElement, null, {
         direction: "forward",
         appId: appId,
@@ -103,10 +167,8 @@ const Application = ({
       window.location.pathname
     );
 
-    // Set selected app and update URL without full navigation
     setTimeout(() => {
       setSelectedApp(selectedAppData);
-      // Update URL untuk browser history
       window.history.pushState(
         { view: "detail", appId },
         "",
@@ -115,13 +177,11 @@ const Application = ({
     }, 50);
   };
 
-  // Buat function terpisah untuk handle back from detail yang bisa dipanggil dari luar useEffect
   const handleBackFromDetailExternal = () => {
     setSelectedApp(null);
     setSelectedAppId(null);
     endTransition();
 
-    // Update URL untuk kembali ke application view
     window.history.pushState(
       { view: "application" },
       "",
@@ -141,60 +201,56 @@ const Application = ({
     );
   }
 
-  // Get applications data - handle both regular products and LED products
   const appImages = product.app || [];
   const appRooms = product.app_room || [];
 
-  // For LED products, create app_room data from app data if app_room doesn't exist
   let compositeHotspots = [];
 
   if (appRooms.length > 0) {
-    // Use existing app_room data for regular products
     compositeHotspots = appRooms.map((room) => ({
       ...room,
       onClick: () => handleImageClick(room.appId),
     }));
   } else if (appImages.length > 0) {
-    // For LED products, create hotspots from app data
-    // This assumes a simple layout - you may need to adjust positioning
     compositeHotspots = appImages.map((app, index) => ({
       id: `hotspot-${app.id}`,
       appId: app.id,
       title: app.title,
-      x: 20 + index * 25, // Simple horizontal spacing
-      y: 30 + index * 20, // Simple vertical spacing
+      x: 20 + index * 25,
+      y: 30 + index * 20,
       onClick: () => handleImageClick(app.id),
       style: {
-        width: "200px",
-        height: "150px",
-        left: `${10 + index * 30}%`,
-        top: `${20 + index * 25}%`,
+        width: 200,
+        height: 150,
+        left: 10 + index * 30,
+        top: 20 + index * 25,
+        zIndex: 1,
       },
     }));
   }
 
   return (
     <div className="max-h-screen">
-      {/* Header - Embedded */}
+      {/* Header - Responsive */}
       <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-50">
-        <div className="my-6 mx-6">
+        <div className="my-4 mx-4 md:my-6 md:mx-6">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center">
               <img
                 src="/logo/mjs_logo_text.png"
                 alt="MJS Logo"
-                className="h-10"
+                className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
                 onClick={onBack}
-                className="w-3 h-3 p-7 flex justify-center items-center text-sm bg-primary rounded-full text-white"
+                className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
               >
                 Back
               </button>
             </div>
 
-            <div className="w-full">
-              <h1 className="text-2xl font-bold text-gray-600 text-center">
+            <div className="w-full mt-2">
+              <h1 className="text-xl md:text-2xl font-bold text-gray-600 text-center">
                 Applications
               </h1>
             </div>
@@ -202,13 +258,19 @@ const Application = ({
         </div>
       </div>
 
-      <div className="w-full h-screen pt-32 pb-24 bg-[#e7f4f3] px-4 lg:px-12 box-border overflow-hidden">
+      <div className="w-full h-screen pt-24 md:pt-32 pb-16 md:pb-24 bg-[#e7f4f3] px-4 lg:px-12 box-border overflow-hidden">
         <div className="max-w-7xl mx-auto h-full flex flex-col">
           <div className="flex-grow flex items-center justify-center">
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center w-full">
               <div
+                ref={containerRef}
                 className="relative flex items-center justify-center"
-                style={{ width: "910px", height: "490px" }}
+                style={{
+                  width: containerDimensions.width,
+                  height: containerDimensions.height,
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                }}
               >
                 {/* Composite Image Layer */}
                 <div className="relative w-full h-full">
@@ -220,9 +282,10 @@ const Application = ({
 
                     const isSelected = selectedAppId === hotspot.appId;
                     const shouldHide = isTransitioning && isSelected;
-
-                    // Use the helper function to get the correct image source
                     const imageSource = getImageSource(appImage);
+
+                    // Calculate responsive style
+                    const responsiveStyle = getResponsiveStyle(hotspot.style);
 
                     return (
                       <img
@@ -232,7 +295,7 @@ const Application = ({
                         alt={hotspot.title}
                         className="absolute object-contain cursor-pointer transition-all duration-300 ease-out"
                         style={{
-                          ...hotspot.style,
+                          ...responsiveStyle,
                           opacity: shouldHide ? 0 : 1,
                           visibility: shouldHide ? "hidden" : "visible",
                         }}
@@ -251,6 +314,12 @@ const Application = ({
                     const isSelected = selectedAppId === hotspot.appId;
                     const shouldHide = isTransitioning && isSelected;
 
+                    // Use original percentage positioning for hotspots
+                    const responsivePosition = getResponsiveHotspotPosition(
+                      hotspot.x,
+                      hotspot.y
+                    );
+
                     return (
                       <div key={hotspot.id}>
                         <div
@@ -259,8 +328,8 @@ const Application = ({
                           }
                           className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-auto transition-all duration-300 ease-out"
                           style={{
-                            left: `${hotspot.x}%`,
-                            top: `${hotspot.y}%`,
+                            left: `${responsivePosition.x}%`,
+                            top: `${responsivePosition.y}%`,
                             zIndex: 101,
                             opacity: shouldHide ? 0 : 1,
                           }}
@@ -268,23 +337,23 @@ const Application = ({
                           data-hotspot-id={hotspot.appId}
                         >
                           <div className="relative flex items-center justify-center">
-                            {/* Animated Rings - hanya show jika tidak sedang hide */}
+                            {/* Animated Rings - responsive size */}
                             {!shouldHide && (
                               <>
-                                <div className="absolute w-6 h-6 rounded-full bg-teal-500 border opacity-40 animate-ping"></div>
+                                <div className="absolute w-4 h-4 md:w-6 md:h-6 rounded-full bg-teal-500 border opacity-40 animate-ping"></div>
                                 <div
-                                  className="absolute w-8 h-8 rounded-full bg-teal-500 border opacity-30 animate-ping"
+                                  className="absolute w-6 h-6 md:w-8 md:h-8 rounded-full bg-teal-500 border opacity-30 animate-ping"
                                   style={{ animationDelay: "1.5s" }}
                                 ></div>
                                 <div
-                                  className="absolute w-10 h-10 rounded-full bg-teal-500 border opacity-20 animate-ping"
+                                  className="absolute w-8 h-8 md:w-10 md:h-10 rounded-full bg-teal-500 border opacity-20 animate-ping"
                                   style={{ animationDelay: "2s" }}
                                 ></div>
                               </>
                             )}
 
                             <button
-                              className={`relative w-4 h-4 bg-teal-600 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
+                              className={`relative w-3 h-3 md:w-4 md:h-4 bg-teal-600 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
                                 isSelected
                                   ? "scale-125 bg-teal-700"
                                   : "hover:scale-110"
@@ -311,21 +380,24 @@ const Application = ({
         </div>
       </div>
 
-      {/* Contact Info - Embedded */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3] z-50">
-        <div className="my-7 mx-6">
-          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2">
+      {/* Contact Info */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">
+        <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
+          <div className="flex justify-between items-center flex-wrap">
+            {/* Website */}
+            <div className="flex items-start gap-2 w-auto lg:mx-0">
               <img
                 src="/icons/icon-web.svg"
                 alt="Website"
                 className="w-4 h-4"
               />
-              <span>mjsolution.co.id</span>
+              <span className="text-xs lg:text-sm">mjsolution.co.id</span>
             </div>
-            <div className="flex items-center gap-2">
+
+            {/* Phone */}
+            <div className="flex items-end gap-2 w-auto lg:mx-0">
               <img src="/icons/icon-call.svg" alt="Call" className="w-4 h-4" />
-              <span>(+62) 811-1122-492</span>
+              <span className="text-xs lg:text-sm">(+62) 811-1122-492</span>
             </div>
           </div>
         </div>

@@ -15,17 +15,17 @@ const Implementation = ({ product, onBack }) => {
     <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm">
-        <div className="my-6 mx-3 sm:mx-7">
+        <div className="my-4 mx-4 md:my-6 md:mx-6">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center">
               <img
                 src="/logo/mjs_logo_text.png"
                 alt="MJS Logo"
-                className="h-10"
+                className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
                 onClick={onBack}
-                className="w-3 h-3 p-7 flex justify-center items-center text-sm bg-primary rounded-full text-white"
+                className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
               >
                 Back
               </button>
@@ -82,21 +82,24 @@ const Implementation = ({ product, onBack }) => {
         </div>
       </div>
 
-      {/* Contact Info - Embedded */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3] z-50">
-        <div className="my-7 mx-6">
-          <div className="flex flex-wrap gap-x-8 gap-y-2 text-sm text-gray-600">
-            <div className="flex items-center gap-2">
+      {/* Contact Info */}
+      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">
+        <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
+          <div className="flex justify-between items-center flex-wrap">
+            {/* Website */}
+            <div className="flex items-start gap-2 w-auto lg:mx-0">
               <img
                 src="/icons/icon-web.svg"
                 alt="Website"
                 className="w-4 h-4"
               />
-              <span>mjsolution.co.id</span>
+              <span className="text-xs lg:text-sm">mjsolution.co.id</span>
             </div>
-            <div className="flex items-center gap-2">
+
+            {/* Phone */}
+            <div className="flex items-end gap-2 w-auto lg:mx-0">
               <img src="/icons/icon-call.svg" alt="Call" className="w-4 h-4" />
-              <span>(+62) 811-1122-492</span>
+              <span className="text-xs lg:text-sm">(+62) 811-1122-492</span>
             </div>
           </div>
         </div>

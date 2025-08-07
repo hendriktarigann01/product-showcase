@@ -275,8 +275,8 @@ const Specification = ({ product, onBack }) => {
                 className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
-                onClick={handleBack}
-                className="w-8 h-8 md:w-12 md:h-12 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white px-3 md:px-0"
+                onClick={onBack}
+                className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
               >
                 Back
               </button>
