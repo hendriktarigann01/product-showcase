@@ -23,12 +23,17 @@ function App() {
     const checkShouldUseMorph = () => {
       const isMobile =
         window.innerWidth <= 768 ||
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
           navigator.userAgent
         );
+
+      const isTablet =
+        (window.innerWidth > 768 && window.innerWidth <= 1024) ||
+        /iPad|Tablet|PlayBook|Silk/i.test(navigator.userAgent);
+
       const isTabFocused = !document.hidden;
 
-      setShouldUseMorph(!isMobile && isTabFocused);
+      setShouldUseMorph(!isMobile && !isTablet && isTabFocused);
     };
 
     const handleVisibilityChange = () => {

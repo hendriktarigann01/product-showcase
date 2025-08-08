@@ -36,6 +36,7 @@ function ProductDetail({
   const [selectedView, setSelectedView] = useState("front");
   const [isVisible, setIsVisible] = useState(false);
   const [isDownloadPopupOpen, setIsDownloadPopupOpen] = useState(false);
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   const navigate = useNavigate();
   const { endTransition, isTransitioning, startTransition } =
@@ -49,6 +50,16 @@ function ProductDetail({
       setIsVisible(true);
     }, delay);
   }, [isTransitioning, endTransition]);
+
+  // Listen to screen size changes for responsive hotspots
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleBackToHome = () => {
     if (mainImageRef.current && startTransition) {
@@ -99,6 +110,48 @@ function ProductDetail({
       }));
   };
 
+  // Helper function to get responsive coordinates based on screen size
+  const getResponsiveCoordinates = (hotspot) => {
+    // Detect screen size using window width
+    const screenWidth = window.innerWidth;
+
+    // Mobile: < 768px
+    if (screenWidth < 768) {
+      return {
+        x: hotspot.x_hp !== undefined ? hotspot.x_hp : hotspot.x,
+        y: hotspot.y_hp !== undefined ? hotspot.y_hp : hotspot.y,
+      };
+    }
+    // Tablet: 768px - 1023px
+    else if (screenWidth >= 768 && screenWidth < 1024) {
+      return {
+        x: hotspot.x_tab !== undefined ? hotspot.x_tab : hotspot.x,
+        y: hotspot.y_tab !== undefined ? hotspot.y_tab : hotspot.y,
+      };
+    }
+    // Desktop: >= 1024px
+    else {
+      return {
+        x: hotspot.x,
+        y: hotspot.y,
+      };
+    }
+  };
+
+  // Helper function to process hotspots with responsive positioning
+  const processHotspots = (hotspots) => {
+    if (!hotspots || !Array.isArray(hotspots)) return [];
+
+    return hotspots.map((hotspot) => {
+      const coordinates = getResponsiveCoordinates(hotspot);
+      return {
+        ...hotspot,
+        x: coordinates.x,
+        y: coordinates.y,
+      };
+    });
+  };
+
   const getCurrentImageData = () => {
     const availableViews = getAvailableViews();
     // console.log("availableViews:", availableViews);
@@ -113,14 +166,16 @@ function ProductDetail({
 
     if (!currentView) return { src: "", hotspots: [] };
 
-    const hotspots =
-      selectedView === "front"
-        ? product.hotspots || []
-        : selectedView === "back"
-        ? product.back_hotspots || []
-        : selectedView === "side"
-        ? product.side_hotspots || []
-        : [];
+    let hotspots = [];
+
+    // Get hotspots based on selected view and process them for responsive positioning
+    if (selectedView === "front") {
+      hotspots = processHotspots(product.hotspots || []);
+    } else if (selectedView === "back") {
+      hotspots = processHotspots(product.back_hotspots || []);
+    } else if (selectedView === "side") {
+      hotspots = processHotspots(product.side_hotspots || []);
+    }
 
     return {
       src: currentView.src,

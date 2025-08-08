@@ -122,12 +122,12 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
       />
 
       {/* Detail View - Removed overflow-hidden and adjusted for mobile */}
-      <div className="w-full min-h-screen pt-32 pb-24 bg-[#e7f4f3] px-4 lg:px-12 box-border">
+      <div className="w-full h-screen pt-32 pb-24 bg-[#e7f4f3] px-4 lg:px-12 box-border">
         {/* Main Content Container */}
-        <div className="max-w-6xl mx-auto h-full flex items-start lg:items-center justify-center py-4 lg:py-0">
-          <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-16">
+        <div className="max-w-6xl m-auto h-full flex lg:items-center justify-center py-4 lg:py-0">
+          <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-0 lg:gap-16">
             {/* Image Section  */}
-            <div className="flex-1 flex items-center justify-center order-1 lg:order-2 relative">
+            <div className="flex-1 max-h-[500px] flex items-center justify-center order-1 lg:order:1 relative">
               <div
                 ref={imageRef}
                 className={`w-full max-w-2xl lg:max-w-2xl transition-all duration-300 ease-out relative ${
@@ -165,7 +165,7 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
 
             {/* Information Panel - Moved to top on mobile */}
             <div
-              className={`flex-1 flex flex-col justify-center w-full max-w-full lg:max-w-sm order-2 lg:order-1 text-center lg:text-left transition-all duration-300 ease-out delay-100 ${
+              className={`flex-1 flex max-h-[250px] flex-col justify-center w-full max-w-full lg:max-w-sm order-2 lg:order-2 text-center lg:text-left transition-all duration-300 ease-out delay-100 ${
                 showContent
                   ? "opacity-100 translate-y-0 lg:translate-x-0"
                   : "opacity-0 translate-y-4 lg:translate-x-8"

@@ -75,9 +75,8 @@ const ImageHotspot = ({
     let cardWidthPercent, cardOffset;
 
     if (width < 640) {
-      // Mobile: card is 90% width
       cardWidthPercent = 90;
-      cardOffset = 5; // Small offset from hotspot
+      cardOffset = 5;
     } else if (width < 768) {
       // Tablet
       cardWidthPercent = 60;
@@ -206,18 +205,18 @@ const ImageHotspot = ({
 
       <div className="p-3">
         {hotspot.img && (
-          <div className="w-full aspect-[16/9] flex items-center justify-center overflow-hidden">
+          <div className=" md:w-full aspect-[16/9] flex items-center justify-center overflow-hidden">
             <img
               src={hotspot.img}
               alt={hotspot.title}
-              className="w-full h-full object-contain"
+              className="w-1/2 md:w-full h-w-1/2 md:h-full object-contain"
             />
           </div>
         )}
-        <h3 className="my-3 md:my-2  text-xs md:text-sm text-center font-semibold md:font-semibold text-gray-600 leading-tight">
+        <h3 className="my-1 md:my-2 text-xs md:text-sm text-center font-semibold md:font-semibold text-gray-600 leading-tight">
           {hotspot.title}
         </h3>
-        <p className="text-gray-600 text-xs md:text-sm font-thin md:font-light leading-tight text-center">
+        <p className="text-gray-600 text-[10px] md:text-xs font-thin md:font-light leading-none text-center">
           {hotspot.sub_title}
         </p>
       </div>
@@ -230,7 +229,7 @@ const ImageHotspot = ({
       onClick={handleBackgroundClick}
     >
       {/* Main Image */}
-      <div className="w-full h-[300px] sm:h-[400px] md:5 flex items-center justify-center overflow-hidden">
+      <div className="w-full h-[250px] md:h-[400px] md:5 flex items-center justify-center overflow-hidden">
         <img
           src={imageSrc}
           alt={`${productName} - Interactive View`}

@@ -53,7 +53,7 @@ const Implementation = ({ product, onBack }) => {
 
         {/* Implementation Options */}
         <div className="mt-8 w-full max-w-4xl">
-          <div className="flex gap-4 overflow-x-auto pb-2 lg:flex-wrap lg:justify-center">
+          <div className="flex gap-4 overflow-x-auto pb-2 lg:flex-wrap sm:justify-center lg:justify-center">
             {ImplementationOptions.map((option) => (
               <button
                 key={option.id}
