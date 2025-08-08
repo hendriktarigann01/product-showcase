@@ -322,7 +322,7 @@ function ProductDetail({
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="h-[230px] md:h-[300px] lg:h-[400px]md:mt-0 flex items-center -z-0">
+            <div className="h-[230px] lg:h-[400px]md:mt-0 flex items-center -z-0">
               <div
                 className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible

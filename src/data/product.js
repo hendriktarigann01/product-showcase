@@ -104,7 +104,7 @@ export const products = [
         x_hp: 85,
         y_hp: 35,
         x_tab: 85,
-        y_tab: 40,
+        y_tab: 55,
         img: "/products/KMI7000/hotspots/hotspot_6.svg",
         title: "OPS PC",
         sub_title:
@@ -117,7 +117,7 @@ export const products = [
         x_hp: 87,
         y_hp: 65,
         x_tab: 87,
-        y_tab: 70,
+        y_tab: 85,
         img: "/products/KMI7000/hotspots/hotspot_7.svg",
         title: "Android Mainboard",
         sub_title:
