@@ -35,14 +35,14 @@ export function Spec1({ spec }) {
   // Mobile/Tablet: Single column layout
   const MobileLayout = () => (
     <div className="px-4 sm:px-6">
-      <div className="space-y-3">
+      <div className="space-y-0">
         {specEntries.map(([key, value], index) => (
           <div
             key={index}
             className="flex items-center border-b border-gray-100"
           >
             <div className="w-32">
-              <span className="font-medium text-xs lg:text-sm text-gray-700 flex-1">
+              <span className="font-medium text-[11px] lg:text-sm text-gray-700 flex-1">
                 {formatFieldName(key)}
               </span>
             </div>
@@ -59,7 +59,7 @@ export function Spec1({ spec }) {
                 )
               ) : (
                 <div className="w-auto">
-                  <span className="text-xs lg:text-sm text-gray-600">
+                  <span className="text-[11px] lg:text-sm text-gray-600">
                     {formatValue(value)}
                   </span>
                 </div>

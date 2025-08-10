@@ -13,114 +13,132 @@ const formatFieldName = (key) => fieldMappings[key] || key;
 const formatValue = (value) => value || "-";
 const isBoolean = (value) => typeof value === "boolean";
 
-
 export function Spec2({ spec }) {
-  if (!spec || !Array.isArray(spec.options)) return null;
-
-  // Group options by brightness if multiple brightness levels exist
-  const brightnessGroups = {};
-  spec.options.forEach((option) => {
-    const brightness = option.brightness || spec.brightness;
-    if (!brightnessGroups[brightness]) {
-      brightnessGroups[brightness] = [];
-    }
-    brightnessGroups[brightness].push(option);
-  });
-
-  const brightnessLevels = Object.keys(brightnessGroups);
+  if (!spec || !Array.isArray(spec.variants)) return null;
 
   return (
     <div className="px-0 lg:px-8">
-      <table className="table-auto w-full lg:w-3/4 text-left text-[11px] lg:text-sm text-gray-600 mx-auto">
-        <tbody>
-          {/* Brightness Row */}
-          <tr>
-            <td className="py-2 font-medium w-24 lg:w-36">
-              {formatFieldName("brightness")}
-            </td>
-            {brightnessLevels.map((brightness, index) => (
-              <td
-                key={index}
-                className="px-0 lg:px-6 py-2 text-center font-medium"
-                colSpan={brightnessGroups[brightness].length}
-              >
-                <span className="text-[11px] lg:text-sm">
-                  {formatValue(brightness)}
-                </span>
+      {/* Desktop Layout - Horizontal table */}
+      <div className="hidden lg:block">
+        <table className="table-auto w-full lg:w-3/4 mx-auto text-left text-sm text-gray-600">
+          <tbody>
+            {/* Brightness Row */}
+            <tr>
+              <td className="py-2 font-medium w-24">
+                {formatFieldName("brightness")}
               </td>
-            ))}
-          </tr>
-
-          {/* B2B Row */}
-          <tr>
-            <td className="py-2 font-medium w-24 lg:w-36">
-              {formatFieldName("b2b")}
-            </td>
-            {brightnessLevels.map((brightness) =>
-              brightnessGroups[brightness].map((option, optIndex) => (
+              {spec.variants.map((variant, variantIndex) => (
                 <td
-                  key={`${brightness}-${optIndex}`}
-                  className="px-0 lg:px-6 py-2 text-center"
+                  key={variantIndex}
+                  className="px-4 py-2 text-center font-medium"
+                  colSpan={variant.options.length}
                 >
-                  <span className="text-[11px] lg:text-sm">
-                    {formatValue(option.b2b)}
+                  <span className="text-sm">
+                    {formatValue(variant.brightness)}
                   </span>
                 </td>
-              ))
-            )}
-          </tr>
+              ))}
+            </tr>
 
-          {/* Unit Size Row */}
-          <tr>
-            <td className="py-2 font-medium w-24 lg:w-36">
-              {formatFieldName("unit_size_mm")}
-            </td>
-            {brightnessLevels.map((brightness) =>
-              brightnessGroups[brightness].map((option, optIndex) => (
-                <td
-                  key={`${brightness}-${optIndex}`}
-                  className="px-0 lg:px-6 py-2 text-center"
-                >
-                  <span className="text-[11px] lg:text-sm">
-                    {formatValue(option.unit_size_mm)}
-                  </span>
-                </td>
-              ))
-            )}
-          </tr>
+            {/* B2B Row */}
+            <tr>
+              <td className="py-2 font-medium w-24">
+                {formatFieldName("b2b")}
+              </td>
+              {spec.variants.map((variant) =>
+                variant.options.map((option, optIndex) => (
+                  <td
+                    key={`${variant.brightness}-${optIndex}`}
+                    className="px-4 py-2 text-center"
+                  >
+                    <span className="text-sm">{formatValue(option.b2b)}</span>
+                  </td>
+                ))
+              )}
+            </tr>
 
-          {/* Available Row */}
-          <tr>
-            <td className="py-2 font-medium w-24 lg:w-36">
-              {formatFieldName("available")}
-            </td>
-            {brightnessLevels.map((brightness) =>
-              brightnessGroups[brightness].map((option, optIndex) => (
-                <td
-                  key={`${brightness}-${optIndex}`}
-                  className="px-0 lg:px-6 py-2 text-center"
-                >
-                  {isBoolean(option.available) ? (
-                    option.available ? (
-                      <div className="w-5 h-5 bg-teal-500 rounded-full flex justify-center items-center mx-auto">
-                        <Check size={12} className="text-white" />
-                      </div>
-                    ) : (
-                      <div className="w-5 h-5 border-2 border-teal-500 rounded-full flex justify-center items-center mx-auto">
-                        <X size={12} className="text-teal-500" />
-                      </div>
-                    )
-                  ) : (
-                    <span className="text-[11px] lg:text-sm">
-                      {formatValue(option.available)}
+            {/* Unit Size Row */}
+            <tr>
+              <td className="py-2 font-medium w-24">
+                {formatFieldName("unit_size_mm")}
+              </td>
+              {spec.variants.map((variant) =>
+                variant.options.map((option, optIndex) => (
+                  <td
+                    key={`${variant.brightness}-${optIndex}`}
+                    className="px-4 py-2 text-center"
+                  >
+                    <span className="text-sm">
+                      {formatValue(option.unit_size_mm)}
                     </span>
-                  )}
+                  </td>
+                ))
+              )}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* Mobile Layout - Pisah per brightness */}
+      <div className="lg:hidden space-y-4">
+        {spec.variants.map((variant, variantIndex) => (
+          <table
+            key={variantIndex}
+            className="table-auto w-full text-left text-[9px] text-gray-600"
+          >
+            <tbody>
+              {/* Brightness Row */}
+              <tr>
+                <td className="py-2 font-medium w-16">
+                  {formatFieldName("brightness")}
                 </td>
-              ))
-            )}
-          </tr>
-        </tbody>
-      </table>
+                <td
+                  className="px-2 py-2 text-center font-medium"
+                  colSpan={variant.options.length}
+                >
+                  <span className="text-[9px]">
+                    {formatValue(variant.brightness)}
+                  </span>
+                </td>
+              </tr>
+
+              {/* B2B Row */}
+              <tr>
+                <td className="py-2 font-medium w-16">
+                  {formatFieldName("b2b")}
+                </td>
+                {variant.options.map((option, optIndex) => (
+                  <td
+                    key={`${variant.brightness}-${optIndex}`}
+                    className="px-2 py-2 text-center"
+                  >
+                    <span className="text-[9px]">
+                      {formatValue(option.b2b)}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+
+              {/* Unit Size Row */}
+              <tr>
+                <td className="py-2 font-medium w-16">
+                  {formatFieldName("unit_size_mm")}
+                </td>
+                {variant.options.map((option, optIndex) => (
+                  <td
+                    key={`${variant.brightness}-${optIndex}`}
+                    className="px-2 py-2 text-center"
+                  >
+                    <span className="text-[9px]">
+                      {formatValue(option.unit_size_mm)}
+                    </span>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        ))}
+      </div>
     </div>
   );
 }

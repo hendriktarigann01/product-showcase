@@ -73,27 +73,28 @@ export function Download({ isOpen, onClose, product }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4"
       onClick={handleOverlayClick}
     >
-      <div className="bg-white rounded-2xl p-8 max-w-md w-full mx-4 relative animate-in fade-in duration-300">
+      <div className="bg-white rounded-xl sm:rounded-2xl p-4 sm:p-6 lg:p-8 max-w-sm sm:max-w-md lg:max-w-lg w-full mx-2 sm:mx-4 relative animate-in fade-in duration-300">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 w-10 h-10 bg-[#4ECDC4] rounded-full flex items-center justify-center text-white hover:bg-[#45b8af] transition-colors shadow-lg"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 bg-[#4ECDC4] rounded-full flex items-center justify-center text-white hover:bg-[#45b8af] transition-colors shadow-lg"
         >
-          <X size={20} />
+          <X size={16} className="sm:hidden" />
+          <X size={20} className="hidden sm:block" />
         </button>
 
         {/* Content */}
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-600 mb-6">
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-600 mb-4 sm:mb-6">
             Let's scan!
           </h2>
 
           {/* QR Code */}
-          <div className="mb-6 flex justify-center">
-            <div className="w-60 h-60 rounded-lg flex items-center justify-center">
+          <div className="mb-4 sm:mb-6 flex justify-center">
+            <div className="w-48 h-48 sm:w-60 sm:h-60 lg:w-72 lg:h-72 rounded-lg flex items-center justify-center">
               {qrCode ? (
                 <img
                   src={qrCode}
@@ -105,14 +106,14 @@ export function Download({ isOpen, onClose, product }) {
           </div>
 
           {/* Description */}
-          <p className="text-gray-600 text-xs mb-4">
+          <p className="text-gray-600 text-xs sm:text-sm lg:text-base mb-3 sm:mb-4 px-2 sm:px-0">
             Curious about the details? Simply scan this barcode and discover all
             the complete information about our product in one digital brochure.
           </p>
 
           {/* Download Link */}
           <p
-            className="text-primary text-xs mb-6 underline cursor-pointer hover:text-teal-600 transition-colors"
+            className="text-primary text-xs sm:text-sm lg:text-base mb-4 sm:mb-6 underline cursor-pointer hover:text-teal-600 transition-colors px-2 sm:px-0"
             onClick={handleDownloadPDF}
           >
             {getPDFFileName()}

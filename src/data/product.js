@@ -548,9 +548,9 @@ export const products = [
         x_tab: 39,
         y_tab: 56,
         img: "/products/KMI8000/hotspots/hotspot_2.svg",
-        title: "Advanced OPS Module",
+        title: "Housing Modul",
         sub_title:
-          "Next-generation OPS slot with enhanced cooling system supports high-performance computing modules for demanding applications.",
+          "Physical protection from dust, heat, and mechanical damage.",
       },
       {
         id: 2,
@@ -561,9 +561,9 @@ export const products = [
         x_tab: 77,
         y_tab: 52,
         img: "/products/KMI8000/hotspots/hotspot_3.svg",
-        title: "Smart Android Hub",
+        title: "Bracket/Rel Wall Mounting",
         sub_title:
-          "Powerful Android processing unit with AI acceleration chips for intelligent content processing and enhanced user interaction.",
+          "Used for mounting the Video Wall to a wall or video wall frame structure.",
       },
       {
         id: 3,
@@ -574,9 +574,9 @@ export const products = [
         x_tab: 52,
         y_tab: 85,
         img: "/products/KMI8000/hotspots/hotspot_4.svg",
-        title: "Smart Android Hub",
+        title: "Panel port I/O",
         sub_title:
-          "Powerful Android processing unit with AI acceleration chips for intelligent content processing and enhanced user interaction.",
+          "Input/Output Panel – Contains ports: HDMI, DVI, VGA (Video Input), RS232 IN/OUT (Serial Control), USB (Service/Media), Audio Jack, Power IN",
       },
       {
         id: 4,
@@ -587,9 +587,9 @@ export const products = [
         x_tab: 93,
         y_tab: 75,
         img: "/products/KMI8000/hotspots/hotspot_5.svg",
-        title: "Smart Android Hub",
+        title: "Ventilation Panel",
         sub_title:
-          "Powerful Android processing unit with AI acceleration chips for intelligent content processing and enhanced user interaction.",
+          "These holes are used for air circulation and to prevent overheating on the sides of the panel. It is important that the internal temperature of the display remains stable during prolonged operation.",
       },
     ],
 
@@ -601,97 +601,106 @@ export const products = [
     specs: [
       {
         size: '46"',
-        brightness: "500 cd/m2",
-        options: [
+        variants: [
           {
-            b2b: "1.8 mm",
-            unit_size_mm: "1,075 (W) x 606 (H) x 54 (D)",
-            available: true,
+            brightness: "500 cd/m2",
+            options: [
+              {
+                b2b: "1.8 mm",
+                unit_size_mm: "1,075 (W) x 606 (H) x 54 (D)",
+                available: true,
+              },
+              {
+                b2b: "3.5 mm",
+                unit_size_mm: "1,077 (W) x 608 (H) x 54 (D)",
+                available: true,
+              },
+            ],
           },
           {
-            b2b: "3.5 mm",
-            unit_size_mm: "1,077 (W) x 608 (H) x 54 (D)",
-            available: true,
-          },
-        ],
-      },
-      {
-        size: '46"',
-        brightness: "700 cd/m2",
-        options: [
-          {
-            b2b: "1.8 mm",
-            unit_size_mm: "1,075 (W) x 606 (H) x 55 (D)",
-            available: true,
-          },
-          {
-            b2b: "3.5 mm",
-            unit_size_mm: "1,077 (W) x 608 (H) x 54 (D)",
-            available: true,
-          },
-        ],
-      },
-      {
-        size: '55"',
-        brightness: "500 cd/m2",
-        options: [
-          {
-            b2b: "1.8 mm",
-            unit_size_mm: "1,211 (W) x 682 (H) x 39 (D)",
-            available: true,
-          },
-          {
-            b2b: "3.5 mm",
-            unit_size_mm: "1,213 (W) x 684 (H) x 39 (D)",
-            available: true,
+            brightness: "700 cd/m2",
+            options: [
+              {
+                b2b: "1.8 mm",
+                unit_size_mm: "1,075 (W) x 606 (H) x 55 (D)",
+                available: true,
+              },
+              {
+                b2b: "3.5 mm",
+                unit_size_mm: "1,077 (W) x 608 (H) x 54 (D)",
+                available: true,
+              },
+            ],
           },
         ],
       },
       {
         size: '55"',
-        brightness: "700 cd/m2",
-        options: [
+        variants: [
           {
-            b2b: "1.8 mm",
-            unit_size_mm: "1,211 (W) x 682 (H) x 39 (D)",
-            available: true,
+            brightness: "500 cd/m2",
+            options: [
+              {
+                b2b: "1.8 mm",
+                unit_size_mm: "1,211 (W) x 682 (H) x 39 (D)",
+                available: true,
+              },
+              {
+                b2b: "3.5 mm",
+                unit_size_mm: "1,213 (W) x 684 (H) x 39 (D)",
+                available: true,
+              },
+            ],
           },
           {
-            b2b: "3.5 mm",
-            unit_size_mm: "1,213 (W) x 684 (H) x 39 (D)",
-            available: true,
+            brightness: "700 cd/m2",
+            options: [
+              {
+                b2b: "1.8 mm",
+                unit_size_mm: "1,211 (W) x 682 (H) x 39 (D)",
+                available: true,
+              },
+              {
+                b2b: "3.5 mm",
+                unit_size_mm: "1,213 (W) x 684 (H) x 39 (D)",
+                available: true,
+              },
+            ],
           },
         ],
       },
       {
         size: '65"',
-        brightness: "500 cd/m2",
-        options: [
+        variants: [
           {
-            b2b: "1.8 mm",
-            unit_size_mm: null,
-            available: false,
+            brightness: "500 cd/m2",
+            options: [
+              {
+                b2b: "1.8 mm",
+                unit_size_mm: null,
+                available: false,
+              },
+              {
+                b2b: "3.5 mm",
+                unit_size_mm: "1,077 (W) x 608 (H) x 54 (D)",
+                available: true,
+              },
+            ],
           },
           {
-            b2b: "3.5 mm",
-            unit_size_mm: "1,077 (W) x 608 (H) x 54 (D)",
-            available: true,
-          },
-        ],
-      },
-      {
-        size: '65"',
-        brightness: "700 cd/m2",
-        options: [
-          {
-            b2b: "1.8 mm",
-            unit_size_mm: null,
-            available: false,
-          },
-          {
-            b2b: "3.5 mm",
-            unit_size_mm: null,
-            available: false,
+            brightness: "700 cd/m2",
+            options: [
+              {
+                b2b: "1.8 mm",
+                unit_size_mm: null,
+                available: false,
+              },
+              {
+                b2b: "3.5 mm",
+                unit_size_mm: null,
+                available: false,
+              },
+            ],
           },
         ],
       },

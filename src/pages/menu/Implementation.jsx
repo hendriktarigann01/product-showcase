@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Implementation = ({ product, onBack }) => {
   const [selectedOption, setSelectedOption] = useState("none");
 
-  // Gunakan langsung image_implement dari product
   const ImplementationOptions = product?.image_implement || [];
 
-  // Temukan data dari opsi terpilih
   const selectedOptionData =
     ImplementationOptions.find((opt) => opt.id === selectedOption) ||
     ImplementationOptions[0];
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
@@ -41,7 +49,7 @@ const Implementation = ({ product, onBack }) => {
       </div>
 
       {/* Main section */}
-      <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 pt-24 pb-10 w-full">
+      <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 mt-0 md:mt-24 mb-10 w-full">
         {/* Main Product Image */}
         <div className="w-full max-w-[600px] h-[200px] sm:h-[260px] md:h-[300px] lg:h-[320px] flex justify-center items-center">
           <img

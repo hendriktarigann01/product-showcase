@@ -20,7 +20,16 @@ const Application = ({
   const { startTransition, isTransitioning, endTransition } =
     useMorphTransition();
 
-  // Calculate responsive dimensions
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   useEffect(() => {
     const calculateDimensions = () => {
       if (!containerRef.current) return;
@@ -72,7 +81,6 @@ const Application = ({
   useEffect(() => {
     if (!propProduct) {
       const savedProduct = localStorage.getItem("selectedProduct");
-      const savedIndex = localStorage.getItem("selectedProductIndex");
 
       if (savedProduct) setProduct(JSON.parse(savedProduct));
     }

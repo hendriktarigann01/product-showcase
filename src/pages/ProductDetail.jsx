@@ -51,7 +51,16 @@ function ProductDetail({
     }, delay);
   }, [isTransitioning, endTransition]);
 
-  // Listen to screen size changes for responsive hotspots
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []); 
+
   useEffect(() => {
     const handleResize = () => {
       setScreenSize(window.innerWidth);
@@ -249,7 +258,7 @@ function ProductDetail({
               alt={view.label}
               className="h-10 lg:h-24 w-full object-contain"
             />
-            <p className="mt-5 text-xs lg:text-sm font-medium text-gray-600">
+            <p className="mt-2 lg:mt-5 text-[10px] lg:text-sm font-medium text-gray-600">
               {view.label}
             </p>
           </div>
@@ -261,7 +270,7 @@ function ProductDetail({
   const MenuButton = ({ button }) => (
     <button
       key={button.id}
-      className="flex items-center justify-center gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
+      className="flex items-center justify-center text-[10px] md:text-xs gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
       onClick={button.onClick}
     >
       <img src={button.icon} alt={button.label} className="w-5 h-5" />
@@ -270,7 +279,10 @@ function ProductDetail({
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
+    <div
+      className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden"
+      style={{ height: "100dvh" }}
+    >
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] z-50 backdrop-blur-sm">
         <div className="my-4 mx-4 md:my-6 md:mx-6">
@@ -299,13 +311,13 @@ function ProductDetail({
       </div>
 
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex items-center justify-center pt-32 pb-24 px-8">
+      <div className="flex-grow flex items-center justify-center mt-0 md:mt-32 mb-24 px-8">
         <div className="max-w-7xl mx-auto w-full">
           {/* Main Content */}
-          <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-8 lg:gap-16">
+          <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16">
             {/* Main Image */}
             <div
-              className={`w-[320px] h-[230px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center transition-all duration-700 ${
+              className={`w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center transition-all duration-700 ${
                 isVisible
                   ? "opacity-100 transform translate-y-0"
                   : "opacity-0 transform translate-y-5"
@@ -322,7 +334,7 @@ function ProductDetail({
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="h-[230px] lg:h-[400px]md:mt-0 flex items-center -z-0">
+            <div className="h-[140px] lg:h-[400px] md:mt-0 flex items-center -z-0">
               <div
                 className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible
@@ -339,7 +351,7 @@ function ProductDetail({
 
           {/* Menu Buttons */}
           <div
-            className={`text-xs lg:text-sm flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-5 transition-all duration-700 delay-400 ${
+            className={`text-xs lg:text-sm flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-2 md:gap-5 transition-all duration-700 delay-400 ${
               isVisible
                 ? "opacity-100 transform translate-y-0"
                 : "opacity-0 transform translate-y-5"

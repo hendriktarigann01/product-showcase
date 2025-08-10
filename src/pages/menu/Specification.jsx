@@ -18,6 +18,16 @@ function Carousel3D({ slides, goToSlide, onSlideChange }) {
     }
   }, [goToSlide, currentIndex, onSlideChange]);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   const getSlideStyle = (index) => {
     const diff = index - currentIndex;
     const isActive = diff === 0;
@@ -201,9 +211,36 @@ const Specification = ({ product, onBack }) => {
 
     const layoutType = hasMultipleImages ? "default" : "side";
 
-    if (Array.isArray(currentSpec?.options)) {
+    // Fix: Ganti pengecekan dari options ke variants
+    if (Array.isArray(currentSpec?.variants)) {
       console.log("Using Spec2");
       return <Spec2 spec={currentSpec} layout={layoutType} />;
+    }
+
+    // Kondisi lama untuk options (jika masih ada data dengan struktur lama)
+    if (Array.isArray(currentSpec?.options)) {
+      console.log("Using Spec2 (old structure)");
+      return <Spec2 spec={currentSpec} layout={layoutType} />;
+    }
+
+    if (
+      currentSpec?.size ||
+      currentSpec?.os ||
+      currentSpec?.android ||
+      currentSpec?.windows ||
+      currentSpec?.cpu ||
+      currentSpec?.ram ||
+      currentSpec?.cam ||
+      currentSpec?.mic ||
+      currentSpec?.nfc ||
+      currentSpec?.fp ||
+      currentSpec?.noise ||
+      currentSpec?.touchscreen ||
+      currentSpec?.maxres ||
+      currentSpec?.storage
+    ) {
+      console.log("Using Spec1 (default)");
+      return <Spec1 spec={currentSpec} layout={layoutType} />;
     }
 
     if (
@@ -217,6 +254,7 @@ const Specification = ({ product, onBack }) => {
       return <Spec3 specs={[currentSpec]} layout={layoutType} />;
     }
 
+    // Spec1 LED
     if (
       currentSpec?.refresh_rate &&
       currentSpec?.brightness &&
@@ -227,11 +265,13 @@ const Specification = ({ product, onBack }) => {
       return <Spec1_LED specs={[currentSpec]} layout={layoutType} />;
     }
 
+    // Spec2 LED
     if (currentSpec?.module_pixels && currentSpec?.weight) {
       console.log("Using Spec2 LED");
       return <Spec2_LED specs={[currentSpec]} layout={layoutType} />;
     }
 
+    // Spec5
     if (
       currentSpec?.size &&
       currentSpec?.power &&
@@ -242,6 +282,7 @@ const Specification = ({ product, onBack }) => {
       return <Spec5 spec={currentSpec} layout={layoutType} />;
     }
 
+    // Spec4
     if (
       currentSpec?.table ||
       currentSpec?.brightness ||
@@ -252,7 +293,8 @@ const Specification = ({ product, onBack }) => {
       return <Spec4 spec={currentSpec} layout={layoutType} />;
     }
 
-    console.log("Using Spec1 (default)");
+    // Fallback — kalau nggak match semua
+    console.log("Using Spec1 (fallback)");
     return <Spec1 spec={currentSpec} layout={layoutType} />;
   };
 
@@ -294,7 +336,7 @@ const Specification = ({ product, onBack }) => {
       {hasMultipleImages ? (
         // Multiple images - gunakan carousel layout yang sudah ada
         <>
-          <div className="pt-12 sm:pt-13 px-4 sm:px-6 md:px-8 pb-4">
+          <div className="mt-14 sm:mt-16 px-4 sm:px-6 md:px-8 mb-0 md:mb-4">
             <div className="max-w-7xl mx-auto">
               <div className="relative flex items-center justify-center">
                 <Carousel3D

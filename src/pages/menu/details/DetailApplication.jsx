@@ -87,6 +87,16 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
     }
   }, [selectedApp, isTransitioning, endTransition]);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
   const handleBack = () => {
     // Always call onBack callback, jangan gunakan navigate(-1)
     if (onBack) {
@@ -127,7 +137,7 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
         <div className="max-w-6xl m-auto h-full flex lg:items-center justify-center py-4 lg:py-0">
           <div className="w-full flex flex-col lg:flex-row items-center justify-between gap-0 lg:gap-16">
             {/* Image Section  */}
-            <div className="flex-1 max-h-[500px] flex items-center justify-center order-1 lg:order:1 relative">
+            <div className="flex-1 max-h-full flex items-center justify-center order-1 lg:order:1 relative">
               <div
                 ref={imageRef}
                 className={`w-full max-w-2xl lg:max-w-2xl transition-all duration-300 ease-out relative ${
@@ -165,7 +175,7 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
 
             {/* Information Panel - Moved to top on mobile */}
             <div
-              className={`flex-1 flex max-h-[250px] flex-col justify-center w-full max-w-full lg:max-w-sm order-2 lg:order-2 text-center lg:text-left transition-all duration-300 ease-out delay-100 ${
+              className={`flex-1 flex h-[250px] flex-col justify-center w-full max-w-full lg:max-w-sm order-2 lg:order-2 text-center lg:text-left transition-all duration-300 ease-out delay-100 ${
                 showContent
                   ? "opacity-100 translate-y-0 lg:translate-x-0"
                   : "opacity-0 translate-y-4 lg:translate-x-8"

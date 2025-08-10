@@ -17,6 +17,16 @@ function Carousel3D({ slides, goToSlide, onSlideChange, currentIndex }) {
   }, [goToSlide, localCurrentIndex, onSlideChange]);
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
+  useEffect(() => {
     setLocalCurrentIndex(currentIndex);
   }, [currentIndex]);
 
@@ -116,12 +126,6 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
 
   const selectedProducts = isLED ? products_led : products;
   const handleSelectProduct = (product, imageElement) => {
-    // console.log("✔ Klik:", product.name);
-    // console.log(
-    //   "✔ expected list:",
-    //   selectedProducts.map((p) => p.name)
-    // );
-
     const productIndex = selectedProducts.findIndex(
       (p) => p.name === product.name
     );
@@ -189,7 +193,10 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white overflow-hidden">
+    <div
+      className="flex flex-col bg-white overflow-hidden"
+      style={{ height: "100dvh" }} // dynamic viewport height untuk iOS
+    >
       {/* Header - Fixed */}
       <div className="fixed top-0 left-0 right-0 bg-white backdrop-blur-sm z-50">
         <div className="my-6 mx-3 sm:mx-7">
@@ -216,7 +223,6 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
           </div>
         </div>
       </div>
-
       {/* Main Content - Flex grow to fill available space */}
       <div className="flex-grow flex items-center justify-center pt-32 pb-24 px-8">
         <div className="max-w-7xl mx-auto w-full">
@@ -299,7 +305,6 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
           </div>
         </div>
       </div>
-
       {/* Contact Info - Embedded */}
       <div className="fixed bottom-0 left-0 right-0 bg-white z-50">
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
