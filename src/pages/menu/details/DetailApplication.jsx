@@ -183,12 +183,12 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
               style={{ zIndex: 1 }} // Lower z-index than hotspot cards
             >
               {/* Title */}
-              <h2 className="text-xl md:text-2xl font-bold text-gray-600 uppercase tracking-wider">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-600 uppercase">
                 {selectedApp.title}
               </h2>
 
               {/* Description */}
-              <p className="text-gray-600 text-base md:text-lg/8 my-3 md:my-4">
+              <p className="text-gray-600 text-base md:text-lg/7 my-3 md:my-4">
                 {selectedApp.content}
               </p>
 

@@ -1,14 +1,14 @@
 import React from "react";
 
 const fieldMappings = {
-  size: "Size",
-  touchscreen: "Touchscreen",
-  os: "OS",
-  android: "Android",
-  windows: "Windows",
-  maxres: "Maximum Resolution",
-  ram: "RAM",
-  storage: "Storage",
+  product_size: "Product Size",
+  module_size: "Module Size",
+  display_resolution: "Display Resolution",
+  pixel_density: "Pixel Density",
+  module_display_size: "Module Display Size",
+  module_weight: "Module Weight",
+  input_voltage: "Input Voltage (W / Screen)",
+  refresh_frequency: "Refresh Frequency",
 };
 
 const formatFieldName = (key) => fieldMappings[key] || key;
@@ -18,7 +18,7 @@ const formatValue = (value) => {
   return value || "-";
 };
 
-export function Spec3({ specs }) {
+export function Spec3_LED({ specs }) {
   if (!specs || specs.length === 0) return null;
 
   const allFields = Array.from(
@@ -27,7 +27,6 @@ export function Spec3({ specs }) {
     )
   );
 
-  // Mobile/Tablet: Comparison cards
   const MobileLayout = () => (
     <div className="px-4 sm:px-6 mt-5">
       <div className="space-y-4">
@@ -121,4 +120,4 @@ export function Spec3({ specs }) {
   );
 }
 
-export default Spec3;
+export default Spec3_LED;

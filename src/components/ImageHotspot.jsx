@@ -185,18 +185,18 @@ const ImageHotspot = ({
 
         <div className="p-3">
           {hotspot.img && (
-            <div className="w-full aspect-[16/9] flex items-center justify-center overflow-hidden mb-2">
+            <div className="w-3/4 aspect-[16/9] flex items-center justify-center overflow-hidden mb-2">
               <img
                 src={hotspot.img}
                 alt={hotspot.title}
-                className="w-full h-full object-contain"
+                className="w-full h-full object-contain object-center"
               />
             </div>
           )}
-          <h3 className="mb-1 text-sm text-center font-semibold text-gray-600 leading-tight">
+          <h3 className="mb-1 mx-2 text-sm text-center font-semibold text-gray-600 leading-tight">
             {hotspot.title}
           </h3>
-          <p className="text-gray-600 text-xs font-light leading-none text-center">
+          <p className="text-gray-600 mx-2 text-xs font-light leading-none text-center">
             {hotspot.sub_title}
           </p>
         </div>

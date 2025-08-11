@@ -7,6 +7,7 @@ import { Spec4 } from "../../components/specs/lcd/Spec4";
 import { Spec5 } from "../../components/specs/lcd/Spec5";
 import { Spec1_LED } from "../../components/specs/led/Spec1";
 import { Spec2_LED } from "../../components/specs/led/Spec2";
+import { Spec3_LED } from "../../components/specs/led/Spec3";
 
 function Carousel3D({ slides, goToSlide, onSlideChange }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -207,94 +208,59 @@ const Specification = ({ product, onBack }) => {
   };
 
   const renderSpec = () => {
-    console.log("currentSpec:", currentSpec); // Debug data
+    console.log("currentSpec:", currentSpec);
+
+    if (!currentSpec) {
+      console.log("No spec data available");
+      return null;
+    }
 
     const layoutType = hasMultipleImages ? "default" : "side";
 
-    // Fix: Ganti pengecekan dari options ke variants
+    // 1. Spec2 - variants structure (paling unik)
     if (Array.isArray(currentSpec?.variants)) {
-      console.log("Using Spec2");
+      console.log("Using Spec2 - variants structure");
       return <Spec2 spec={currentSpec} layout={layoutType} />;
     }
 
-    // Kondisi lama untuk options (jika masih ada data dengan struktur lama)
-    if (Array.isArray(currentSpec?.options)) {
-      console.log("Using Spec2 (old structure)");
-      return <Spec2 spec={currentSpec} layout={layoutType} />;
-    }
-
-    if (
-      currentSpec?.size ||
-      currentSpec?.os ||
-      currentSpec?.android ||
-      currentSpec?.windows ||
-      currentSpec?.cpu ||
-      currentSpec?.ram ||
-      currentSpec?.cam ||
-      currentSpec?.mic ||
-      currentSpec?.nfc ||
-      currentSpec?.fp ||
-      currentSpec?.noise ||
-      currentSpec?.touchscreen ||
-      currentSpec?.maxres ||
-      currentSpec?.storage
-    ) {
-      console.log("Using Spec1 (default)");
-      return <Spec1 spec={currentSpec} layout={layoutType} />;
-    }
-
-    if (
-      currentSpec?.size &&
-      currentSpec?.os &&
-      currentSpec?.android &&
-      currentSpec?.windows &&
-      (currentSpec?.ram || currentSpec?.storage)
-    ) {
-      console.log("Using Spec3");
-      return <Spec3 specs={[currentSpec]} layout={layoutType} />;
-    }
-
-    // Spec1 LED
-    if (
-      currentSpec?.refresh_rate &&
-      currentSpec?.brightness &&
-      currentSpec?.modul_size &&
-      currentSpec?.pixel_resolution
-    ) {
-      console.log("Using Spec1 LED");
-      return <Spec1_LED specs={[currentSpec]} layout={layoutType} />;
-    }
-
-    // Spec2 LED
-    if (currentSpec?.module_pixels && currentSpec?.weight) {
-      console.log("Using Spec2 LED");
-      return <Spec2_LED specs={[currentSpec]} layout={layoutType} />;
-    }
-
-    // Spec5
-    if (
-      currentSpec?.size &&
-      currentSpec?.power &&
-      currentSpec?.display_ratio &&
-      currentSpec?.application
-    ) {
-      console.log("Using Spec5");
-      return <Spec5 spec={currentSpec} layout={layoutType} />;
-    }
-
-    // Spec4
-    if (
-      currentSpec?.table ||
-      currentSpec?.brightness ||
-      currentSpec?.resolution ||
-      currentSpec?.display
-    ) {
-      console.log("Using Spec4");
+    // 2. Spec4 - optional_components array (field unik)
+    if (Array.isArray(currentSpec?.optional_components)) {
+      console.log("Using Spec4 - optional_components detected");
       return <Spec4 spec={currentSpec} layout={layoutType} />;
     }
 
-    // Fallback — kalau nggak match semua
-    console.log("Using Spec1 (fallback)");
+    // 3. Spec5 - display_ratio field (hanya ada di Spec5)
+    if (currentSpec?.display_ratio) {
+      console.log("Using Spec5 - display_ratio detected");
+      return <Spec5 spec={currentSpec} layout={layoutType} />;
+    }
+
+    // 4. Spec1_LED - modul_size + pixel_density (kombinasi unik)
+    if (currentSpec?.modul_size && currentSpec?.pixel_density) {
+      console.log("Using Spec1_LED - LED module specs");
+      return <Spec1_LED specs={[currentSpec]} layout={layoutType} />;
+    }
+
+    // 5. Spec2_LED - module_pixels field (hanya ada di Spec2_LED)
+    if (currentSpec?.module_pixels) {
+      console.log("Using Spec2_LED - module_pixels detected");
+      return <Spec2_LED specs={[currentSpec]} layout={layoutType} />;
+    }
+
+    // 6. Spec3_LED - product_size + display_resolution (kombinasi unik untuk LED)
+    if (currentSpec?.product_size && currentSpec?.display_resolution) {
+      console.log("Using Spec3_LED - LED product specs");
+      return <Spec3_LED specs={[currentSpec]} layout={layoutType} />;
+    }
+
+    // 7. Spec3 - maxres field (hanya ada di Spec3, tidak ada di Spec1)
+    if (currentSpec?.maxres) {
+      console.log("Using Spec3 - maxres field detected");
+      return <Spec3 specs={[currentSpec]} layout={layoutType} />;
+    }
+
+    // 8. FALLBACK: Spec1 - untuk device specs umum
+    console.log("Using Spec1 - default device specs");
     return <Spec1 spec={currentSpec} layout={layoutType} />;
   };
 
@@ -346,13 +312,13 @@ const Specification = ({ product, onBack }) => {
                 />
                 <button
                   onClick={prevSlide}
-                  className="absolute -left-2 sm:left-2 md:left-4 top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute -left-2 sm:left-2 md:left-4 top-[105%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
                 >
                   <MoveLeft size={16} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute -right-2 sm:right-2 md:right-4 top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute -right-2 sm:right-2 md:right-4 top-[105%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
                 >
                   <MoveRight
                     size={16}

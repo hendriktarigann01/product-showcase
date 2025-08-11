@@ -2,24 +2,24 @@ export const products_led = [
   {
     id: 1,
     name: "LED Outdoor for Fixed Installation",
-    image: "/products_led/outdoor/front.svg",
+    image: "/products_led/outdoor/front.webp",
     image_implement: [
       {
         id: "none",
         title: "None",
-        image: "/products_led/outdoor/implementation/front_implement_1.svg",
+        image: "/products_led/outdoor/implementation/front_implement_1.webp",
       },
     ],
-    image_spec1: "/products_led/outdoor/specification/specs_1.svg",
-    image_spec2: "/products_led/outdoor/specification/specs_2.svg",
-    image_spec3: "/products_led/outdoor/specification/specs_3.svg",
-    image_spec4: "/products_led/outdoor/specification/specs_4.svg",
-    image_spec5: "/products_led/outdoor/specification/specs_5.svg",
-    download: "/products_led/outdoor/downloads/download_qr.svg",
+    image_spec1: "/products_led/outdoor/specification/specs_1.webp",
+    image_spec2: "/products_led/outdoor/specification/specs_2.webp",
+    image_spec3: "/products_led/outdoor/specification/specs_3.webp",
+    image_spec4: "/products_led/outdoor/specification/specs_4.webp",
+    image_spec5: "/products_led/outdoor/specification/specs_5.webp",
+    download: "/products_led/outdoor/downloads/download_qr.webp",
     images: {
-      front: "/products_led/outdoor/front_product.svg",
-      side: "/products_led/outdoor/side_product.svg",
-      back: "/products_led/outdoor/back_product.svg",
+      front: "/products_led/outdoor/front_product.webp",
+      side: "/products_led/outdoor/side_product.webp",
+      back: "/products_led/outdoor/back_product.webp",
     },
     hotspots: [
       {
@@ -30,7 +30,7 @@ export const products_led = [
         y_hp: 65,
         x_tab: 67,
         y_tab: 85,
-        img: "/products_led/outdoor/hotspots/hotspot_1.svg",
+        img: "/products_led/outdoor/hotspots/hotspot_1.webp",
         title: "Outdoor LED Module",
         sub_title:
           "These modules are repeatedly assembled and combined into cabinets, which are then organized into large LED screens.",
@@ -45,7 +45,7 @@ export const products_led = [
         y_hp: 10,
         x_tab: 85,
         y_tab: 25,
-        img: "/products_led/outdoor/hotspots/hotspot_3.svg",
+        img: "/products_led/outdoor/hotspots/hotspot_3.webp",
         title: "Cabinet Lock",
         sub_title: "Used to lock the cabinet to one another.",
       },
@@ -57,7 +57,7 @@ export const products_led = [
         y_hp: 62,
         x_tab: 10,
         y_tab: 75,
-        img: "/products_led/outdoor/hotspots/hotspot_2.svg",
+        img: "/products_led/outdoor/hotspots/hotspot_2.webp",
         title: "Handle",
         sub_title:
           "Handles for technicians when carrying, lifting, or installing the cabinet.",
@@ -70,7 +70,7 @@ export const products_led = [
         y_hp: 48,
         x_tab: 62,
         y_tab: 70,
-        img: "/products_led/outdoor/hotspots/hotspot_4.svg",
+        img: "/products_led/outdoor/hotspots/hotspot_4.webp",
         title: "Cabinet Door",
         sub_title: "Cabinet back cover",
       },
@@ -144,19 +144,33 @@ export const products_led = [
         appId: 2,
         x: 55,
         y: 85,
+        style: {
+          left: 170,
+          top: 5,
+          width: 600,
+          height: 500,
+          zIndex: 2,
+        },
       },
       {
         id: 3,
         appId: 3,
         x: 72,
         y: 49,
+        style: {
+          left: 170,
+          top: 5,
+          width: 600,
+          height: 500,
+          zIndex: 3,
+        },
       },
     ],
     app: [
       {
         id: 1,
-        image_full: "/products_led/outdoor/application/app_1.svg",
-        image: "/products_led/outdoor/application/app_2.svg",
+        image_full: "/products_led/outdoor/application/app_1.webp",
+        image: "/products_led/outdoor/application/app_2.webp",
         title: "LED Videotron on Building Facade",
         content:
           "This LED is installed on the front facade of the building, serving as the main promotional visual display. It’s positioned to face the main street, making it ideal for:",
@@ -171,7 +185,7 @@ export const products_led = [
       },
       {
         id: 2,
-        image: "/products_led/outdoor/application/app_3.svg",
+        image: "/products_led/outdoor/application/app_3.webp",
         title: "LED Display on Vehicle",
         content:
           "This is a mobile LED display installed on the side of a delivery or logistics truck. It functions as:",
@@ -185,7 +199,7 @@ export const products_led = [
       },
       {
         id: 3,
-        image: "/products_led/outdoor/application/app_4.svg",
+        image: "/products_led/outdoor/application/app_4.webp",
         title: "Outdoor LED Billboard",
         content:
           "This LED billboard is placed on the sidewalk facing the road, targeting drivers and pedestrians. It's typically used for:",
@@ -202,18 +216,18 @@ export const products_led = [
   {
     id: 2,
     name: "LED Indoor for Fixed Installation",
-    image: "/products_led/indoor/front.svg",
+    image: "/products_led/indoor/front.webp",
     image_implement: [],
-    image_spec1: "/products_led/indoor/specification/specs_1.svg",
-    image_spec2: "/products_led/indoor/specification/specs_2.svg",
-    image_spec3: "/products_led/indoor/specification/specs_3.svg",
-    image_spec4: "/products_led/indoor/specification/specs_4.svg",
-    image_spec5: "/products_led/indoor/specification/specs_5.svg",
-    download: "/products_led/indoor/downloads/download_qr.svg",
+    image_spec1: "/products_led/indoor/specification/specs_1.webp",
+    image_spec2: "/products_led/indoor/specification/specs_2.webp",
+    image_spec3: "/products_led/indoor/specification/specs_3.webp",
+    image_spec4: "/products_led/indoor/specification/specs_4.webp",
+    image_spec5: "/products_led/indoor/specification/specs_5.webp",
+    download: "/products_led/indoor/downloads/download_qr.webp",
     images: {
-      front: "/products_led/indoor/front_product.svg",
-      side: "/products_led/indoor/side_product.svg",
-      back: "/products_led/indoor/back_product.svg",
+      front: "/products_led/indoor/front_product.webp",
+      side: "/products_led/indoor/side_product.webp",
+      back: "/products_led/indoor/back_product.webp",
     },
     hotspots: [
       {
@@ -224,7 +238,7 @@ export const products_led = [
         y_hp: 46,
         x_tab: 50,
         y_tab: 70,
-        img: "/products_led/indoor/hotspots/hotspot_1.svg",
+        img: "/products_led/indoor/hotspots/hotspot_1.webp",
         title: "Indoor LED Module",
         sub_title:
           "These modules are repeatedly assembled and combined into cabinets, which are then organized into large LED screens.",
@@ -239,7 +253,7 @@ export const products_led = [
         y_hp: 10,
         x_tab: 49,
         y_tab: 38,
-        img: "/products_led/indoor/hotspots/hotspot_2.svg",
+        img: "/products_led/indoor/hotspots/hotspot_2.webp",
         title: "Keyhole",
         sub_title:
           "A keyhole mounting hole used to easily and stably hook or hang the LED indoor cabinet panel to the mounting structure.",
@@ -252,7 +266,7 @@ export const products_led = [
         y_hp: 45,
         x_tab: 49,
         y_tab: 73,
-        img: "/products_led/indoor/hotspots/hotspot_3.svg",
+        img: "/products_led/indoor/hotspots/hotspot_3.webp",
         title: "Signal power cable left and right wire hole",
         sub_title:
           "This hole serves as an entry point for signal and power cables from the left and right sides of the cabinet. This makes it easy to daisy-chain between panels in a horizontal arrangement.",
@@ -267,7 +281,7 @@ export const products_led = [
         y_hp: 5,
         x_tab: 49,
         y_tab: 37,
-        img: "/products_led/indoor/hotspots/hotspot_5.svg",
+        img: "/products_led/indoor/hotspots/hotspot_5.webp",
         title: "Tophandle Groove Design, Easy to Carry",
         sub_title:
           "The handle groove design on the top allows for easy lifting and manual moving by technicians.",
@@ -280,7 +294,7 @@ export const products_led = [
         y_hp: 5,
         x_tab: 14,
         y_tab: 37,
-        img: "/products_led/indoor/hotspots/hotspot_4.svg",
+        img: "/products_led/indoor/hotspots/hotspot_4.webp",
         title: "Wall Mounting Screw Hole",
         sub_title:
           "Holes for screw fixing to the wall or frame structure, ensuring the cabinet can be securely installed.",
@@ -395,7 +409,7 @@ export const products_led = [
     app: [
       {
         id: 1,
-        image: "/products_led/indoor/application/app_1.svg",
+        image: "/products_led/indoor/application/app_1.webp",
         title: "SHOPPING AREA",
         content:
           "Promotional media, information, and visual decoration. It is used to display advertisements, mall maps, announcements, and enhance the mall atmosphere. With bright and flexible displays, these LEDs support a modern and efficient visitor experience.",
@@ -410,14 +424,14 @@ export const products_led = [
       },
       {
         id: 2,
-        image: "/products_led/indoor/application/app_2.svg",
+        image: "/products_led/indoor/application/app_2.webp",
         title: "COMMAND CENTER",
         content:
           "Displays real-time data, graphs, video monitoring, and important information. These screens help teams make quick and precise decisions, as information can be seen clearly, widely, and centrally. With a sharp and responsive display, LED supports work efficiency and coordination between divisions.",
       },
       {
         id: 3,
-        image: "/products_led/indoor/application/app_3.svg",
+        image: "/products_led/indoor/application/app_3.webp",
         title: "CONFERENCE ROOM",
         content:
           "Offers a professional meeting experience with interactive whiteboard technology that allows interactive visualization of data and ideas in front of participants.",
@@ -427,41 +441,41 @@ export const products_led = [
   {
     id: 3,
     name: "LED Poster Display",
-    image: "/products_led/poster/front.svg",
+    image: "/products_led/poster/front.webp",
     image_implement: [
       {
         id: "multi casade",
         title: "Multi Casade",
-        image: "/products_led/poster/implementation/front_implement_1.svg",
+        image: "/products_led/poster/implementation/front_implement_1.webp",
       },
       {
         id: "wall mounted",
         title: "Wall Mounted",
-        image: "/products_led/poster/implementation/front_implement_2.svg",
+        image: "/products_led/poster/implementation/front_implement_2.webp",
       },
       {
         id: "creative",
         title: "Creative",
-        image: "/products_led/poster/implementation/front_implement_3.svg",
+        image: "/products_led/poster/implementation/front_implement_3.webp",
       },
       {
         id: "standing bracked",
         title: "Standing Bracked",
-        image: "/products_led/poster/implementation/front_implement_4.svg",
+        image: "/products_led/poster/implementation/front_implement_4.webp",
       },
       {
         id: "base standing",
         title: "Base Standing",
-        image: "/products_led/poster/implementation/front_implement_5.svg",
+        image: "/products_led/poster/implementation/front_implement_5.webp",
       },
     ],
-    image_spec1: "/products_led/poster/specification/specs_1.svg",
-    image_spec2: "/products_led/poster/specification/specs_2.svg",
-    download: "/products_led/poster/downloads/download_qr.svg",
+    image_spec1: "/products_led/poster/specification/specs_1.webp",
+    image_spec2: "/products_led/poster/specification/specs_2.webp",
+    download: "/products_led/poster/downloads/download_qr.webp",
     images: {
-      front: "/products_led/poster/front_product.svg",
-      side: "/products_led/poster/side_product.svg",
-      back: "/products_led/poster/back_product.svg",
+      front: "/products_led/poster/front_product.webp",
+      side: "/products_led/poster/side_product.webp",
+      back: "/products_led/poster/back_product.webp",
     },
     hotspots: [],
     side_hotspots: [
@@ -473,7 +487,7 @@ export const products_led = [
         y_hp: 77,
         x_tab: 52,
         y_tab: 83,
-        img: "/products_led/poster/hotspots/hotspot_1.svg",
+        img: "/products_led/poster/hotspots/hotspot_1.webp",
         title: "Fixed Base",
         sub_title:
           "The basic structure that maintains the stability of the screen when standing. Used to ensure that the device stays upright and does not move easily.",
@@ -488,7 +502,7 @@ export const products_led = [
         y_hp: 8,
         x_tab: 50,
         y_tab: 40,
-        img: "/products_led/poster/hotspots/hotspot_2.svg",
+        img: "/products_led/poster/hotspots/hotspot_2.webp",
         title: "Heat Dipassion Hole",
         sub_title:
           "Remove heat from inside the device to prevent overheating and maintain the performance and durability of the device.",
@@ -501,7 +515,7 @@ export const products_led = [
         y_hp: 60,
         x_tab: 58,
         y_tab: 70,
-        img: "/products_led/poster/hotspots/hotspot_3.svg",
+        img: "/products_led/poster/hotspots/hotspot_3.webp",
         title: "Connections on the Back of the LED Poster",
         sub_title: "Input and output ports USB, HDMI, LAN, CONFIG",
       },
@@ -513,7 +527,7 @@ export const products_led = [
         y_hp: 65,
         x_tab: 42,
         y_tab: 75,
-        img: "/products_led/poster/hotspots/hotspot_4.svg",
+        img: "/products_led/poster/hotspots/hotspot_4.webp",
         title: "Connections on the Back of the LED Poster",
         sub_title: "Power Cable and Power Switch",
       },
@@ -525,13 +539,36 @@ export const products_led = [
         y_hp: 82,
         x_tab: 55,
         y_tab: 95,
-        img: "/products_led/poster/hotspots/hotspot_5.svg",
+        img: "/products_led/poster/hotspots/hotspot_5.webp",
         title: "Wheels",
         sub_title:
           "To be moved led posters easily from one location to another.",
       },
     ],
-    specs: [],
+    specs: [
+      {
+        type: "P1.5",
+        product_size: "640 mm x 1920 mm x 48 mm",
+        module_size: "320 mm x 160 mm",
+        display_resolution: "416 x 1248",
+        pixel_density: "519,168 Pixel / Screen",
+        module_display_size: "640 mm x 1,920 mm",
+        module_weight: "40 Kg/ pcs",
+        input_voltage: "450",
+        refresh_frequency: "1920 Hz / 3840 Hz",
+      },
+      {
+        type: "P2.5",
+        product_size: "640 mm x 1920 mm x 48 mm",
+        module_size: "320 mm x 160 mm",
+        display_resolution: "256 x 768",
+        pixel_density: "196,608 Pixel / Screen",
+        module_display_size: "640 mm x 1,920 mm",
+        module_weight: "40 Kg/ pcs",
+        input_voltage: "430",
+        refresh_frequency: "1920 Hz / 3840 Hz",
+      },
+    ],
     app_room: [
       {
         id: 1,
@@ -579,7 +616,7 @@ export const products_led = [
     app: [
       {
         id: 1,
-        image: "/products_led/poster/application/app_1.svg",
+        image: "/products_led/poster/application/app_1.webp",
         title: "HOTEL",
         content:
           "Application of digital signage to enhance communication, branding, and guest service experiences in hospitality environments, such as:",
@@ -593,7 +630,7 @@ export const products_led = [
       },
       {
         id: 2,
-        image: "/products_led/poster/application/app_2.svg",
+        image: "/products_led/poster/application/app_2.webp",
         title: "SHOPPING AREA",
         content:
           "Displaying promotional media, information, and visual decorations. With bright and flexible displays, these LEDs support a modern and efficient visitor experience.",
@@ -608,7 +645,7 @@ export const products_led = [
       },
       {
         id: 3,
-        image: "/products_led/poster/application/app_3.svg",
+        image: "/products_led/poster/application/app_3.webp",
         title: "RESTAURANT",
         content:
           "Application of digital signage to enhance communication, information delivery, and service efficiency in public and customer-oriented environments, such as:",

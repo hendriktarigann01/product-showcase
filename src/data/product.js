@@ -2,32 +2,32 @@ export const products = [
   {
     id: 1,
     name: "Interactive Whiteboard KMI 7000 Series",
-    image: "/products/KMI7000/front.svg",
+    image: "/products/KMI7000/front.webp",
     image_implement: [
       {
         id: "none",
         title: "None",
-        image: "/products/KMI7000/implementation/front_implement_1.svg",
+        image: "/products/KMI7000/implementation/front_implement_1.webp",
       },
       {
         id: "standing",
         title: "Standing Bracket",
-        image: "/products/KMI7000/implementation/front_implement_2.svg",
+        image: "/products/KMI7000/implementation/front_implement_2.webp",
       },
       {
         id: "wall",
         title: "Wall Bracket",
-        image: "/products/KMI7000/implementation/front_implement_3.svg",
+        image: "/products/KMI7000/implementation/front_implement_3.webp",
       },
     ],
-    image_spec1: "/products/KMI7000/specification/specs_1.svg",
-    image_spec2: "/products/KMI7000/specification/specs_2.svg",
-    download: "/products/KMI7000/downloads/download_qr.svg",
+    image_spec1: "/products/KMI7000/specification/specs_1.webp",
+    image_spec2: "/products/KMI7000/specification/specs_2.webp",
+    download: "/products/KMI7000/downloads/download_qr.webp",
     images: {
-      front: "/products/KMI7000/front_product.svg",
-      left: "/products/KMI7000/left_product.svg",
-      right: "/products/KMI7000/right_product.svg",
-      back: "/products/KMI7000/back_product.svg",
+      front: "/products/KMI7000/front_product.webp",
+      left: "/products/KMI7000/left_product.webp",
+      right: "/products/KMI7000/right_product.webp",
+      back: "/products/KMI7000/back_product.webp",
     },
     hotspots: [
       {
@@ -38,7 +38,7 @@ export const products = [
         y_hp: 13,
         x_tab: 10,
         y_tab: 48,
-        img: "/products/KMI7000/hotspots/hotspot_1.svg",
+        img: "/products/KMI7000/hotspots/hotspot_1.webp",
         title: "Anti-glare glass",
         sub_title:
           "4mm hardened Anti-glare tempered glass (Mohs 7 class) effectively protect the device. It also provides good vision by reducing light reflection to human eyes.",
@@ -51,7 +51,7 @@ export const products = [
         y_hp: 6,
         x_tab: 45,
         y_tab: 39,
-        img: "/products/KMI7000/hotspots/hotspot_2.svg",
+        img: "/products/KMI7000/hotspots/hotspot_2.webp",
         title: "Camera High Resolution",
         sub_title:
           "13 mega pixel camera with 4K resolution for crystal clear video conferencing and recording.",
@@ -64,7 +64,7 @@ export const products = [
         y_hp: 9,
         x_tab: 60,
         y_tab: 42,
-        img: "/products/KMI7000/hotspots/hotspot_3.svg",
+        img: "/products/KMI7000/hotspots/hotspot_3.webp",
         title: "8 Array Mic",
         sub_title:
           "8 Array Mic with voice localization technology helps you easily conduct meetings with superior audio capture.",
@@ -77,7 +77,7 @@ export const products = [
         y_hp: 79,
         x_tab: 77,
         y_tab: 95,
-        img: "/products/KMI7000/hotspots/hotspot_4.svg",
+        img: "/products/KMI7000/hotspots/hotspot_4.webp",
         title: "Speaker",
         sub_title:
           "Integrated stereo speakers provide clear, room-filling audio suitable for interactive presentations and video conferencing.",
@@ -90,7 +90,7 @@ export const products = [
         y_hp: 79,
         x_tab: 15,
         y_tab: 95,
-        img: "/products/KMI7000/hotspots/hotspot_5.svg",
+        img: "/products/KMI7000/hotspots/hotspot_5.webp",
         title: "Quick Function Key & Connectivity Port",
         sub_title:
           "Provides quick access to essential ports and touch inputs for easy device integration and fast installation.",
@@ -105,7 +105,7 @@ export const products = [
         y_hp: 35,
         x_tab: 85,
         y_tab: 55,
-        img: "/products/KMI7000/hotspots/hotspot_6.svg",
+        img: "/products/KMI7000/hotspots/hotspot_6.webp",
         title: "OPS PC",
         sub_title:
           "The OPS slot supports the installation of a separate Windows PC to run professional applications and systems with high performance.",
@@ -118,7 +118,7 @@ export const products = [
         y_hp: 65,
         x_tab: 87,
         y_tab: 85,
-        img: "/products/KMI7000/hotspots/hotspot_7.svg",
+        img: "/products/KMI7000/hotspots/hotspot_7.webp",
         title: "Android Mainboard",
         sub_title:
           "The built-in Android mainboard allows direct use without additional devices, ideal for quick access to educational apps and presentations.",
@@ -201,7 +201,7 @@ export const products = [
     app: [
       {
         id: 1,
-        image: "/products/KMI7000/application/app_1.svg",
+        image: "/products/KMI7000/application/app_1.webp",
         title: "SMART LEARNING CLASS/TRAINING ROOM",
         content:
           "Utilize interactive whiteboard as an interactive digital learning tool, supporting a more engaging and participatory learning process.",
@@ -210,7 +210,7 @@ export const products = [
             id: 1,
             x: 26,
             y: 20,
-            img: "/products/KMI7000/application/app_spots/app_spot_1.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
               "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
@@ -219,7 +219,7 @@ export const products = [
             id: 2,
             x: 38,
             y: 35,
-            img: "/products/KMI7000/application/app_spots/app_spot_2.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_2.webp",
             title: "QuickShare",
             sub_title:
               "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
@@ -228,7 +228,7 @@ export const products = [
       },
       {
         id: 2,
-        image: "/products/KMI7000/application/app_2.svg",
+        image: "/products/KMI7000/application/app_2.webp",
         title: "SMART MEETING ROOM",
         content:
           "Equipped with an interactive whiteboard to support real-time team collaboration, perfect for presentations, brainstorming, and project discussions.",
@@ -237,7 +237,7 @@ export const products = [
             id: 1,
             x: 72,
             y: 16,
-            img: "/products/KMI7000/application/app_spots/app_spot_1.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
               "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
@@ -246,7 +246,7 @@ export const products = [
             id: 2,
             x: 49,
             y: 53,
-            img: "/products/KMI7000/application/app_spots/app_spot_3.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_3.webp",
             title: "Omnidirectional Microphone",
             sub_title:
               "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
@@ -255,7 +255,7 @@ export const products = [
             id: 3,
             x: 38,
             y: 72,
-            img: "/products/KMI7000/application/app_spots/app_spot_2.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_2.webp",
             title: "QuickShare",
             sub_title:
               "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
@@ -264,7 +264,7 @@ export const products = [
       },
       {
         id: 3,
-        image: "/products/KMI7000/application/app_3.svg",
+        image: "/products/KMI7000/application/app_3.webp",
         title: "SMART CONFERENCE ROOM",
         content:
           "Offers a professional meeting experience with interactive whiteboard technology that allows interactive visualization of data and ideas in front of participants.",
@@ -273,7 +273,7 @@ export const products = [
             id: 1,
             x: 72,
             y: 16,
-            img: "/products/KMI7000/application/app_spots/app_spot_1.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
               "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
@@ -282,7 +282,7 @@ export const products = [
             id: 2,
             x: 36,
             y: 58,
-            img: "/products/KMI7000/application/app_spots/app_spot_4.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_4.webp",
             title: "Paperless System",
             sub_title:
               "To replace the use of paper and make meetings more environmentally friendly.",
@@ -291,7 +291,7 @@ export const products = [
             id: 3,
             x: 52,
             y: 60,
-            img: "/products/KMI7000/application/app_spots/app_spot_2.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_2.webp",
             title: "QuickShare",
             sub_title:
               "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
@@ -300,7 +300,7 @@ export const products = [
             id: 4,
             x: 50,
             y: 48,
-            img: "/products/KMI7000/application/app_spots/app_spot_3.svg",
+            img: "/products/KMI7000/application/app_spots/app_spot_3.webp",
             title: "Omnidirectional Microphone",
             sub_title:
               "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
@@ -341,7 +341,7 @@ export const products = [
     smart: [
       {
         id: 1,
-        image: "/products/KMI7000/smart/smart_1.svg",
+        image: "/products/KMI7000/smart/smart_1.webp",
         title: "MEDIUM MEETING ROOM",
         max: "For meetings of 6-15 people.",
         content:
@@ -351,7 +351,7 @@ export const products = [
             id: 1,
             x: 79,
             y: 19,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
               "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
@@ -360,7 +360,7 @@ export const products = [
             id: 2,
             x: 39,
             y: 71,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.webp",
             title: "QuickShare",
             sub_title:
               "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
@@ -369,7 +369,7 @@ export const products = [
             id: 3,
             x: 54,
             y: 57,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_6.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_6.webp",
             title: "Omnidirectional Microphone",
             sub_title:
               "The audio is clear and evenly distributed throughout the room.",
@@ -378,7 +378,7 @@ export const products = [
       },
       {
         id: 2,
-        image: "/products/KMI7000/smart/smart_2.svg",
+        image: "/products/KMI7000/smart/smart_2.webp",
         title: "SMALL MEETING ROOM",
         max: "For meetings of 2-5 people.",
         content:
@@ -388,7 +388,7 @@ export const products = [
             id: 1,
             x: 70,
             y: 24,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
               "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
@@ -397,7 +397,7 @@ export const products = [
             id: 2,
             x: 50,
             y: 65,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.webp",
             title: "QuickShare",
             sub_title:
               "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
@@ -406,7 +406,7 @@ export const products = [
             id: 3,
             x: 50,
             y: 52,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_3.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_3.webp",
             title: "Omnidirectional Microphone",
             sub_title:
               "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
@@ -415,7 +415,7 @@ export const products = [
       },
       {
         id: 3,
-        image: "/products/KMI7000/smart/smart_3.svg",
+        image: "/products/KMI7000/smart/smart_3.webp",
         title: "LARGE MEETING ROOM",
         max: "For meetings of 6 -15 people.",
         content:
@@ -425,7 +425,7 @@ export const products = [
             id: 1,
             x: 82,
             y: 18,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
               "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
@@ -434,7 +434,7 @@ export const products = [
             id: 2,
             x: 35,
             y: 48,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_5.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_5.webp",
             title: "Ceiling Speaker",
             sub_title:
               "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
@@ -443,7 +443,7 @@ export const products = [
             id: 3,
             x: 68,
             y: 47,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_4.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_4.webp",
             title: "Paperless System",
             sub_title:
               "To replace the use of paper and make meetings more environmentally friendly.",
@@ -452,7 +452,7 @@ export const products = [
             id: 4,
             x: 35,
             y: 73,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.webp",
             title: "QuickShare",
             sub_title:
               "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
@@ -461,7 +461,7 @@ export const products = [
       },
       {
         id: 4,
-        image: "/products/KMI7000/smart/smart_4.svg",
+        image: "/products/KMI7000/smart/smart_4.webp",
         title: "CONFERENCE SPACE",
         max: "For meetings of 50 -100 people.",
         content:
@@ -471,7 +471,7 @@ export const products = [
             id: 1,
             x: 79,
             y: 18,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
               "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
@@ -480,7 +480,7 @@ export const products = [
             id: 2,
             x: 58,
             y: 32,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_4.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_4.webp",
             title: "",
             sub_title:
               "To replace the use of paper and make meetings more environmentally friendly.",
@@ -489,7 +489,7 @@ export const products = [
             id: 3,
             x: 30,
             y: 52,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_5.svg",
+            img: "/products/KMI7000/smart/smart_spots/smart_spot_5.webp",
             title: "Ceiling Speaker",
             sub_title:
               "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
@@ -501,28 +501,28 @@ export const products = [
   {
     id: 2,
     name: "Video Wall KMI 8000",
-    image: "/products/KMI8000/front.svg",
+    image: "/products/KMI8000/front.webp",
     image_implement: [
       {
         id: "none",
         title: "None",
-        image: "/products/KMI8000/implementation/front_implement_1.svg",
+        image: "/products/KMI8000/implementation/front_implement_1.webp",
       },
       {
         id: "standing",
         title: "Standing Bracket",
-        image: "/products/KMI8000/implementation/front_implement_2.svg",
+        image: "/products/KMI8000/implementation/front_implement_2.webp",
       },
       {
         id: "wall",
         title: "Wall Bracket",
-        image: "/products/KMI8000/implementation/front_implement_3.svg",
+        image: "/products/KMI8000/implementation/front_implement_3.webp",
       },
     ],
-    image_spec1: "/products/KMI8000/specification/specs_1.svg",
-    image_spec2: "/products/KMI8000/specification/specs_2.svg",
-    image_spec3: "/products/KMI8000/specification/specs_3.svg",
-    download: "/products/KMI8000/downloads/download_qr.svg",
+    image_spec1: "/products/KMI8000/specification/specs_1.webp",
+    image_spec2: "/products/KMI8000/specification/specs_2.webp",
+    image_spec3: "/products/KMI8000/specification/specs_3.webp",
+    download: "/products/KMI8000/downloads/download_qr.webp",
     hotspots: [
       {
         id: 1,
@@ -532,7 +532,7 @@ export const products = [
         y_hp: 43,
         x_tab: 60,
         y_tab: 67,
-        img: "/products/KMI8000/hotspots/hotspot_1.svg",
+        img: "/products/KMI8000/hotspots/hotspot_1.webp",
         title: "Bezel to Bezel",
         sub_title:
           "Bezel-to-bezel (B2B) refers to the visible gap between displays in a video wall. It's measured by combining the width of the bezels from two adjacent screens. The smaller the B2B, the smoother and more immersive the visual experience.",
@@ -547,7 +547,7 @@ export const products = [
         y_hp: 31,
         x_tab: 39,
         y_tab: 56,
-        img: "/products/KMI8000/hotspots/hotspot_2.svg",
+        img: "/products/KMI8000/hotspots/hotspot_2.webp",
         title: "Housing Modul",
         sub_title:
           "Physical protection from dust, heat, and mechanical damage.",
@@ -560,7 +560,7 @@ export const products = [
         y_hp: 27,
         x_tab: 77,
         y_tab: 52,
-        img: "/products/KMI8000/hotspots/hotspot_3.svg",
+        img: "/products/KMI8000/hotspots/hotspot_3.webp",
         title: "Bracket/Rel Wall Mounting",
         sub_title:
           "Used for mounting the Video Wall to a wall or video wall frame structure.",
@@ -573,7 +573,7 @@ export const products = [
         y_hp: 65,
         x_tab: 52,
         y_tab: 85,
-        img: "/products/KMI8000/hotspots/hotspot_4.svg",
+        img: "/products/KMI8000/hotspots/hotspot_4.webp",
         title: "Panel port I/O",
         sub_title:
           "Input/Output Panel – Contains ports: HDMI, DVI, VGA (Video Input), RS232 IN/OUT (Serial Control), USB (Service/Media), Audio Jack, Power IN",
@@ -586,7 +586,7 @@ export const products = [
         y_hp: 55,
         x_tab: 93,
         y_tab: 75,
-        img: "/products/KMI8000/hotspots/hotspot_5.svg",
+        img: "/products/KMI8000/hotspots/hotspot_5.webp",
         title: "Ventilation Panel",
         sub_title:
           "These holes are used for air circulation and to prevent overheating on the sides of the panel. It is important that the internal temperature of the display remains stable during prolonged operation.",
@@ -594,9 +594,9 @@ export const products = [
     ],
 
     images: {
-      front: "/products/KMI8000/front_product.svg",
-      left: "/products/KMI8000/left_product.svg",
-      back: "/products/KMI8000/back_product.svg",
+      front: "/products/KMI8000/front_product.webp",
+      left: "/products/KMI8000/left_product.webp",
+      back: "/products/KMI8000/back_product.webp",
     },
     specs: [
       {
@@ -752,7 +752,7 @@ export const products = [
     app: [
       {
         id: 1,
-        image: "/products/KMI8000/application/app_1.svg",
+        image: "/products/KMI8000/application/app_1.webp",
         title: "COMMAND CENTER",
         content:
           "The videowall acts as a visual control center that displays various information in real-time. From CCTV monitoring, traffic data, network status, to emergency conditions-all are displayed in a centralized and structured manner.",
@@ -765,7 +765,7 @@ export const products = [
       },
       {
         id: 2,
-        image: "/products/KMI8000/application/app_2.svg",
+        image: "/products/KMI8000/application/app_2.webp",
         title: "SHOPPING AREA",
         content:
           "Application of digital signage as an interactive promotional and information media for various retail stores such as",
@@ -780,7 +780,7 @@ export const products = [
       },
       {
         id: 3,
-        image: "/products/KMI8000/application/app_3.svg",
+        image: "/products/KMI8000/application/app_3.webp",
         title: "MUSEUM",
         content:
           "In museums, videowalls enrich visitors' learning experience through immersive visual displays. Historical and cultural information, as well as interactive simulations, are dynamically displayed to create an engaging and modern educational space.",
@@ -797,16 +797,16 @@ export const products = [
   {
     id: 3,
     name: "Digital Signage KMI 2000 Series",
-    image: "/products/KMI2000/front.svg",
+    image: "/products/KMI2000/front.webp",
     image_implement: [],
-    image_spec1: "/products/KMI2000/specification/specs_1.svg",
-    image_spec2: "/products/KMI2000/specification/specs_2.svg",
-    image_spec3: "/products/KMI2000/specification/specs_3.svg",
-    download: "/products/KMI2000/downloads/download_qr.svg",
+    image_spec1: "/products/KMI2000/specification/specs_1.webp",
+    image_spec2: "/products/KMI2000/specification/specs_2.webp",
+    image_spec3: "/products/KMI2000/specification/specs_3.webp",
+    download: "/products/KMI2000/downloads/download_qr.webp",
     images: {
-      front: "/products/KMI2000/front_product.svg",
-      side: "/products/KMI2000/side_product.svg",
-      back: "/products/KMI2000/back_product.svg",
+      front: "/products/KMI2000/front_product.webp",
+      side: "/products/KMI2000/side_product.webp",
+      back: "/products/KMI2000/back_product.webp",
     },
     hotspots: [
       {
@@ -817,7 +817,7 @@ export const products = [
         y_hp: -8,
         x_tab: 58,
         y_tab: 1,
-        img: "/products/KMI2000/hotspots/hotspot_1.svg",
+        img: "/products/KMI2000/hotspots/hotspot_1.webp",
         title: "Cold rolled steel plate",
         sub_title:
           "Used as the foot structure of digital signage, this material provides strong and stable support. Its smooth, corrosion-resistant surface also enhances the overall modern look, making it both functional and aesthetically pleasing.",
@@ -830,7 +830,7 @@ export const products = [
         y_hp: 9,
         x_tab: 43,
         y_tab: 12,
-        img: "/products/KMI2000/hotspots/hotspot_2.svg",
+        img: "/products/KMI2000/hotspots/hotspot_2.webp",
         title: "Tempered Glass Protect",
         sub_title:
           "Nano Oleophobic layer,Tempered Glass Layer, Explosion-proof protective, Resin Release Layer, Silicone Adhesive Layer",
@@ -843,7 +843,7 @@ export const products = [
         y_hp: 94,
         x_tab: 56,
         y_tab: 127,
-        img: "/products/KMI2000/hotspots/hotspot_3.svg",
+        img: "/products/KMI2000/hotspots/hotspot_3.webp",
         title: "Cold rolled steel plate",
         sub_title:
           "Provides strong, stable support with a smooth, corrosion-resistant surface for a sleek, modern look. ",
@@ -858,7 +858,7 @@ export const products = [
         y_hp: 0,
         x_tab: 65,
         y_tab: 25,
-        img: "/products/KMI2000/hotspots/hotspot_4.svg",
+        img: "/products/KMI2000/hotspots/hotspot_4.webp",
         title: "Dense cooling holing fast heat dissipation",
         sub_title:
           "Designed with densely arranged ventilation holes to enable fast and efficient heat dissipation, maintaining optimal operating temperature for stable performance.",
@@ -871,7 +871,7 @@ export const products = [
         y_hp: 52,
         x_tab: 65,
         y_tab: 72,
-        img: "/products/KMI2000/hotspots/hotspot_5.svg",
+        img: "/products/KMI2000/hotspots/hotspot_5.webp",
         title: "Handrail",
         sub_title:
           "Integrated handrails at the rear make it easier and safer to move or reposition the digital signage.",
@@ -884,7 +884,7 @@ export const products = [
         y_hp: 78,
         x_tab: 34,
         y_tab: 95,
-        img: "/products/KMI2000/hotspots/hotspot_6.svg",
+        img: "/products/KMI2000/hotspots/hotspot_6.webp",
         title: "Secure Lock Panel",
         sub_title:
           "Equipped with a built-in lock to protect internal components, ensuring safety and preventing unauthorized access. ",
@@ -897,7 +897,7 @@ export const products = [
         y_hp: 95,
         x_tab: 57,
         y_tab: 115,
-        img: "/products/KMI2000/hotspots/hotspot_7.svg",
+        img: "/products/KMI2000/hotspots/hotspot_7.webp",
         title: "Rear View",
         sub_title:
           "The rear panel provides essential connectivity and control access, including dual USB ports, HDMI input, LAN port for network connection, power button, and power supply input—ensuring easy setup and seamless operation.",
@@ -985,7 +985,7 @@ export const products = [
     app: [
       {
         id: 1,
-        image: "/products/KMI2000/application/app_1.svg",
+        image: "/products/KMI2000/application/app_1.webp",
         title: "RESTAURANT",
         content:
           "Application of digital signage to enhance communication, information delivery, and service efficiency in public and customer-oriented environments, such as:",
@@ -1000,7 +1000,7 @@ export const products = [
       },
       {
         id: 2,
-        image: "/products/KMI2000/application/app_2.svg",
+        image: "/products/KMI2000/application/app_2.webp",
         title: "SHOPPING AREA",
         content:
           "Application of digital signage as an interactive promotional and information media for various retail stores such as",
@@ -1015,7 +1015,7 @@ export const products = [
       },
       {
         id: 3,
-        image: "/products/KMI2000/application/app_3.svg",
+        image: "/products/KMI2000/application/app_3.webp",
         title: "STATION AREA",
         content:
           "Application of digital signage as a real-time information and wayfinding solution for various transportation facilities, such as:",
@@ -1035,14 +1035,14 @@ export const products = [
   {
     id: 4,
     name: "Digital Signage KMI 2300",
-    image: "/products/KMI2300/front.svg",
+    image: "/products/KMI2300/front.webp",
     image_implement: [],
-    image_spec1: "/products/KMI2300/specification/specs_1.svg",
-    download: "/products/KMI2300/downloads/download_qr.svg",
+    image_spec1: "/products/KMI2300/specification/specs_1.webp",
+    download: "/products/KMI2300/downloads/download_qr.webp",
     images: {
-      front: "/products/KMI2300/front_product.svg",
-      side: "/products/KMI2300/side_product.svg",
-      back: "/products/KMI2300/back_product.svg",
+      front: "/products/KMI2300/front_product.webp",
+      side: "/products/KMI2300/side_product.webp",
+      back: "/products/KMI2300/back_product.webp",
     },
     hotspots: [
       {
@@ -1053,7 +1053,7 @@ export const products = [
         y_hp: -10,
         x_tab: 58,
         y_tab: 2,
-        img: "/products/KMI2300/hotspots/hotspot_1.svg",
+        img: "/products/KMI2300/hotspots/hotspot_1.webp",
         title: "Camera/Mic",
         sub_title:
           "5 megapixel monocular camera with USB standard UVC protocol (auto focus)",
@@ -1066,7 +1066,7 @@ export const products = [
         y_hp: 12,
         x_tab: 44,
         y_tab: 32,
-        img: "/products/KMI2300/hotspots/hotspot_2.svg",
+        img: "/products/KMI2300/hotspots/hotspot_2.webp",
         title: "Tempered Glass Protect",
         sub_title:
           "Nano Oleophobic layer,Tempered Glass Layer, Explosion-proof protective, Resin Release Layer, Silicone Adhesive Layer",
@@ -1079,7 +1079,7 @@ export const products = [
         y_hp: 50,
         x_tab: 50,
         y_tab: 70,
-        img: "/products/KMI2300/hotspots/hotspot_3.svg",
+        img: "/products/KMI2300/hotspots/hotspot_3.webp",
         title: "QR Code Scanner",
         sub_title: "QR Code scanner support 1D 2D QR codes",
       },
@@ -1091,7 +1091,7 @@ export const products = [
         y_hp: 61,
         x_tab: 65,
         y_tab: 83,
-        img: "/products/KMI2300/hotspots/hotspot_4.svg",
+        img: "/products/KMI2300/hotspots/hotspot_4.webp",
         title: "Thermal Printer",
         sub_title:
           "Built-in 80mm thermal printer, auto-matic cutting machine provides more efficient and stable receipt printing service",
@@ -1104,7 +1104,7 @@ export const products = [
         y_hp: 67,
         x_tab: 50,
         y_tab: 88,
-        img: "/products/KMI2300/hotspots/hotspot_5.svg",
+        img: "/products/KMI2300/hotspots/hotspot_5.webp",
         title: "Finger Print",
         sub_title:
           "Used for quick and secure verification of user identity through fingerprint scanning.",
@@ -1117,7 +1117,7 @@ export const products = [
         y_hp: 63,
         x_tab: 32,
         y_tab: 85,
-        img: "/products/KMI2300/hotspots/hotspot_6.svg",
+        img: "/products/KMI2300/hotspots/hotspot_6.webp",
         title: "NFC Card Reader",
         sub_title: "Read/Write speed of up to 848 Kbps",
       },
@@ -1131,7 +1131,7 @@ export const products = [
         y_hp: 6,
         x_tab: 58,
         y_tab: 25,
-        img: "/products/KMI2300/hotspots/hotspot_7.svg",
+        img: "/products/KMI2300/hotspots/hotspot_7.webp",
         title: "Dense cooling holing fast heat dissipation",
         sub_title:
           "Designed with densely arranged ventilation holes to enable fast and efficient heat dissipation, maintaining optimal operating temperature for stable performance.",
@@ -1144,7 +1144,7 @@ export const products = [
         y_hp: 63,
         x_tab: 62,
         y_tab: 68,
-        img: "/products/KMI2300/hotspots/hotspot_8.svg",
+        img: "/products/KMI2300/hotspots/hotspot_8.webp",
         title: "Handrail",
         sub_title:
           "Integrated handrails at the rear make it easier and safer to move or reposition the digital signage.",
@@ -1157,7 +1157,7 @@ export const products = [
         y_hp: 78,
         x_tab: 60,
         y_tab: 90,
-        img: "/products/KMI2300/hotspots/hotspot_9.svg",
+        img: "/products/KMI2300/hotspots/hotspot_9.webp",
         title: "Secure Lock Panel",
         sub_title:
           "Equipped with a built-in lock to protect internal components, ensuring safety and preventing unauthorized access.",
@@ -1170,7 +1170,7 @@ export const products = [
         y_hp: 95,
         x_tab: 58,
         y_tab: 115,
-        img: "/products/KMI2300/hotspots/hotspot_10.svg",
+        img: "/products/KMI2300/hotspots/hotspot_10.webp",
         title: "Rear View",
         sub_title:
           "The rear panel provides essential connectivity and control access, including dual USB ports, HDMI input, LAN port for network connection, power button, and power supply input—ensuring easy setup and seamless operation.",
@@ -1243,7 +1243,7 @@ export const products = [
     app: [
       {
         id: 1,
-        image: "/products/KMI2300/application/app_1.svg",
+        image: "/products/KMI2300/application/app_1.webp",
         title: "CONCERT",
         content:
           "Our digital screen solutions deliver an interactive and informative experience at every concert. From artist information, performance schedules, to a streamlined digital ticketing system-all accessible directly through interactive screens.",
@@ -1257,7 +1257,7 @@ export const products = [
       },
       {
         id: 2,
-        image: "/products/KMI2300/application/app_2.svg",
+        image: "/products/KMI2300/application/app_2.webp",
         title: "SHOPPING AREA",
         content:
           "Application of digital signage as an interactive promotional and information media for various retail stores such as",
@@ -1272,7 +1272,7 @@ export const products = [
       },
       {
         id: 3,
-        image: "/products/KMI2300/application/app_3.svg",
+        image: "/products/KMI2300/application/app_3.webp",
         title: "RESTAURANT",
         content:
           "Application of digital signage to enhance communication, information delivery, and service efficiency in public and customer-oriented environments, such as:",
@@ -1292,25 +1292,25 @@ export const products = [
   {
     id: 5,
     name: "Digital Kiosk Signage KMI 4100 & 4200",
-    image: "/products/KMI4100&4200/front.svg",
+    image: "/products/KMI4100&4200/front.webp",
     image_implement: [
       {
         id: "none",
         title: "None",
-        image: "/products/KMI4100&4200/implementation/front_implement_1.svg",
+        image: "/products/KMI4100&4200/implementation/front_implement_1.webp",
       },
       {
         id: "standing",
         title: "Standing Bracket",
-        image: "/products/KMI4100&4200/implementation/front_implement_2.svg",
+        image: "/products/KMI4100&4200/implementation/front_implement_2.webp",
       },
     ],
-    image_spec1: "/products/KMI4100&4200/specification/specs_1.svg",
-    download: "/products/KMI4100&4200/downloads/download_qr.svg",
+    image_spec1: "/products/KMI4100&4200/specification/specs_1.webp",
+    download: "/products/KMI4100&4200/downloads/download_qr.webp",
     images: {
-      front: "/products/KMI4100&4200/front_product.svg",
-      side: "/products/KMI4100&4200/side_product.svg",
-      back: "/products/KMI4100&4200/back_product.svg",
+      front: "/products/KMI4100&4200/front_product.webp",
+      side: "/products/KMI4100&4200/side_product.webp",
+      back: "/products/KMI4100&4200/back_product.webp",
     },
     hotspots: [
       {
@@ -1321,7 +1321,7 @@ export const products = [
         y_hp: 30,
         x_tab: 65,
         y_tab: 50,
-        img: "/products/KMI4100&4200/hotspots/hotspot_1.svg",
+        img: "/products/KMI4100&4200/hotspots/hotspot_1.webp",
         title: "Tempered Glass Protect",
         sub_title:
           "Nano Oleophobic layer,Tempered Glass Layer, Explosion-proof protective, Resin Release Layer, Silicone Adhesive Layer",
@@ -1336,7 +1336,7 @@ export const products = [
         y_hp: 28,
         x_tab: 70,
         y_tab: 55,
-        img: "/products/KMI4100&4200/hotspots/hotspot_2.svg",
+        img: "/products/KMI4100&4200/hotspots/hotspot_2.webp",
         title: "Connectivity Ports",
         sub_title:
           "This device has DC, HDMI, VGA, USB 3.0/2.0, RJ45, and audio and mic ports, supporting power, display, data, network, and audio connections.",
@@ -1349,7 +1349,7 @@ export const products = [
         y_hp: 65,
         x_tab: 32,
         y_tab: 85,
-        img: "/products/KMI4100&4200/hotspots/hotspot_3.svg",
+        img: "/products/KMI4100&4200/hotspots/hotspot_3.webp",
         title: "Main Power Panel",
         sub_title:
           "This device has DC, HDMI, VGA, USB 3.0/2.0, RJ45, and audio and mic ports, supporting power, display, data, network, and audio connections.",
@@ -1413,7 +1413,7 @@ export const products = [
     app: [
       {
         id: 1,
-        image: "/products/KMI4100&4200/application/app_1.svg",
+        image: "/products/KMI4100&4200/application/app_1.webp",
         title: "SHOPPING AREA",
         content:
           "An interactive touch screen that displays maps and information of shops within a shopping center. This tool helps visitors find store locations, public facilities, as well as the fastest way to reach them. Such us:",
@@ -1428,7 +1428,7 @@ export const products = [
       },
       {
         id: 2,
-        image: "/products/KMI4100&4200/application/app_2.svg",
+        image: "/products/KMI4100&4200/application/app_2.webp",
         title: "STATION AREA",
         content:
           "Application of Capacitive Touch Inquiry Kiosk as a real-time information and wayfinding solution for various transportation facilities, such as:",
@@ -1443,7 +1443,7 @@ export const products = [
       },
       {
         id: 3,
-        image: "/products/KMI4100&4200/application/app_3.svg",
+        image: "/products/KMI4100&4200/application/app_3.webp",
         title: "Museum",
         content:
           "In museums, Capacitive Touch Inquiry Kiosk enrich visitors' learning experience through immersive visual displays. Historical and cultural information, as well as interactive simulations, are dynamically displayed to create an engaging and modern educational space.",

@@ -266,7 +266,7 @@ const Application = ({
         </div>
       </div>
 
-      <div className="w-full h-screen pt-24 md:pt-32 pb-16 md:pb-24 bg-[#e7f4f3] px-4 lg:px-12 box-border overflow-hidden">
+      <div className="w-full h-screen pt-24 md:pt-32 pb-16 md:pb-24 bg-[#e7f4f3] px-4 lg:px-12 overflow-hidden">
         <div className="max-w-7xl mx-auto h-full flex flex-col">
           <div className="flex-grow flex items-center justify-center">
             <div className="flex items-center justify-center w-full">

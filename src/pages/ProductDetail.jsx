@@ -317,7 +317,7 @@ function ProductDetail({
           <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16">
             {/* Main Image */}
             <div
-              className={`w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center transition-all duration-700 ${
+              className={`w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center z-[60] transition-all duration-700 ${
                 isVisible
                   ? "opacity-100 transform translate-y-0"
                   : "opacity-0 transform translate-y-5"
