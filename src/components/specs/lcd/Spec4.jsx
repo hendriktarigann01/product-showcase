@@ -38,7 +38,7 @@ export function Spec4({ spec, layout = "default" }) {
   // Layout untuk side-by-side (single image) - responsive version
   if (layout === "side") {
     return (
-      <div className="flex justify-center items-center px-4 mt-0 lg:mt-10">
+      <div className="flex justify-center items-center px-4 mt-0">
         <div className="w-full max-w-md lg:max-w-none">
           <table className="w-full text-left text-xs lg:text-sm text-gray-600">
             <tbody>

@@ -129,7 +129,7 @@ function Carousel3D({ slides, goToSlide, onSlideChange }) {
 function SingleImageDisplay({ image, productName }) {
   return (
     <div className="flex justify-center h-full">
-      <div className="max-w-full lg:max-w-2xl flex items-center">
+      <div className="max-w-full lg:max-w-2xl flex items-center mt-14 md:mt-0">
         <img
           src={image}
           alt={`${productName} specification`}
@@ -296,44 +296,46 @@ const Specification = ({ product, onBack }) => {
         </div>
       </div>
 
-      {hasMultipleImages ? (
-        // Multiple images - gunakan carousel layout yang sudah ada
-        <>
-          <div className="mt-14 sm:mt-16 px-4 sm:px-6 md:px-8 mb-0 md:mb-4">
-            <div className="max-w-7xl mx-auto">
-              <div className="relative flex items-center justify-center">
-                <Carousel3D
-                  slides={slides}
-                  goToSlide={goToSlide}
-                  onSlideChange={handleSlideChange}
-                />
-                <button
-                  onClick={prevSlide}
-                  className="absolute -left-2 sm:left-2 md:left-4 top-[90%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
-                >
-                  <MoveLeft size={16} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
-                </button>
-                <button
-                  onClick={nextSlide}
-                  className="absolute -right-2 sm:right-2 md:right-4 top-[90%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
-                >
-                  <MoveRight
-                    size={16}
-                    className="sm:w-5 sm:h-5 md:w-6 md:h-6"
+      {/* Main Content - Flex grow to fill available space */}
+      <div className="flex-grow flex mt-14 md:mt-16 md:items-center md:justify-center">
+        <div className="max-w-7xl mx-auto w-full">
+          {hasMultipleImages ? (
+            // Multiple images - gunakan carousel layout yang sudah ada
+            <>
+              <div className="px-4 sm:px-6 md:px-8 mb-0 md:mb-4">
+                <div className="relative flex items-center justify-center">
+                  <Carousel3D
+                    slides={slides}
+                    goToSlide={goToSlide}
+                    onSlideChange={handleSlideChange}
                   />
-                </button>
+                  <button
+                    onClick={prevSlide}
+                    className="absolute -left-2 sm:left-2 md:left-4 top-[90%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  >
+                    <MoveLeft
+                      size={16}
+                      className="sm:w-5 sm:h-5 md:w-6 md:h-6"
+                    />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className="absolute -right-2 sm:right-2 md:right-4 top-[90%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  >
+                    <MoveRight
+                      size={16}
+                      className="sm:w-5 sm:h-5 md:w-6 md:h-6"
+                    />
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
-          <div className="px-4 sm:px-6 md:px-8 pb-20">{renderSpec()}</div>
-        </>
-      ) : (
-        // Single image - FIXED: Proper height calculation and no scroll
-        <div className="flex-1 flex flex-col pt-20 sm:pt-24 md:pt-28 pb-20">
-          <div className="flex-1 px-4 sm:px-6 md:px-8 flex items-center justify-center">
-            <div className="max-w-7xl w-full">
-              <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 md:gap-8 h-full">
-                {/* Single Image - Fixed height container */}
+              <div className="px-4 sm:px-6 md:px-8">{renderSpec()}</div>
+            </>
+          ) : (
+            // Single image - Layout side by side
+            <div className="px-4 sm:px-6 md:px-12 lg:px-20 flex items-center justify-center">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center gap-6 lg:gap-12 w-full max-w-[1600px]">
+                {/* Single Image */}
                 <div className="w-full lg:flex-1 flex justify-center items-center">
                   <SingleImageDisplay
                     image={productImages[0]}
@@ -341,17 +343,15 @@ const Specification = ({ product, onBack }) => {
                   />
                 </div>
 
-                {/* Specifications - Fixed height container */}
-                <div className="w-full lg:flex-1 flex items-center justify-center">
-                  <div className="w-full max-w-md lg:max-w-none">
-                    {renderSpec()}
-                  </div>
+                {/* Specifications */}
+                <div className="w-full lg:flex-1 flex justify-center items-center">
+                  <div className="w-full max-w-2xl">{renderSpec()}</div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
-      )}
+      </div>
 
       {/* Contact Info - Fixed at bottom */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">

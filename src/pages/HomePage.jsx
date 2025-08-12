@@ -310,26 +310,32 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
           {/* Toggle Mobile */}
           <div className="flex justify-center mb-2 lg:hidden">
-            <span className="text-sm font-medium text-gray-400">
-              LED Display
+            <span
+              className={`text-sm font-medium ${
+                !isLED ? "text-gray-600" : "text-gray-300"
+              }`}
+            >
+              LCD Display
             </span>
-
             <div className="relative inline-block w-11 h-5 mx-3">
               <input
                 id="display-toggle"
                 type="checkbox"
                 checked={isLED}
                 onChange={() => setIsLED(!isLED)}
-                className="peer appearance-none w-11 h-4 bg-slate-100 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
+                className="peer appearance-none w-11 h-4 bg-teal-500 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
               />
               <label
                 htmlFor="display-toggle"
                 className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
               ></label>
             </div>
-
-            <span className="text-sm font-medium text-gray-400">
-              LCD Display
+            <span
+              className={`text-sm font-medium ${
+                isLED ? "text-gray-600" : "text-gray-300"
+              }`}
+            >
+              LED Display
             </span>
           </div>
           {/* Baris Website & Phone (dan toggle di desktop) */}
@@ -346,26 +352,32 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
 
             {/* Toggle Desktop */}
             <div className="hidden lg:flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-400">
-                LED Display
+              <span
+                className={`text-sm font-medium ${
+                  !isLED ? "text-gray-600" : "text-gray-300"
+                }`}
+              >
+                LCD Display
               </span>
-
               <div className="relative inline-block w-11 h-5 mx-3">
                 <input
                   id="display-toggle"
                   type="checkbox"
                   checked={isLED}
                   onChange={() => setIsLED(!isLED)}
-                  className="peer appearance-none w-11 h-4 bg-slate-100 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
+                  className="peer appearance-none w-11 h-4 bg-teal-500 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
                 />
                 <label
                   htmlFor="display-toggle"
                   className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
                 ></label>
               </div>
-
-              <span className="text-sm font-medium text-gray-400">
-                LCD Display
+              <span
+                className={`text-sm font-medium ${
+                  isLED ? "text-gray-600" : "text-gray-300"
+                }`}
+              >
+                LED Display
               </span>
             </div>
 

@@ -173,8 +173,8 @@ export const products = [
         id: 2,
         appId: 2,
         title: "Smart Meeting Room",
-        x: 54,
-        y: 30,
+        x: 50,
+        y: 28,
         style: {
           left: 245,
           top: 28,
