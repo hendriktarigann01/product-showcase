@@ -1,8 +1,8 @@
 import React, { useRef, useEffect, useState } from "react";
 import ImageHotspot from "../../../components/ImageHotspot";
-import { useNavigate } from "react-router-dom";
 import { Check } from "lucide-react";
 import { useMorphTransition } from "../../../utils/MorphTransitionApp";
+import { processHotspots } from "../../../utils/ResponsiveHotspot";
 
 function Header({ title, subtitle, onBack, showBackButton }) {
   return (
@@ -64,8 +64,30 @@ function ContactInfo() {
 const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
   const imageRef = useRef(null);
   const [showContent, setShowContent] = useState(false);
-  const navigate = useNavigate();
-  const { transitionData, endTransition } = useMorphTransition();
+  const [responsiveHotspots, setResponsiveHotspots] = useState([]);
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const { endTransition } = useMorphTransition();
+
+  // Update hotspots when screen size changes or selectedApp changes
+  useEffect(() => {
+    const updateHotspots = () => {
+      if (selectedApp?.hotspots) {
+        const processed = processHotspots(selectedApp.hotspots);
+        setResponsiveHotspots(processed);
+      }
+    };
+
+    updateHotspots();
+
+    const handleResize = () => {
+      const newScreenSize = window.innerWidth;
+      setScreenSize(newScreenSize);
+      updateHotspots();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [selectedApp]);
 
   useEffect(() => {
     if (selectedApp) {
@@ -98,7 +120,6 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
   }, []);
 
   const handleBack = () => {
-    // Always call onBack callback, jangan gunakan navigate(-1)
     if (onBack) {
       onBack();
     }
@@ -111,11 +132,14 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
     return Object.entries(typeObject)
       .filter(([, value]) => value === true)
       .map(([key], index) => (
-        <div key={index} className="flex gap-4 items-center justify-start">
-          <div className="w-5 h-5 bg-teal-500 rounded-full flex justify-center items-center">
-            <Check size={12} className="text-white" />
+        <div
+          key={index}
+          className="flex gap-2 md:gap-4 items-center justify-start"
+        >
+          <div className="w-4 h-4 lg:w-5 lg:h-5 bg-teal-500 rounded-full flex justify-center items-center">
+            <Check size={11} className="text-white" />
           </div>
-          <span className="capitalize text-left text-lg text-gray-600">
+          <span className="capitalize text-left text-gray-600">
             {key.replace(/_/g, " ")}
           </span>
         </div>
@@ -146,11 +170,11 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
                 data-detail-image="true"
                 style={{ zIndex: 2 }} // Higher z-index to ensure hotspot cards appear on top
               >
-                {selectedApp.hotspots && selectedApp.hotspots.length > 0 ? (
+                {responsiveHotspots && responsiveHotspots.length > 0 ? (
                   <div className="relative w-full">
                     <ImageHotspot
                       imageSrc={selectedApp.image}
-                      hotspots={selectedApp.hotspots}
+                      hotspots={responsiveHotspots}
                       productName={selectedApp.title}
                       containerClass="relative w-full h-full"
                       showRadarEffect={true}
@@ -173,27 +197,28 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
               </div>
             </div>
 
-            {/* Information Panel - Moved to top on mobile */}
+            {/* Information Panel */}
             <div
-              className={`flex-1 flex h-[250px] flex-col justify-center w-full max-w-full lg:max-w-sm order-2 lg:order-2 text-center lg:text-left transition-all duration-300 ease-out delay-100 ${
-                showContent
-                  ? "opacity-100 translate-y-0 lg:translate-x-0"
-                  : "opacity-0 translate-y-4 lg:translate-x-8"
-              }`}
-              style={{ zIndex: 1 }} // Lower z-index than hotspot cards
+              className={`flex-1 flex h-[250px] flex-col justify-center w-full max-w-full lg:max-w-sm order-2 lg:order-2 text-left transition-all duration-300 ease-out delay-100           
+                        ${
+                          showContent
+                            ? "opacity-100 translate-y-0 lg:translate-x-0"
+                            : "opacity-0 translate-y-4 lg:translate-x-8"
+                        }`}
+              style={{ zIndex: 1 }}
             >
               {/* Title */}
-              <h2 className="text-xl md:text-2xl font-bold text-gray-600 uppercase">
+              <h2 className="text-base md:text-2xl font-bold text-gray-600 uppercase mx-0 md:mx-12 lg:mx-0">
                 {selectedApp.title}
               </h2>
 
               {/* Description */}
-              <p className="text-gray-600 text-base md:text-lg/7 my-3 md:my-4">
+              <p className="text-gray-600 text-xs md:text-base my-1 md:my-4 mx-0 md:mx-12 lg:mx-0">
                 {selectedApp.content}
               </p>
 
               {/* Type */}
-              <div className="text-gray-600 text-base md:text-lg/8">
+              <div className="text-gray-600 text-xs/6 md:text-base mx-0 md:mx-12 lg:mx-0">
                 {renderTypes(selectedApp.type)}
               </div>
             </div>

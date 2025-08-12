@@ -147,8 +147,8 @@ export const products_led = [
         style: {
           left: 170,
           top: 5,
-          width: 600,
-          height: 500,
+          width: 0,
+          height: 0,
           zIndex: 2,
         },
       },
@@ -160,8 +160,8 @@ export const products_led = [
         style: {
           left: 170,
           top: 5,
-          width: 600,
-          height: 500,
+          width: 0,
+          height: 0,
           zIndex: 3,
         },
       },

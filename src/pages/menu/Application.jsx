@@ -142,7 +142,7 @@ const Application = ({
   // Calculate responsive hotspot positioning
   const getResponsiveHotspotPosition = (x, y) => {
     return {
-      x: x, // Keep percentage-based positioning
+      x: x,
       y: y,
     };
   };

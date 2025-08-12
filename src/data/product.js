@@ -210,6 +210,10 @@ export const products = [
             id: 1,
             x: 26,
             y: 20,
+            x_hp: 27,
+            y_hp: 8,
+            x_tab: 26,
+            y_tab: 20,
             img: "/products/KMI7000/application/app_spots/app_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
@@ -219,6 +223,10 @@ export const products = [
             id: 2,
             x: 38,
             y: 35,
+            x_hp: 38,
+            y_hp: 25,
+            x_tab: 38,
+            y_tab: 35,
             img: "/products/KMI7000/application/app_spots/app_spot_2.webp",
             title: "QuickShare",
             sub_title:
@@ -237,6 +245,10 @@ export const products = [
             id: 1,
             x: 72,
             y: 16,
+            x_hp: 70,
+            y_hp: 8,
+            x_tab: 72,
+            y_tab: 16,
             img: "/products/KMI7000/application/app_spots/app_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
@@ -246,6 +258,10 @@ export const products = [
             id: 2,
             x: 49,
             y: 53,
+            x_hp: 49,
+            y_hp: 40,
+            x_tab: 49,
+            y_tab: 53,
             img: "/products/KMI7000/application/app_spots/app_spot_3.webp",
             title: "Omnidirectional Microphone",
             sub_title:
@@ -255,6 +271,10 @@ export const products = [
             id: 3,
             x: 38,
             y: 72,
+            x_hp: 38,
+            y_hp: 60,
+            x_tab: 38,
+            y_tab: 72,
             img: "/products/KMI7000/application/app_spots/app_spot_2.webp",
             title: "QuickShare",
             sub_title:
@@ -273,6 +293,10 @@ export const products = [
             id: 1,
             x: 72,
             y: 16,
+            x_hp: 70,
+            y_hp: 8,
+            x_tab: 72,
+            y_tab: 16,
             img: "/products/KMI7000/application/app_spots/app_spot_1.webp",
             title: "RTZ Camera",
             sub_title:
@@ -282,6 +306,10 @@ export const products = [
             id: 2,
             x: 36,
             y: 58,
+            x_hp: 36,
+            y_hp: 54,
+            x_tab: 36,
+            y_tab: 58,
             img: "/products/KMI7000/application/app_spots/app_spot_4.webp",
             title: "Paperless System",
             sub_title:
@@ -291,6 +319,10 @@ export const products = [
             id: 3,
             x: 52,
             y: 60,
+            x_hp: 52,
+            y_hp: 49,
+            x_tab: 48,
+            y_tab: 60,
             img: "/products/KMI7000/application/app_spots/app_spot_2.webp",
             title: "QuickShare",
             sub_title:
@@ -300,6 +332,10 @@ export const products = [
             id: 4,
             x: 50,
             y: 48,
+            x_hp: 50,
+            y_hp: 35,
+            x_tab: 50,
+            y_tab: 48,
             img: "/products/KMI7000/application/app_spots/app_spot_3.webp",
             title: "Omnidirectional Microphone",
             sub_title:
@@ -315,27 +351,6 @@ export const products = [
         y: 57,
         title: "Small Meeting Room",
         smartId: 2,
-      },
-      {
-        id: 2,
-        x: 48,
-        y: 33,
-        title: "Medium Meeting Room",
-        smartId: 3,
-      },
-      {
-        id: 3,
-        x: 70,
-        y: 50,
-        title: "Conference Space",
-        smartId: 4,
-      },
-      {
-        id: 4,
-        x: 43,
-        y: 75,
-        title: "Large Meeting Room",
-        smartId: 1,
       },
     ],
     smart: [
@@ -373,126 +388,6 @@ export const products = [
             title: "Omnidirectional Microphone",
             sub_title:
               "The audio is clear and evenly distributed throughout the room.",
-          },
-        ],
-      },
-      {
-        id: 2,
-        image: "/products/KMI7000/smart/smart_2.webp",
-        title: "SMALL MEETING ROOM",
-        max: "For meetings of 2-5 people.",
-        content:
-          "For small meeting rooms that require intense interaction and dynamic collaboration, we recommend Interactive Whiteboard-based solutions.",
-        hotspots: [
-          {
-            id: 1,
-            x: 70,
-            y: 24,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.webp",
-            title: "RTZ Camera",
-            sub_title:
-              "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
-          },
-          {
-            id: 2,
-            x: 50,
-            y: 65,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.webp",
-            title: "QuickShare",
-            sub_title:
-              "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
-          },
-          {
-            id: 3,
-            x: 50,
-            y: 52,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_3.webp",
-            title: "Omnidirectional Microphone",
-            sub_title:
-              "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
-          },
-        ],
-      },
-      {
-        id: 3,
-        image: "/products/KMI7000/smart/smart_3.webp",
-        title: "LARGE MEETING ROOM",
-        max: "For meetings of 6 -15 people.",
-        content:
-          "For large meeting rooms that accommodate many participants, we recommend solutions based on Video Wall, LED Display or Interactive Whiteboard.",
-        hotspots: [
-          {
-            id: 1,
-            x: 82,
-            y: 18,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.webp",
-            title: "RTZ Camera",
-            sub_title:
-              "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
-          },
-          {
-            id: 2,
-            x: 35,
-            y: 48,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_5.webp",
-            title: "Ceiling Speaker",
-            sub_title:
-              "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
-          },
-          {
-            id: 3,
-            x: 68,
-            y: 47,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_4.webp",
-            title: "Paperless System",
-            sub_title:
-              "To replace the use of paper and make meetings more environmentally friendly.",
-          },
-          {
-            id: 4,
-            x: 35,
-            y: 73,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_2.webp",
-            title: "QuickShare",
-            sub_title:
-              "Sharing content from your laptop, tablet or smartphone to your screen becomes as easy as a touch. Eliminate the hassle of cables and dongles, and focus on the heart of the meeting.",
-          },
-        ],
-      },
-      {
-        id: 4,
-        image: "/products/KMI7000/smart/smart_4.webp",
-        title: "CONFERENCE SPACE",
-        max: "For meetings of 50 -100 people.",
-        content:
-          "For conference rooms that require a comprehensive audiovisual solution, we offer a combination of two LED Display/Video Wall screens and an Interactive Whiteboard.",
-        hotspots: [
-          {
-            id: 1,
-            x: 79,
-            y: 18,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_1.webp",
-            title: "RTZ Camera",
-            sub_title:
-              "Ensure that every participant, whether physically or virtually present, is clearly visible with the remote-controlled PTZ camera. Capture every important detail and create a more immersive meeting experience.",
-          },
-          {
-            id: 2,
-            x: 58,
-            y: 32,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_4.webp",
-            title: "",
-            sub_title:
-              "To replace the use of paper and make meetings more environmentally friendly.",
-          },
-          {
-            id: 3,
-            x: 30,
-            y: 52,
-            img: "/products/KMI7000/smart/smart_spots/smart_spot_5.webp",
-            title: "Ceiling Speaker",
-            sub_title:
-              "Capture sound from all corners of the room clearly and evenly. Make sure every utterance is clearly audible to all participants, both inside and outside the room.",
           },
         ],
       },
@@ -1374,10 +1269,10 @@ export const products = [
         x: 39,
         y: 62,
         style: {
-          left: 142,
-          top: 143,
-          width: 425.52,
-          height: 305.1,
+          left: 148,
+          top: 141,
+          width: 409,
+          height: 300,
           zIndex: 3,
         },
       },

@@ -27,7 +27,8 @@ export function Spec2_LED({ specs }) {
 
   return (
     <div className="px-8 mt-4">
-      <table className="table-fixed flex justify-center w-full text-left text-sm text-gray-600">
+      {/* Desktop Layout */}
+      <table className="hidden md:table table-fixed w-full text-left text-sm text-gray-600 text-[11px] lg:text-sm">
         <tbody>
           <tr>
             <td className="py-2 px-4 font-medium w-48">
@@ -97,6 +98,99 @@ export function Spec2_LED({ specs }) {
           </tr>
         </tbody>
       </table>
+
+      {/* Mobile Layout */}
+      <div className="md:hidden space-y-2">
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("refresh_rate")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.refresh_rate)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("brightness")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.brightness)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("module_size")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.module_size)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("module_pixels")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.module_pixels)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("module_resolution")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.module_resolution)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("module_weight")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.module_weight)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("cabinet_size")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.cabinet_size)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("max_power")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.max_power)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("cabinet_resolution")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.cabinet_resolution)}
+          </span>
+        </div>
+
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("weight")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.weight)}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

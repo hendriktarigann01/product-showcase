@@ -19,16 +19,6 @@ function Carousel3D({ slides, goToSlide, onSlideChange }) {
     }
   }, [goToSlide, currentIndex, onSlideChange]);
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
-
   const getSlideStyle = (index) => {
     const diff = index - currentIndex;
     const isActive = diff === 0;
@@ -119,7 +109,7 @@ function Carousel3D({ slides, goToSlide, onSlideChange }) {
         {slides.map((slide, index) => (
           <div
             key={index}
-            className="absolute w-[280px] h-[200px] sm:w-[400px] sm:h-[250px] md:w-[500px] md:h-[280px] lg:w-[600px] lg:h-[335px] cursor-pointer"
+            className="absolute w-[240px] h-[200px] sm:w-[400px] sm:h-[250px] md:w-[500px] md:h-[280px] lg:w-[600px] lg:h-[335px] cursor-pointer"
             style={
               window.innerWidth >= 1024
                 ? getDesktopSlideStyle(index)
@@ -138,12 +128,12 @@ function Carousel3D({ slides, goToSlide, onSlideChange }) {
 // Component untuk single image display
 function SingleImageDisplay({ image, productName }) {
   return (
-    <div className="flex justify-center">
-      <div className="max-w-full lg:max-w-6xl">
+    <div className="flex justify-center h-full">
+      <div className="max-w-full lg:max-w-2xl flex items-center">
         <img
           src={image}
           alt={`${productName} specification`}
-          className="w-full h-48 sm:h-64 md:h-80 lg:h-96 mt-4 md:mt-8 lg:mt-10 object-contain"
+          className="w-full max-h-[180px] sm:max-h-[250px] md:max-h-[300px] lg:max-h-[350px] object-contain"
         />
       </div>
     </div>
@@ -166,6 +156,17 @@ const Specification = ({ product, onBack }) => {
   const hasMultipleImages = productImages.length > 1;
 
   useEffect(() => {
+    // Disable scrolling
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
+    };
+  }, []);
+
+  useEffect(() => {
     const newSpec = product.specs?.[currentIndex] || product.specs?.[0] || {};
     setCurrentSpec(newSpec);
   }, [currentIndex, product.specs]);
@@ -183,7 +184,6 @@ const Specification = ({ product, onBack }) => {
         </div>
       </div>
     ),
-    onClick: () => setGoToSlide(index),
   }));
 
   const nextSlide = () => {
@@ -264,14 +264,11 @@ const Specification = ({ product, onBack }) => {
     return <Spec1 spec={currentSpec} layout={layoutType} />;
   };
 
-  const handleBack = () => {
-    if (onBack) {
-      onBack();
-    }
-  };
-
   return (
-    <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
+    <div
+      className="flex flex-col bg-[#e7f4f3] overflow-hidden"
+      style={{ height: "100dvh" }}
+    >
       {/* Header */}
       <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-50">
         <div className="my-4 mx-4 md:my-6 md:mx-6">
@@ -312,13 +309,13 @@ const Specification = ({ product, onBack }) => {
                 />
                 <button
                   onClick={prevSlide}
-                  className="absolute -left-2 sm:left-2 md:left-4 top-[105%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute -left-2 sm:left-2 md:left-4 top-[90%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
                 >
                   <MoveLeft size={16} className="sm:w-5 sm:h-5 md:w-6 md:h-6" />
                 </button>
                 <button
                   onClick={nextSlide}
-                  className="absolute -right-2 sm:right-2 md:right-4 top-[105%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
+                  className="absolute -right-2 sm:right-2 md:right-4 top-[90%] md:top-[90%] transform -translate-y-1/2 w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg z-10"
                 >
                   <MoveRight
                     size={16}
@@ -331,28 +328,32 @@ const Specification = ({ product, onBack }) => {
           <div className="px-4 sm:px-6 md:px-8 pb-20">{renderSpec()}</div>
         </>
       ) : (
-        // Single image - responsive layout
-        <div className="min-h-screen px-4 sm:px-6 md:px-8 pt-16 sm:pt-20 md:pt-24 pb-20">
-          <div className="max-w-7xl w-full mx-auto">
-            <div className="flex flex-col my-5 lg:flex-row items-center justify-center lg:items-start gap-2 sm:gap-4 md:gap-6">
-              {/* Single Image */}
-              <div className="w-full lg:flex-1 flex justify-center my-auto">
-                <SingleImageDisplay
-                  image={productImages[0]}
-                  productName={product.name}
-                />
-              </div>
+        // Single image - FIXED: Proper height calculation and no scroll
+        <div className="flex-1 flex flex-col pt-20 sm:pt-24 md:pt-28 pb-20">
+          <div className="flex-1 px-4 sm:px-6 md:px-8 flex items-center justify-center">
+            <div className="max-w-7xl w-full">
+              <div className="flex flex-col lg:flex-row items-center justify-center lg:items-stretch gap-4 md:gap-8 h-full">
+                {/* Single Image - Fixed height container */}
+                <div className="w-full lg:flex-1 flex justify-center items-center">
+                  <SingleImageDisplay
+                    image={productImages[0]}
+                    productName={product.name}
+                  />
+                </div>
 
-              {/* Specifications */}
-              <div className="w-full lg:flex-1 mt-4 lg:mt-0">
-                {renderSpec()}
+                {/* Specifications - Fixed height container */}
+                <div className="w-full lg:flex-1 flex items-center justify-center">
+                  <div className="w-full max-w-md lg:max-w-none">
+                    {renderSpec()}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Contact Info - Embedded */}
+      {/* Contact Info - Fixed at bottom */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
           <div className="flex justify-between items-center flex-wrap">

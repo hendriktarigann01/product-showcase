@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ImageHotspot from "../components/ImageHotspot";
 import { useMorphTransition } from "../utils/MorphTransition";
 import { Download } from "./menu/Download";
+import { processHotspots } from "../utils/ResponsiveHotspot";
 
 // Configuration
 const PRODUCT_TITLES = {
@@ -59,7 +60,7 @@ function ProductDetail({
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -119,51 +120,8 @@ function ProductDetail({
       }));
   };
 
-  // Helper function to get responsive coordinates based on screen size
-  const getResponsiveCoordinates = (hotspot) => {
-    // Detect screen size using window width
-    const screenWidth = window.innerWidth;
-
-    // Mobile: < 768px
-    if (screenWidth < 768) {
-      return {
-        x: hotspot.x_hp !== undefined ? hotspot.x_hp : hotspot.x,
-        y: hotspot.y_hp !== undefined ? hotspot.y_hp : hotspot.y,
-      };
-    }
-    // Tablet: 768px - 1023px
-    else if (screenWidth >= 768 && screenWidth < 1024) {
-      return {
-        x: hotspot.x_tab !== undefined ? hotspot.x_tab : hotspot.x,
-        y: hotspot.y_tab !== undefined ? hotspot.y_tab : hotspot.y,
-      };
-    }
-    // Desktop: >= 1024px
-    else {
-      return {
-        x: hotspot.x,
-        y: hotspot.y,
-      };
-    }
-  };
-
-  // Helper function to process hotspots with responsive positioning
-  const processHotspots = (hotspots) => {
-    if (!hotspots || !Array.isArray(hotspots)) return [];
-
-    return hotspots.map((hotspot) => {
-      const coordinates = getResponsiveCoordinates(hotspot);
-      return {
-        ...hotspot,
-        x: coordinates.x,
-        y: coordinates.y,
-      };
-    });
-  };
-
   const getCurrentImageData = () => {
     const availableViews = getAvailableViews();
-    // console.log("availableViews:", availableViews);
     const currentView = availableViews.find(
       (view) => view.key === selectedView
     );
@@ -248,7 +206,7 @@ function ProductDetail({
       <div className="text-center p-1 flex flex-col justify-center">
         <button
           onClick={() => setSelectedView(view.key)}
-          className={`w-auto h-auto rounded-lg overflow-hidden transition-all duration-200 ${
+          className={`w-[80px] h-[80px] md:w-auto md:h-auto rounded-lg overflow-hidden transition-all duration-200 ${
             isActive ? "border-2 border-teal-500 shadow-md scale-105" : ""
           }`}
         >
@@ -258,7 +216,7 @@ function ProductDetail({
               alt={view.label}
               className="h-10 lg:h-24 w-full object-contain"
             />
-            <p className="mt-2 lg:mt-5 text-[10px] lg:text-sm font-medium text-gray-600">
+            <p className="mt-2 lg:mt-5 text-xs lg:text-sm font-medium text-gray-600">
               {view.label}
             </p>
           </div>
@@ -270,7 +228,7 @@ function ProductDetail({
   const MenuButton = ({ button }) => (
     <button
       key={button.id}
-      className="flex items-center justify-center text-[10px] md:text-xs gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
+      className="flex items-center justify-center text-xs md:text-xs gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
       onClick={button.onClick}
     >
       <img src={button.icon} alt={button.label} className="w-5 h-5" />
@@ -311,7 +269,7 @@ function ProductDetail({
       </div>
 
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex items-center justify-center mt-0 md:mt-32 mb-24 px-8">
+      <div className="flex-grow flex items-center justify-center mt-0 md:mt-32 mb-24">
         <div className="max-w-7xl mx-auto w-full">
           {/* Main Content */}
           <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16">
@@ -334,7 +292,7 @@ function ProductDetail({
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="h-[140px] lg:h-[400px] md:mt-0 flex items-center -z-0">
+            <div className="lg:h-[400px] mt-5 md:mt-24 lg:mt-0 flex items-center">
               <div
                 className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible

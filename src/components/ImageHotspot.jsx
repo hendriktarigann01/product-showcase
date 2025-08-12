@@ -114,13 +114,13 @@ const ImageHotspot = ({
 
   const RadarEffect = () => (
     <>
-      <div className="absolute w-6 h-6 rounded-full bg-teal-500 border opacity-40 animate-ping" />
+      <div className="absolute w-4 md:w-6 h-4 md:h-6 rounded-full bg-teal-500 border opacity-40 animate-ping" />
       <div
-        className="absolute w-8 h-8 rounded-full bg-teal-500 border opacity-30 animate-ping"
+        className="absolute w-6 md:w-8 h-6 md:h-8 rounded-full bg-teal-500 border opacity-30 animate-ping"
         style={{ animationDelay: "1.5s" }}
       />
       <div
-        className="absolute w-10 h-10 rounded-full bg-teal-500 border opacity-20 animate-ping"
+        className="absolute w-8 md:w-10 h-8 md:h-10 rounded-full bg-teal-500 border opacity-20 animate-ping"
         style={{ animationDelay: "2s" }}
       />
     </>
@@ -144,7 +144,7 @@ const ImageHotspot = ({
         <div className="relative flex items-center justify-center">
           {(!activeHotspot || activeHotspot === hotspot.id) && <RadarEffect />}
           <button
-            className={`relative z-10 w-4 h-4 bg-teal-600 rounded-full hover:scale-110 transition-transform duration-200 ${
+            className={`relative z-10 w-3 h-3 md:w-4 md:h-4 bg-teal-600 rounded-full hover:scale-110 transition-transform duration-200 ${
               activeHotspot && activeHotspot !== hotspot.id
                 ? "opacity-0 pointer-events-none"
                 : ""
@@ -183,20 +183,21 @@ const ImageHotspot = ({
           </svg>
         </button>
 
-        <div className="p-3">
+        <div className="p-5 space-y-1">
           {hotspot.img && (
-            <div className="w-3/4 aspect-[16/9] flex items-center justify-center overflow-hidden mb-2">
+            <div className="w-full aspect-[16/9] flex items-center justify-center overflow-hidden mx-auto">
               <img
                 src={hotspot.img}
                 alt={hotspot.title}
-                className="w-full h-full object-contain object-center"
+                className="w-full h-full rounded-md lg:rounded-lg object-contain object-center"
               />
             </div>
           )}
-          <h3 className="mb-1 mx-2 text-sm text-center font-semibold text-gray-600 leading-tight">
+          <h3 className="text-sm lg:text-base text-center font-bold text-gray-800">
             {hotspot.title}
           </h3>
-          <p className="text-gray-600 mx-2 text-xs font-light leading-none text-center">
+
+          <p className="text-gray-600 text-center text-xs lg:text-sm leading-relaxed">
             {hotspot.sub_title}
           </p>
         </div>
@@ -214,7 +215,7 @@ const ImageHotspot = ({
       data-hotspot-container
     >
       {/* Main Image */}
-      <div className="w-full h-[250px] md:h-[400px] flex items-center justify-center overflow-hidden">
+      <div className="w-full h-[230px] md:h-[400px] flex items-center justify-center overflow-hidden">
         <img
           src={imageSrc}
           alt={`${productName} - Interactive View`}

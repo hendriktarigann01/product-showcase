@@ -308,31 +308,29 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
       {/* Contact Info - Embedded */}
       <div className="fixed bottom-0 left-0 right-0 bg-white z-50">
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
-          {/* Baris Toggle: tampil di tengah dan hanya di mobile */}
+          {/* Toggle Mobile */}
           <div className="flex justify-center mb-2 lg:hidden">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <span className="text-xs font-medium text-gray-400">
-                LED Display
-              </span>
+            <span className="text-sm font-medium text-gray-400">
+              LED Display
+            </span>
 
-              <div className="relative inline-block w-11 h-5 mx-3">
-                <input
-                  id="display-toggle"
-                  type="checkbox"
-                  checked={isLED}
-                  onChange={() => setIsLED(!isLED)}
-                  className="peer appearance-none w-11 h-4 bg-slate-100 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
-                />
-                <label
-                  htmlFor="display-toggle"
-                  className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
-                ></label>
-              </div>
+            <div className="relative inline-block w-11 h-5 mx-3">
+              <input
+                id="display-toggle"
+                type="checkbox"
+                checked={isLED}
+                onChange={() => setIsLED(!isLED)}
+                className="peer appearance-none w-11 h-4 bg-slate-100 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
+              />
+              <label
+                htmlFor="display-toggle"
+                className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
+              ></label>
+            </div>
 
-              <span className="text-xs font-medium text-gray-400">
-                LCD Display
-              </span>
-            </label>
+            <span className="text-sm font-medium text-gray-400">
+              LCD Display
+            </span>
           </div>
           {/* Baris Website & Phone (dan toggle di desktop) */}
           <div className="flex justify-between items-center flex-wrap">
@@ -346,7 +344,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
               <span className="text-xs lg:text-sm">mjsolution.co.id</span>
             </div>
 
-            {/* Toggle - hanya muncul di desktop */}
+            {/* Toggle Desktop */}
             <div className="hidden lg:flex items-center gap-2">
               <span className="text-sm font-medium text-gray-400">
                 LED Display

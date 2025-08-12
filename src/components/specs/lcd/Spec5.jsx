@@ -1,5 +1,4 @@
 import React from "react";
-import { Check } from "lucide-react";
 
 const fieldMappings = {
   size: "Size",
@@ -23,60 +22,58 @@ export function Spec5({ spec, layout = "default" }) {
   // Layout untuk side-by-side (single image) - responsive version
   if (layout === "side") {
     return (
-      <div className="flex justify-center items-center px-4 lg:mt-24">
-        <div className="w-full max-w-md lg:max-w-none">
-          <table className="w-full text-left text-xs lg:text-sm text-gray-600">
-            <tbody>
-              <tr className="align-top">
-                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
-                  {formatFieldName("size")}
-                </td>
-                <td className="px-0 sm:px-4 py-1 sm:py-3 w-44 sm:w-36 sm:table-cell">
-                  {size}
-                </td>
-              </tr>
-              <tr className="align-top">
-                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
-                  {formatFieldName("brightness")}
-                </td>
-                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
-                  {brightness}
-                </td>
-              </tr>
-              <tr className="align-top">
-                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
-                  {formatFieldName("resolution")}
-                </td>
-                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
-                  {resolution}
-                </td>
-              </tr>
-              <tr className="align-top">
-                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
-                  {formatFieldName("application")}
-                </td>
-                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
-                  {application}
-                </td>
-              </tr>
-              <tr className="align-top">
-                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
-                  {formatFieldName("display_ratio")}
-                </td>
-                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
-                  {display_ratio}
-                </td>
-              </tr>
-              <tr className="align-top">
-                <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
-                  {formatFieldName("power")}
-                </td>
-                <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
-                  {power}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      <div className="flex justify-center items-center w-full px-8 lg:px-4 mt-0">
+        <div className="w-full max-w-md lg:max-w-lg">
+          <div className="overflow-hidden">
+            <table className="w-full text-left text-xs sm:text-sm text-gray-600">
+              <tbody>
+                <tr className="align-top">
+                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                    {formatFieldName("size")}
+                  </td>
+                  <td className="py-2 sm:py-2 text-xs sm:text-sm">{size}</td>
+                </tr>
+                <tr className="align-top">
+                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                    {formatFieldName("brightness")}
+                  </td>
+                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                    {brightness}
+                  </td>
+                </tr>
+                <tr className="align-top">
+                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                    {formatFieldName("resolution")}
+                  </td>
+                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                    {resolution}
+                  </td>
+                </tr>
+                <tr className="align-top">
+                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                    {formatFieldName("application")}
+                  </td>
+                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                    {application}
+                  </td>
+                </tr>
+                <tr className="align-top">
+                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                    {formatFieldName("display_ratio")}
+                  </td>
+                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                    {display_ratio}
+                  </td>
+                </tr>
+                <tr className="align-top">
+                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                    {formatFieldName("power")}
+                  </td>
+                  <td className="py-2 sm:py-2 text-xs sm:text-sm">{power}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     );
