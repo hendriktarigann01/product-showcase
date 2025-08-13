@@ -203,20 +203,20 @@ function ProductDetail({
     const isActive = selectedView === view.key;
 
     return (
-      <div className="text-center p-1 flex flex-col justify-center">
+      <div className="text-center p-2 flex flex-col justify-center">
         <button
           onClick={() => setSelectedView(view.key)}
-          className={`w-[80px] h-[80px] md:w-auto md:h-auto rounded-lg overflow-hidden transition-all duration-200 ${
+          className={`w-[65xpx] h-[80px] md:w-auto md:h-auto overflow-hidden transition-all duration-200 ${
             isActive ? "border-2 border-teal-500 shadow-md scale-105" : ""
           }`}
         >
-          <div className="w-full h-full p-2 flex flex-col items-center justify-center">
+          <div className="w-full h-full flex flex-col items-center justify-center">
             <img
               src={view.src}
               alt={view.label}
-              className="h-10 lg:h-24 w-full object-contain"
+              className="px-2 h-8 md:h-10 lg:h-24 w-full object-contain"
             />
-            <p className="mt-2 lg:mt-5 text-xs lg:text-sm font-medium text-gray-600">
+            <p className="mt-2 lg:mt-3 mb-0 lg:mb-2 text-[10px] md:text-xs lg:text-sm font-medium text-gray-600">
               {view.label}
             </p>
           </div>
@@ -228,7 +228,7 @@ function ProductDetail({
   const MenuButton = ({ button }) => (
     <button
       key={button.id}
-      className="flex items-center justify-center text-xs md:text-xs gap-2 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
+      className="flex items-center justify-center text-xs md:text-xs px-4 py-2 md:px-6 md:py-3 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
       onClick={button.onClick}
     >
       <img src={button.icon} alt={button.label} className="w-5 h-5" />
@@ -258,24 +258,23 @@ function ProductDetail({
                 Back
               </button>
             </div>
-
-            <div className="w-full">
-              <h1 className="text-lg sm:text-2xl font-bold text-gray-600 text-center">
-                {getProductTitle(product.name)}
-              </h1>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex items-center justify-center mt-0 md:mt-32 mb-24">
+      <div className="flex-grow flex md:items-center md:justify-center">
         <div className="max-w-7xl mx-auto w-full">
+          <div className="w-full relative z-50">
+            <h1 className="text-lg sm:text-2xl mt-14 lg:mt-0 text-gray-600 text-center">
+              {getProductTitle(product.name)}
+            </h1>
+          </div>
           {/* Main Content */}
-          <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16">
+          <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16 mt-0 lg:mt-5">
             {/* Main Image */}
             <div
-              className={`w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center z-[60] transition-all duration-700 ${
+              className={`w-[320px] h-[200px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center z-[60] transition-all duration-700 ${
                 isVisible
                   ? "opacity-100 transform translate-y-0"
                   : "opacity-0 transform translate-y-5"
@@ -292,9 +291,9 @@ function ProductDetail({
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="lg:h-[400px] mt-5 md:mt-24 lg:mt-0 flex items-center">
+            <div className="lg:h-[400px] mt-4 lg:mt-0 mb-2 lg:mb-0 flex justify-center items-center">
               <div
-                className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
+                className={`flex overflow-hidden gap-2 lg:grid lg:grid-cols-2 lg:gap-12 w-[350px] justify-center transition-all duration-700 delay-200 ${
                   isVisible
                     ? "opacity-100 transform translate-x-0"
                     : "opacity-0 transform translate-x-10"
@@ -309,7 +308,7 @@ function ProductDetail({
 
           {/* Menu Buttons */}
           <div
-            className={`text-xs lg:text-sm flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-2 md:gap-5 transition-all duration-700 delay-400 ${
+            className={`text-xs lg:text-sm flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-2 md:gap-10 transition-all duration-700 delay-400 ${
               isVisible
                 ? "opacity-100 transform translate-y-0"
                 : "opacity-0 transform translate-y-5"

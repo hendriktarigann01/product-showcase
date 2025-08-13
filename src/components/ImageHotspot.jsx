@@ -215,7 +215,7 @@ const ImageHotspot = ({
       data-hotspot-container
     >
       {/* Main Image */}
-      <div className="w-full h-[230px] md:h-[400px] flex items-center justify-center overflow-hidden">
+      <div className="w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center overflow-hidden">
         <img
           src={imageSrc}
           alt={`${productName} - Interactive View`}

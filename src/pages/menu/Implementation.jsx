@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const Implementation = ({ product, onBack }) => {
-  const [selectedOption, setSelectedOption] = useState("none");
+  const [selectedOption, setSelectedOption] = useState(
+    product.image_implement?.[0]?.id || null
+  );
 
   const ImplementationOptions = product?.image_implement || [];
 
@@ -22,7 +24,7 @@ const Implementation = ({ product, onBack }) => {
   return (
     <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm">
+      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-40">
         <div className="my-4 mx-4 md:my-6 md:mx-6">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center">
@@ -38,20 +40,19 @@ const Implementation = ({ product, onBack }) => {
                 Back
               </button>
             </div>
-
-            <div className="w-full">
-              <h1 className="text-2xl font-bold text-gray-600 text-center">
-                {selectedOptionData?.title}
-              </h1>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Main section */}
-      <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 mt-0 md:mt-24 mb-10 w-full">
+      <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 w-full">
         {/* Main Product Image */}
-        <div className="w-full max-w-[600px] h-[200px] sm:h-[260px] md:h-[300px] lg:h-[320px] flex justify-center items-center">
+        <div className="w-full relative z-50">
+          <h1 className="text-2xl font-bold text-gray-600 text-center relative z-50">
+            {selectedOptionData?.title}
+          </h1>
+        </div>
+        <div className="w-full max-w-[600px] h-[200px] sm:h-[260px] md:h-[300px] lg:h-[320px] flex justify-center items-center mt-2 md:mt-4 lg:mt-6">
           <img
             src={selectedOptionData?.image}
             alt={selectedOptionData?.title}
@@ -60,30 +61,32 @@ const Implementation = ({ product, onBack }) => {
         </div>
 
         {/* Implementation Options */}
-        <div className="mt-8 w-full max-w-4xl">
-          <div className="flex gap-4 overflow-x-auto pb-2 lg:flex-wrap sm:justify-center lg:justify-center">
-            {ImplementationOptions.map((option) => (
+        <div className="mt-2 md:mt-4 lg:mt-6 w-full max-w-4xl">
+          <div className="flex gap-4 overflow-x-auto pb-2 lg:flex-wrap justify-center justify-center">
+            {product.image_implement?.map((option) => (
               <button
                 key={option.id}
                 onClick={() => setSelectedOption(option.id)}
-                className={`relative p-2 rounded-lg border transition-all duration-200 flex-shrink-0 flex flex-col items-center w-28 sm:w-32 ${
-                  selectedOption === option.id
-                    ? "border-[#4ECDC4] bg-[#4ECDC4]/10"
-                    : "border-gray-200 hover:border-gray-300"
-                }`}
+                className={`relative p-2 border transition-all duration-200 flex-shrink-0 flex flex-col justify-between items-center w-28 sm:w-32 h-28 sm:h-32
+          ${
+            selectedOption === option.id
+              ? "border-[#4ECDC4] border-2"
+              : "border-none"
+          }`}
               >
-                <img
-                  src={option.image}
-                  alt={option.title}
-                  className="max-h-16 sm:max-h-20 object-contain mb-2"
-                />
+                {/* Parent gambar untuk center vertikal */}
+                <div className="flex items-center justify-center flex-1">
+                  <img
+                    src={option.image}
+                    alt={option.title}
+                    className="max-h-16 sm:max-h-20 object-contain"
+                  />
+                </div>
+
+                {/* Title */}
                 <h3 className="text-[10px] sm:text-xs font-medium text-gray-700 text-center">
                   {option.title}
                 </h3>
-
-                {selectedOption === option.id && (
-                  <div className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-[#4ECDC4] rounded-full"></div>
-                )}
               </button>
             ))}
           </div>
@@ -91,7 +94,7 @@ const Implementation = ({ product, onBack }) => {
       </div>
 
       {/* Contact Info */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">
+      <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3] z-30">
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
           <div className="flex justify-between items-center flex-wrap">
             {/* Website */}

@@ -92,7 +92,7 @@ export function Spec1({ spec }) {
               <tr key={i} className="align-top">
                 {row.map((spec, j) => (
                   <React.Fragment key={j}>
-                    <td className="py-2 font-medium w-36">{spec.label}</td>
+                    <td className="py-2 font-medium w-auto  ">{spec.label}</td>
                     <td className="px-6 py-2 w-60">
                       {spec.isBoolean ? (
                         spec.value === "Yes" ? (

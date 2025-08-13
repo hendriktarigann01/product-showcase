@@ -5,11 +5,6 @@ export const products = [
     image: "/products/KMI7000/front.webp",
     image_implement: [
       {
-        id: "none",
-        title: "None",
-        image: "/products/KMI7000/implementation/front_implement_1.webp",
-      },
-      {
         id: "standing",
         title: "Standing Bracket",
         image: "/products/KMI7000/implementation/front_implement_2.webp",
@@ -162,7 +157,7 @@ export const products = [
         x: 38,
         y: 62,
         style: {
-          left: 70,
+          left: 45,
           top: 148,
           width: 550,
           height: 294,
@@ -176,7 +171,7 @@ export const products = [
         x: 50,
         y: 28,
         style: {
-          left: 245,
+          left: 220,
           top: 28,
           width: 483,
           height: 291,
@@ -190,7 +185,7 @@ export const products = [
         x: 64,
         y: 49,
         style: {
-          left: 350,
+          left: 330,
           top: 81,
           width: 483,
           height: 291,
@@ -399,8 +394,8 @@ export const products = [
     image: "/products/KMI8000/front.webp",
     image_implement: [
       {
-        id: "none",
-        title: "None",
+        id: "wall",
+        title: "Wall Bracket",
         image: "/products/KMI8000/implementation/front_implement_1.webp",
       },
       {
@@ -409,8 +404,8 @@ export const products = [
         image: "/products/KMI8000/implementation/front_implement_2.webp",
       },
       {
-        id: "wall",
-        title: "Wall Bracket",
+        id: "custom",
+        title: "Custom",
         image: "/products/KMI8000/implementation/front_implement_3.webp",
       },
     ],
@@ -1099,10 +1094,10 @@ export const products = [
         x: 39,
         y: 62,
         style: {
-          left: 142,
-          top: 143,
-          width: 425.52,
-          height: 305.1,
+          left: 149,
+          top: 102,
+          width: 395,
+          height: 375,
           zIndex: 3,
         },
       },
@@ -1190,8 +1185,8 @@ export const products = [
     image: "/products/KMI4100&4200/front.webp",
     image_implement: [
       {
-        id: "none",
-        title: "None",
+        id: "normal",
+        title: "Normal",
         image: "/products/KMI4100&4200/implementation/front_implement_1.webp",
       },
       {

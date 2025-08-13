@@ -81,11 +81,11 @@ function Carousel3D({ slides, goToSlide, onSlideChange }) {
       scale = 1;
       zIndex = 3;
     } else if (isPrev) {
-      transform = "translateX(200px) rotateY(-35deg) translateZ(-200px)";
+      transform = "translateX(350px) rotateY(-0deg) translateZ(-350px)";
       opacity = 0.7;
       zIndex = 2;
     } else if (isNext) {
-      transform = "translateX(-200px) rotateY(35deg) translateZ(-200px)";
+      transform = "translateX(-350px) rotateY(0deg) translateZ(-350px)";
       opacity = 0.7;
       zIndex = 2;
     } else {
@@ -104,12 +104,12 @@ function Carousel3D({ slides, goToSlide, onSlideChange }) {
   };
 
   return (
-    <div className="relative w-full sm:w-4/5 md:w-3/4 lg:w-[72%] mx-auto h-[250px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
+    <div className="relative w-full sm:w-4/5 md:w-3/4 lg:w-[72%] mx-auto h-[200px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
       <div className="relative w-full h-full flex items-center justify-center preserve-3d">
         {slides.map((slide, index) => (
           <div
             key={index}
-            className="absolute w-[240px] h-[200px] sm:w-[400px] sm:h-[250px] md:w-[500px] md:h-[280px] lg:w-[600px] lg:h-[335px] cursor-pointer"
+            className="absolute justify-center items-center w-[240px] max-h-[200px] sm:w-[400px] sm:max-h-[250px] md:w-[500px] md:max-h-[280px] lg:w-[600px] lg:max-h-[335px] cursor-pointer"
             style={
               window.innerWidth >= 1024
                 ? getDesktopSlideStyle(index)
@@ -174,12 +174,12 @@ const Specification = ({ product, onBack }) => {
   const slides = productImages.map((image, index) => ({
     key: index,
     content: (
-      <div className="h-full flex flex-col mt-1 md:mt-3">
+      <div className="h-full flex flex-col">
         <div className="flex-1 m-3 md:m-7 flex items-center justify-center">
           <img
             src={image}
             alt={`${product.name} view ${index + 1}`}
-            className="max-w-full max-h-60 md:max-h-64 lg:max-h-72 object-contain"
+            className="max-w-full max-h-56 md:max-h-60 lg:max-h-72 object-contain"
           />
         </div>
       </div>
@@ -270,7 +270,7 @@ const Specification = ({ product, onBack }) => {
       style={{ height: "100dvh" }}
     >
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-50">
+      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-[9999]">
         <div className="my-4 mx-4 md:my-6 md:mx-6">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center">
@@ -281,24 +281,24 @@ const Specification = ({ product, onBack }) => {
               />
               <button
                 onClick={onBack}
-                className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
+                className="w-2 h-2 p-5  md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
               >
                 Back
               </button>
-            </div>
-
-            <div className="w-full">
-              <h1 className="text-lg md:text-2xl font-bold text-gray-600 text-center">
-                {getTitle()}
-              </h1>
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex mt-14 md:mt-16 md:items-center md:justify-center">
-        <div className="max-w-7xl mx-auto w-full">
+      <div className="flex-grow flex md:items-center md:justify-center">
+        <div className="max-w-7xl mx-auto w-full z-50">
+          <div className="px-4 sm:px-6 md:px-8">
+            <h1 className="text-lg md:text-2xl mt-14 lg:mt-0 text-gray-600 text-center">
+              {getTitle()}
+            </h1>
+          </div>
+
           {hasMultipleImages ? (
             // Multiple images - gunakan carousel layout yang sudah ada
             <>
@@ -334,7 +334,7 @@ const Specification = ({ product, onBack }) => {
           ) : (
             // Single image - Layout side by side
             <div className="px-4 sm:px-6 md:px-12 lg:px-20 flex items-center justify-center">
-              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-center gap-6 lg:gap-12 w-full max-w-[1600px]">
+              <div className="flex flex-col mt-10 lg:flex-row lg:items-center lg:justify-center gap-6 lg:gap-12 w-full max-w-[1600px]">
                 {/* Single Image */}
                 <div className="w-full lg:flex-1 flex justify-center items-center">
                   <SingleImageDisplay

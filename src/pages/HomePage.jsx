@@ -49,17 +49,15 @@ function Carousel3D({ slides, goToSlide, onSlideChange, currentIndex }) {
       scale = 1;
       zIndex = 3;
     } else if (isPrev) {
-      transform = "translateX(-300px) rotateY(20deg) translateZ(-300px)";
+      transform = "translateX(-350px) rotateY(20deg) translateZ(-350px)";
       opacity = 0.7;
-      scale = 0.8;
       zIndex = 2;
     } else if (isNext) {
-      transform = "translateX(300px) rotateY(-20deg) translateZ(-250px)";
+      transform = "translateX(350px) rotateY(-20deg) translateZ(-350px)";
       opacity = 0.7;
-      scale = 0.8;
       zIndex = 2;
     } else {
-      transform = "translateX(0) rotateY(90deg) translateZ(-500px)";
+      transform = "translateX(0) rotateY(90deg) translateZ(-400px)";
       opacity = 0;
       scale = 0.6;
       zIndex = 0;
@@ -162,12 +160,12 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
             }}
             src={product.image}
             alt={product.name}
-            className="max-w-full max-h-full object-contain transition-all duration-300"
+            className="w-full max-h-full object-contain transition-all duration-300"
             data-carousel-image="true"
             data-carousel-index={index}
             style={{
               opacity: carouselVisible ? 1 : 0,
-              transform: carouselVisible ? "scale(1)" : "scale(0.9)",
+              transform: carouselVisible ? "scale(1)" : "scale(0.4)",
             }}
           />
         </div>
@@ -195,7 +193,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
   return (
     <div
       className="flex flex-col bg-white overflow-hidden"
-      style={{ height: "100dvh" }} // dynamic viewport height untuk iOS
+      style={{ height: "100dvh" }}
     >
       {/* Header - Fixed */}
       <div className="fixed top-0 left-0 right-0 bg-white backdrop-blur-sm z-50">
@@ -208,24 +206,23 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
                 className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
             </div>
-
-            <div className="w-full">
-              <h1 className="text-lg sm:text-2xl font-bold text-gray-600 text-center">
-                Our Product
-              </h1>
-              <p
-                key={currentIndex}
-                className="text-gray-600 text-sm sm:text-lg text-center animate-fade-in-up"
-              >
-                {selectedProducts[currentIndex]?.name || ""}
-              </p>
-            </div>
           </div>
         </div>
       </div>
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex items-center justify-center pt-32 pb-24 px-8">
+      <div className="flex-grow flex md:items-center md:justify-center px-8">
         <div className="max-w-7xl mx-auto w-full">
+          <div className="w-full relative z-50 mt-14   lg:mt-0">
+            <h1 className="text-lg sm:text-2xl font-bold text-gray-600 text-center">
+              Our Product
+            </h1>
+            <p
+              key={currentIndex}
+              className="text-gray-600 text-sm sm:text-lg text-center animate-fade-in-up"
+            >
+              {selectedProducts[currentIndex]?.name || ""}
+            </p>
+          </div>
           {/* Background Circle */}
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center justify-center">
@@ -256,7 +253,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
             </div>
 
             {/* Select Button - centered below carousel */}
-            <div className="absolute bottom-[-30px] left-1/2 transform -translate-x-1/2 z-20">
+            <div className="absolute bottom-[-100px] md:bottom-[-30px] left-1/2 transform -translate-x-1/2 z-20">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -281,7 +278,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className={`absolute left-0 sm:left-20 top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
+              className={`absolute left-0 sm:left-20 top-[115%] lg:top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
                 carouselVisible
                   ? "opacity-100 scale-100"
                   : "opacity-50 scale-95"
@@ -293,7 +290,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
 
             <button
               onClick={nextSlide}
-              className={`absolute right-0 sm:right-20 top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
+              className={`absolute right-0 sm:right-20 top-[115%] lg:top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
                 carouselVisible
                   ? "opacity-100 scale-100"
                   : "opacity-50 scale-95"
@@ -323,11 +320,11 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
                 type="checkbox"
                 checked={isLED}
                 onChange={() => setIsLED(!isLED)}
-                className="peer appearance-none w-11 h-4 bg-teal-500 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
+                className="peer appearance-none w-11 h-4 bg-gray-100 align-middle rounded-full checked:bg-gray-100 cursor-pointer transition-colors duration-300"
               />
               <label
                 htmlFor="display-toggle"
-                className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
+                className="absolute top-0 left-0 w-5 h-5 bg-teal-500 rounded-full transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
               ></label>
             </div>
             <span
@@ -365,11 +362,11 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
                   type="checkbox"
                   checked={isLED}
                   onChange={() => setIsLED(!isLED)}
-                  className="peer appearance-none w-11 h-4 bg-teal-500 border align-middle border-slate-300 rounded-full checked:bg-teal-500 checked:border-teal-500 cursor-pointer transition-colors duration-300"
+                  className="peer appearance-none w-11 h-4 bg-gray-100 align-middle rounded-full checked:bg-gray-100 cursor-pointer transition-colors duration-300"
                 />
                 <label
                   htmlFor="display-toggle"
-                  className="absolute top-0 left-0 w-5 h-5 bg-white rounded-full border border-slate-300 shadow transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
+                  className="absolute top-0 left-0 w-5 h-5 bg-teal-500 rounded-full transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
                 ></label>
               </div>
               <span

@@ -11,8 +11,8 @@ const Application = ({
   const [selectedApp, setSelectedApp] = useState(null);
   const [selectedAppId, setSelectedAppId] = useState(null);
   const [containerDimensions, setContainerDimensions] = useState({
-    width: 910,
-    height: 490,
+    width: 1092,
+    height: 588,
   });
   const imageRefs = useRef({});
   const hotspotRefs = useRef({});
@@ -46,8 +46,8 @@ const Application = ({
 
       if (screenWidth <= 768) {
         // Mobile: use most of screen width with padding
-        const availableWidth = screenWidth - 32; // 16px padding on each side
-        const availableHeight = screenHeight - 200; // Account for header and footer
+        const availableWidth = screenWidth * 0.95;
+        const availableHeight = screenHeight * 0.6;
 
         if (availableWidth / aspectRatio <= availableHeight) {
           newWidth = availableWidth;
@@ -238,9 +238,12 @@ const Application = ({
   }
 
   return (
-    <div className="max-h-screen">
-      {/* Header - Responsive */}
-      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-50">
+    <div
+      className="flex flex-col bg-[#e7f4f3] overflow-hidden"
+      style={{ height: "100dvh" }}
+    >
+      {/* Header */}
+      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-[1000]">
         <div className="my-4 mx-4 md:my-6 md:mx-6">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center">
@@ -251,144 +254,149 @@ const Application = ({
               />
               <button
                 onClick={onBack}
-                className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
+                className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white z-[1001] relative"
               >
                 Back
               </button>
-            </div>
-
-            <div className="w-full mt-2">
-              <h1 className="text-xl md:text-2xl font-bold text-gray-600 text-center">
-                Applications
-              </h1>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="w-full h-screen pt-24 md:pt-32 pb-16 md:pb-24 bg-[#e7f4f3] px-4 lg:px-12 overflow-hidden">
-        <div className="max-w-7xl mx-auto h-full flex flex-col">
-          <div className="flex-grow flex items-center justify-center">
-            <div className="flex items-center justify-center w-full">
-              <div
-                ref={containerRef}
-                className="relative flex items-center justify-center"
-                style={{
-                  width: containerDimensions.width,
-                  height: containerDimensions.height,
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                }}
-              >
-                {/* Composite Image Layer */}
-                <div className="relative w-full h-full">
-                  {compositeHotspots.map((hotspot) => {
-                    const appImage = appImages.find(
-                      (app) => app.id === hotspot.appId
-                    );
-                    if (!appImage) return null;
+      {/* Main Content - Flex grow to fill available space */}
+      <div className="flex-grow flex md:items-center md:justify-center">
+        <div className="max-w-7xl mx-auto w-full z-50">
+          <div className="px-4 sm:px-6 md:px-8">
+            <h1 className="text-lg md:text-2xl mt-12 lg:mt-0 text-gray-600 text-center">
+              Applications
+            </h1>
+          </div>
 
-                    const isSelected = selectedAppId === hotspot.appId;
-                    const shouldHide = isTransitioning && isSelected;
-                    const imageSource = getImageSource(appImage);
-
-                    // Calculate responsive style
-                    const responsiveStyle = getResponsiveStyle(hotspot.style);
-
-                    return (
-                      <img
-                        key={hotspot.id}
-                        ref={(el) => (imageRefs.current[hotspot.appId] = el)}
-                        src={imageSource}
-                        alt={hotspot.title}
-                        className="absolute object-contain cursor-pointer transition-all duration-300 ease-out"
-                        style={{
-                          ...responsiveStyle,
-                          opacity: shouldHide ? 0 : 1,
-                          visibility: shouldHide ? "hidden" : "visible",
-                        }}
-                        onClick={() => handleImageClick(hotspot.appId)}
-                      />
-                    );
-                  })}
-                </div>
-
-                {/* Hotspot Layer */}
+          {/* Applications Content */}
+          <div className="px-4 sm:px-6 md:px-12 lg:px-20 flex items-center justify-center">
+            <div className="flex flex-col mt-10 lg:items-center lg:justify-center gap-6 lg:gap-12 w-full max-w-[1600px]">
+              {/* Applications Display */}
+              <div className="w-full flex justify-center items-center">
                 <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{ zIndex: 100 }}
+                  ref={containerRef}
+                  className="relative flex items-center justify-center"
+                  style={{
+                    width: containerDimensions.width,
+                    height: containerDimensions.height,
+                    maxWidth: "100%",
+                    maxHeight: "100%",
+                  }}
                 >
-                  {compositeHotspots.map((hotspot) => {
-                    const isSelected = selectedAppId === hotspot.appId;
-                    const shouldHide = isTransitioning && isSelected;
+                  {/* Composite Image Layer */}
+                  <div className="relative w-full h-full">
+                    {compositeHotspots.map((hotspot) => {
+                      const appImage = appImages.find(
+                        (app) => app.id === hotspot.appId
+                      );
+                      if (!appImage) return null;
 
-                    // Use original percentage positioning for hotspots
-                    const responsivePosition = getResponsiveHotspotPosition(
-                      hotspot.x,
-                      hotspot.y
-                    );
+                      const isSelected = selectedAppId === hotspot.appId;
+                      const shouldHide = isTransitioning && isSelected;
+                      const imageSource = getImageSource(appImage);
 
-                    return (
-                      <div key={hotspot.id}>
-                        <div
-                          ref={(el) =>
-                            (hotspotRefs.current[hotspot.appId] = el)
-                          }
-                          className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-auto transition-all duration-300 ease-out"
+                      // Calculate responsive style
+                      const responsiveStyle = getResponsiveStyle(hotspot.style);
+
+                      return (
+                        <img
+                          key={hotspot.id}
+                          ref={(el) => (imageRefs.current[hotspot.appId] = el)}
+                          src={imageSource}
+                          alt={hotspot.title}
+                          className="absolute object-contain cursor-pointer transition-all duration-300 ease-out"
                           style={{
-                            left: `${responsivePosition.x}%`,
-                            top: `${responsivePosition.y}%`,
-                            zIndex: 101,
+                            ...responsiveStyle,
                             opacity: shouldHide ? 0 : 1,
+                            visibility: shouldHide ? "hidden" : "visible",
                           }}
-                          onClick={hotspot.onClick}
-                          data-hotspot-id={hotspot.appId}
-                        >
-                          <div className="relative flex items-center justify-center">
-                            {/* Animated Rings - responsive size */}
-                            {!shouldHide && (
-                              <>
-                                <div className="absolute w-4 h-4 md:w-6 md:h-6 rounded-full bg-teal-500 border opacity-40 animate-ping"></div>
-                                <div
-                                  className="absolute w-6 h-6 md:w-8 md:h-8 rounded-full bg-teal-500 border opacity-30 animate-ping"
-                                  style={{ animationDelay: "1.5s" }}
-                                ></div>
-                                <div
-                                  className="absolute w-8 h-8 md:w-10 md:h-10 rounded-full bg-teal-500 border opacity-20 animate-ping"
-                                  style={{ animationDelay: "2s" }}
-                                ></div>
-                              </>
-                            )}
+                          onClick={() => handleImageClick(hotspot.appId)}
+                        />
+                      );
+                    })}
+                  </div>
 
-                            <button
-                              className={`relative w-3 h-3 md:w-4 md:h-4 bg-teal-600 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
-                                isSelected
-                                  ? "scale-125 bg-teal-700"
-                                  : "hover:scale-110"
-                              }`}
-                              disabled={isTransitioning}
-                            ></button>
+                  {/* Hotspot Layer */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ zIndex: 100 }}
+                  >
+                    {compositeHotspots.map((hotspot) => {
+                      const isSelected = selectedAppId === hotspot.appId;
+                      const shouldHide = isTransitioning && isSelected;
+
+                      // Use original percentage positioning for hotspots
+                      const responsivePosition = getResponsiveHotspotPosition(
+                        hotspot.x,
+                        hotspot.y
+                      );
+
+                      return (
+                        <div key={hotspot.id}>
+                          <div
+                            ref={(el) =>
+                              (hotspotRefs.current[hotspot.appId] = el)
+                            }
+                            className="absolute transform -translate-x-1/2 -translate-y-1/2 cursor-pointer pointer-events-auto transition-all duration-300 ease-out"
+                            style={{
+                              left: `${responsivePosition.x}%`,
+                              top: `${responsivePosition.y}%`,
+                              zIndex: 101,
+                              opacity: shouldHide ? 0 : 1,
+                            }}
+                            onClick={hotspot.onClick}
+                            data-hotspot-id={hotspot.appId}
+                          >
+                            <div className="relative flex items-center justify-center">
+                              {/* Animated Rings - responsive size */}
+                              {!shouldHide && (
+                                <>
+                                  <div className="absolute w-4 h-4 md:w-6 md:h-6 rounded-full bg-teal-500 border opacity-40 animate-ping"></div>
+                                  <div
+                                    className="absolute w-6 h-6 md:w-8 md:h-8 rounded-full bg-teal-500 border opacity-30 animate-ping"
+                                    style={{ animationDelay: "1.5s" }}
+                                  ></div>
+                                  <div
+                                    className="absolute w-8 h-8 md:w-10 md:h-10 rounded-full bg-teal-500 border opacity-20 animate-ping"
+                                    style={{ animationDelay: "2s" }}
+                                  ></div>
+                                </>
+                              )}
+
+                              <button
+                                className={`relative w-3 h-3 md:w-4 md:h-4 bg-teal-600 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
+                                  isSelected
+                                    ? "scale-125 bg-teal-700"
+                                    : "hover:scale-110"
+                                }`}
+                                disabled={isTransitioning}
+                              ></button>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
-                </div>
+                      );
+                    })}
+                  </div>
 
-                {/* Overlay untuk mencegah interaksi saat transisi */}
-                {isTransitioning && (
-                  <div
-                    className="absolute inset-0 bg-transparent"
-                    style={{ zIndex: 999 }}
-                  />
-                )}
+                  {/* Overlay untuk mencegah interaksi saat transisi */}
+                  {isTransitioning && (
+                    <div
+                      className="absolute inset-0 bg-transparent"
+                      style={{ zIndex: 999 }}
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Contact Info */}
+      {/* Contact Info - Fixed at bottom */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
           <div className="flex justify-between items-center flex-wrap">
