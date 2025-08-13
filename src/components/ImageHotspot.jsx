@@ -12,6 +12,7 @@ const ImageHotspot = ({
   const [isZooming, setIsZooming] = useState(false);
   const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
   const [containerRect, setContainerRect] = useState(null);
+  const [showHighlight, setShowHighlight] = useState(false);
 
   useEffect(() => {
     if (activeHotspot) {
@@ -31,7 +32,16 @@ const ImageHotspot = ({
   };
 
   const openHotspot = (hotspotId, hotspotData) => {
-    if (enableZoom) {
+    // Untuk LED products, tampilkan highlight effect
+    if (
+      productName === "LED Outdoor for Fixed Installation" ||
+      productName === "LED Indoor for Fixed Installation"
+    ) {
+      setShowHighlight(true);
+      setActiveHotspot(hotspotId);
+    }
+    // Untuk produk lain dengan zoom
+    else if (enableZoom) {
       setZoomOrigin({ x: hotspotData.x, y: hotspotData.y });
       setIsZooming(true);
       setTimeout(() => setActiveHotspot(hotspotId), 300);
@@ -41,7 +51,13 @@ const ImageHotspot = ({
   };
 
   const closeHotspot = () => {
-    if (enableZoom) {
+    if (
+      productName === "LED Outdoor for Fixed Installation" ||
+      productName === "LED Indoor for Fixed Installation"
+    ) {
+      setShowHighlight(false);
+      setActiveHotspot(null);
+    } else if (enableZoom) {
       setIsZooming(false);
       setTimeout(() => setActiveHotspot(null), 300);
     } else {
@@ -110,6 +126,36 @@ const ImageHotspot = ({
       width: `${cardWidth}px`,
       zIndex: 99999,
     };
+  };
+
+  const getHighlightOverlay = () => {
+    if (!showHighlight) return null;
+
+    const isOutdoor = productName === "LED Outdoor for Fixed Installation";
+
+    if (isOutdoor) {
+      // Outdoor: Module area ada di kanan bawah (seperti di gambar Anda)
+      return (
+        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+          {/* Dark overlay untuk seluruh area kecuali module */}
+          <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
+
+          {/* Area module kanan bawah tetap terang */}
+          <div className="absolute bottom-10 right-25 w-1/3 h-1/5 bg-white bg-opacity-90 transition-all duration-300"></div>
+        </div>
+      );
+    } else {
+      // Indoor: Module area ada di tengah (seperti di gambar Anda)
+      return (
+        <div className="absolute top-1/2 left-1/2 w-[534px] h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+          {/* Dark overlay untuk seluruh area kecuali module */}
+          <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
+
+          {/* Area module tengah tetap terang */}
+          <div className="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30%] bg-white bg-opacity-90 transition-all duration-300"></div>
+        </div>
+      );
+    }
   };
 
   const RadarEffect = () => (
@@ -218,11 +264,14 @@ const ImageHotspot = ({
       <div className="w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center overflow-hidden">
         <img
           src={imageSrc}
-          alt={`${productName} - Interactive View`}
+          alt={`${productName}`}
           className="max-h-full object-contain"
           style={getImageStyle()}
         />
       </div>
+
+      {/* LED Module Highlight Overlay */}
+      {getHighlightOverlay()}
 
       {/* Hotspots Overlay */}
       <div className="absolute inset-0">
