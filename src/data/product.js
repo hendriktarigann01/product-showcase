@@ -32,7 +32,7 @@ export const products = [
         x_hp: 10,
         y_hp: 13,
         x_tab: 10,
-        y_tab: 48,
+        y_tab: 33,
         img: "/products/KMI7000/hotspots/hotspot_1.webp",
         title: "Anti-glare glass",
         sub_title:
@@ -45,7 +45,7 @@ export const products = [
         x_hp: 45,
         y_hp: 6,
         x_tab: 45,
-        y_tab: 39,
+        y_tab: 24,
         img: "/products/KMI7000/hotspots/hotspot_2.webp",
         title: "Camera High Resolution",
         sub_title:
@@ -58,7 +58,7 @@ export const products = [
         x_hp: 60,
         y_hp: 9,
         x_tab: 60,
-        y_tab: 42,
+        y_tab: 27,
         img: "/products/KMI7000/hotspots/hotspot_3.webp",
         title: "8 Array Mic",
         sub_title:
@@ -71,7 +71,7 @@ export const products = [
         x_hp: 77,
         y_hp: 79,
         x_tab: 77,
-        y_tab: 95,
+        y_tab: 80,
         img: "/products/KMI7000/hotspots/hotspot_4.webp",
         title: "Speaker",
         sub_title:
@@ -84,7 +84,7 @@ export const products = [
         x_hp: 15,
         y_hp: 79,
         x_tab: 15,
-        y_tab: 95,
+        y_tab: 80,
         img: "/products/KMI7000/hotspots/hotspot_5.webp",
         title: "Quick Function Key & Connectivity Port",
         sub_title:
@@ -99,7 +99,7 @@ export const products = [
         x_hp: 85,
         y_hp: 35,
         x_tab: 85,
-        y_tab: 55,
+        y_tab: 40,
         img: "/products/KMI7000/hotspots/hotspot_6.webp",
         title: "OPS PC",
         sub_title:
@@ -112,7 +112,7 @@ export const products = [
         x_hp: 87,
         y_hp: 65,
         x_tab: 87,
-        y_tab: 85,
+        y_tab: 70,
         img: "/products/KMI7000/hotspots/hotspot_7.webp",
         title: "Android Mainboard",
         sub_title:
@@ -421,7 +421,7 @@ export const products = [
         x_hp: 60,
         y_hp: 43,
         x_tab: 60,
-        y_tab: 67,
+        y_tab: 53,
         img: "/products/KMI8000/hotspots/hotspot_1.webp",
         title: "Bezel to Bezel",
         sub_title:

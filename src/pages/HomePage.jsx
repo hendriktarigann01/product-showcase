@@ -49,15 +49,15 @@ function Carousel3D({ slides, goToSlide, onSlideChange, currentIndex }) {
       scale = 1;
       zIndex = 3;
     } else if (isPrev) {
-      transform = "translateX(-350px) rotateY(20deg) translateZ(-350px)";
+      transform = "translateX(-320px) rotateY(20deg) translateZ(-320px)";
       opacity = 0.7;
       zIndex = 2;
     } else if (isNext) {
-      transform = "translateX(350px) rotateY(-20deg) translateZ(-350px)";
+      transform = "translateX(320px) rotateY(-20deg) translateZ(-320px)";
       opacity = 0.7;
       zIndex = 2;
     } else {
-      transform = "translateX(0) rotateY(90deg) translateZ(-400px)";
+      transform = "translateX(0) rotateY(90deg) translateZ(-320px)";
       opacity = 0;
       scale = 0.6;
       zIndex = 0;
@@ -77,7 +77,7 @@ function Carousel3D({ slides, goToSlide, onSlideChange, currentIndex }) {
         {slides.map((slide, index) => (
           <div
             key={index}
-            className="absolute w-[352px] h-[352px] cursor-pointer"
+            className="absolute w-[352px] h-[352px]"
             style={getSlideStyle(index)}
             onClick={() => slide.onClick && slide.onClick()}
           >
@@ -174,7 +174,6 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
         </div>
       </div>
     ),
-    onClick: () => setGoToSlide(index),
   }));
 
   const nextSlide = () => {
@@ -210,9 +209,9 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
         </div>
       </div>
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex md:items-center md:justify-center px-8">
+      <div className="flex-grow flex md:items-center md:justify-center px-8 mb-0 lg:mb-10">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="w-full relative z-50 mt-14   lg:mt-0">
+          <div className="w-full relative z-50 mt-14 lg:mt-0">
             <h1 className="text-lg sm:text-2xl font-bold text-gray-600 text-center">
               Our Product
             </h1>
@@ -253,7 +252,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
             </div>
 
             {/* Select Button - centered below carousel */}
-            <div className="absolute bottom-[-100px] md:bottom-[-30px] left-1/2 transform -translate-x-1/2 z-20">
+            <div className="absolute bottom-[-100px] lg:bottom-[-30px] left-1/2 transform -translate-x-1/2 z-20">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -261,7 +260,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
                   const imageElement = imageRefs.current[currentProduct.name];
                   handleSelectProduct(currentProduct, imageElement);
                 }}
-                className={`bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-2 shadow-lg ${
+                className={`bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-2 ${
                   carouselVisible
                     ? "opacity-100 scale-100"
                     : "opacity-50 scale-95"
@@ -278,19 +277,19 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
             {/* Navigation Arrows */}
             <button
               onClick={prevSlide}
-              className={`absolute left-0 sm:left-20 top-[115%] lg:top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
+              className={`absolute left-0 sm:left-20 md:left-40 lg:left-80 top-[115%] lg:top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center transition-all duration-300 z-10 ${
                 carouselVisible
                   ? "opacity-100 scale-100"
                   : "opacity-50 scale-95"
               }`}
               disabled={!carouselVisible}
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft size={24} className="mr-1" />
             </button>
 
             <button
               onClick={nextSlide}
-              className={`absolute right-0 sm:right-20 top-[115%] lg:top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 z-10 ${
+              className={`absolute right-0 sm:right-20 md:right-40 lg:right-80 top-[115%] lg:top-full transform -translate-y-1/2 w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center transition-all duration-300 z-10 ${
                 carouselVisible
                   ? "opacity-100 scale-100"
                   : "opacity-50 scale-95"

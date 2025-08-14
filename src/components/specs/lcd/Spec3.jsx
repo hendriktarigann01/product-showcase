@@ -37,12 +37,12 @@ export function Spec3({ specs }) {
               {allFields.map((field) => (
                 <div key={field} className="flex items-center py-1">
                   <div className="w-40">
-                    <span className="text-[11px] lg:text-sm font-medium text-gray-600">
+                    <span className="text-xs font-medium text-gray-600">
                       {formatFieldName(field)}
                     </span>
                   </div>
                   <div className="w-auto">
-                    <span className="text-[11px] lg:text-sm text-gray-700">
+                    <span className="text-xs text-gray-700">
                       {formatValue(spec[field])}
                     </span>
                   </div>
@@ -56,8 +56,8 @@ export function Spec3({ specs }) {
   );
 
   const DesktopLayout = () => (
-    <div className="px-8">
-      <table className="table-fixed w-3/4 text-left text-[11px] lg:text-sm text-gray-600 mx-auto">
+    <div className="px-8 flex justify-center">
+      <table className="table-fixed text-left text-sm text-gray-600">
         <tbody>
           {Array.from({ length: Math.ceil(allFields.length / 2) }).map(
             (_, i) => {
@@ -66,25 +66,22 @@ export function Spec3({ specs }) {
 
               return (
                 <tr key={i}>
-                  <td className="py-2 px-4 font-medium w-10">
+                  <td className="py-2 px-1 font-medium w-28">
                     {formatFieldName(leftField)}
                   </td>
                   {specs.map((spec, index) => (
-                    <td key={`left-${i}-${index}`} className="py-2 px-4 w-10">
+                    <td key={`left-${i}-${index}`} className="py-2 w-52">
                       {formatValue(spec[leftField])}
                     </td>
                   ))}
 
                   {rightField ? (
                     <>
-                      <td className="py-2 px-4 font-medium w-10">
+                      <td className="py-2 px-1 font-medium w-28">
                         {formatFieldName(rightField)}
                       </td>
                       {specs.map((spec, index) => (
-                        <td
-                          key={`right-${i}-${index}`}
-                          className="py-2 px-4 w-10"
-                        >
+                        <td key={`right-${i}-${index}`} className="py-2">
                           {formatValue(spec[rightField])}
                         </td>
                       ))}

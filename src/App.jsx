@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
+import EntryPage from "./pages/EntryPage";
 import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/ProductDetail";
 import Application from "./pages/menu/Application";
@@ -18,30 +19,51 @@ function App() {
   const [shouldUseMorph, setShouldUseMorph] = useState(true);
   const navigate = useNavigate();
 
+  // Improved device detection
+  const detectDevice = () => {
+    const userAgent = navigator.userAgent;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    // Detect mobile devices
+    const isMobile =
+      width <= 768 ||
+      /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        userAgent
+      );
+
+    // Enhanced iPad/tablet detection
+    const isTablet =
+      // Size-based detection for tablets
+      (width > 768 && width <= 1023) ||
+      (height > 768 && height <= 1023) ||
+      // User agent detection
+      /iPad|Tablet|PlayBook|Silk/i.test(userAgent) ||
+      // Modern iPad detection (iPadOS reports as Mac)
+      (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) ||
+      // Additional iPad detection
+      (userAgent.includes("Mac") && "ontouchend" in document);
+
+    return { isMobile, isTablet };
+  };
+
   // Detect if morph should be disabled
   useEffect(() => {
     const checkShouldUseMorph = () => {
-      const isMobile =
-        window.innerWidth <= 768 ||
-        /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
-
-      const isTablet =
-        (window.innerWidth > 768 && window.innerWidth <= 1024) ||
-        /iPad|Tablet|PlayBook|Silk/i.test(navigator.userAgent);
-
+      const { isMobile, isTablet } = detectDevice();
       const isTabFocused = !document.hidden;
 
       setShouldUseMorph(!isMobile && !isTablet && isTabFocused);
     };
 
     const handleVisibilityChange = () => {
-      setShouldUseMorph(!document.hidden && window.innerWidth > 768);
+      const { isMobile, isTablet } = detectDevice();
+      setShouldUseMorph(!isMobile && !isTablet && !document.hidden);
     };
 
     const handleResize = () => {
-      setShouldUseMorph(window.innerWidth > 768 && !document.hidden);
+      const { isMobile, isTablet } = detectDevice();
+      setShouldUseMorph(!isMobile && !isTablet && !document.hidden);
     };
 
     checkShouldUseMorph();
@@ -141,6 +163,7 @@ function App() {
   const AppContent = () => (
     <Routes>
       <Route path="/" element={renderCurrentView()} />
+      <Route path="/entry" element={<EntryPage />} />
       <Route
         path="/application"
         element={

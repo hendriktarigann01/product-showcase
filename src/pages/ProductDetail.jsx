@@ -167,24 +167,23 @@ function ProductDetail({
                 Back
               </button>
             </div>
-
-            <div className="w-full">
-              <h1 className="text-lg sm:text-2xl font-bold text-gray-600 text-center">
-                {getProductTitle(product.name)}
-              </h1>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex items-center justify-center mt-0 md:mt-32 mb-24">
+      <div className="flex-grow flex items-center justify-center mt-0 mx-0 md:mx-5">
         <div className="max-w-7xl mx-auto w-full">
+          <div className="w-full">
+            <h1 className="text-lg sm:text-2xl text-gray-600 text-center">
+              {getProductTitle(product.name)}
+            </h1>
+          </div>
           {/* Main Content */}
           <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16">
             {/* Main Image */}
             <div
-              className={`w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center z-[60] transition-all duration-700 ${
+              className={`w-[320px] h-[220px] md:h-[280px] lg:w-[650px] lg:h-[400px] flex items-center justify-center z-[60] transition-all duration-700 ${
                 isVisible
                   ? "opacity-100 transform translate-y-0"
                   : "opacity-0 transform translate-y-5"
@@ -201,7 +200,7 @@ function ProductDetail({
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="lg:h-[400px] mt-5 md:mt-24 lg:mt-0 flex items-center">
+            <div className="lg:h-[400px] mt-2 lg:mt-0 flex items-center">
               <div
                 className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible

@@ -243,7 +243,7 @@ const Application = ({
       style={{ height: "100dvh" }}
     >
       {/* Header */}
-      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-[1000]">
+      <div className="fixed top-0 left-0 right-0 bg-[#e7f4f3] backdrop-blur-sm z-[9999] md:z-50">
         <div className="my-4 mx-4 md:my-6 md:mx-6">
           <div className="flex flex-col items-center text-center">
             <div className="w-full flex justify-between items-center">
@@ -265,9 +265,9 @@ const Application = ({
 
       {/* Main Content - Flex grow to fill available space */}
       <div className="flex-grow flex md:items-center md:justify-center">
-        <div className="max-w-7xl mx-auto w-full z-50">
+        <div className="max-w-7xl mx-auto w-full z-10 md:z-[9999]">
           <div className="px-4 sm:px-6 md:px-8">
-            <h1 className="text-lg md:text-2xl mt-12 lg:mt-0 text-gray-600 text-center">
+            <h1 className="text-lg md:text-2xl mt-[70px] lg:mt-0 text-gray-600 text-center">
               Applications
             </h1>
           </div>

@@ -1,0 +1,47 @@
+<Route path="/" element={EntryPage} />
+
+<Route path="/lcd-display" element={HomePage} />
+<Route path="/led-display" element={HomePage} />
+
+<Route path="/lcd-display/kmi-7000-series" element={ProductDetail} />
+<Route path="/lcd-display/kmi-7000-series/specification" element={Specification} />
+<Route path="/lcd-display/kmi-7000-series/implementation" element={Implementation} />
+<Route path="/lcd-display/kmi-7000-series/application" element={Application} />
+<Route path="/lcd-display/kmi-7000-series/application?detail=id" element={DetailApplication} />
+
+<Route path="/lcd-display/kmi-8000" element={ProductDetail} />
+<Route path="/lcd-display/kmi-8000/specification" element={Specification} />
+<Route path="/lcd-display/kmi-8000/implementation" element={Implementation} />
+<Route path="/lcd-display/kmi-8000/application" element={Application} />
+<Route path="/lcd-display/kmi-8000/application?detail=id" element={DetailApplication} />
+
+<Route path="/lcd-display/kmi-2000-series" element={ProductDetail} />
+<Route path="/lcd-display/kmi-2000-series/specification" element={Specification} />
+<Route path="/lcd-display/kmi-2000-series/application" element={Application} />
+<Route path="/lcd-display/kmi-2000-series/application?detail=id" element={DetailApplication} />
+
+<Route path="/lcd-display/kmi-2300-series" element={ProductDetail} />
+<Route path="/lcd-display/kmi-2300-series/specification" element={Specification} />
+<Route path="/lcd-display/kmi-2300-series/application" element={Application} />
+<Route path="/lcd-display/kmi-2300-series/application?detail=id" element={DetailApplication} />
+
+<Route path="/lcd-display/kmi-4100&4200" element={ProductDetail} />
+<Route path="/lcd-display/kmi-4100&4200/specification" element={Specification} />
+<Route path="/lcd-display/kmi-4100&4200/application" element={Application} />
+<Route path="/lcd-display/kmi-4100&4200/application?detail=id" element={DetailApplication} />
+
+<Route path="/led-display/led-outdoor" element={ProductDetail} />
+<Route path="/led-display/led-outdoor/specification" element={Specification} />
+<Route path="/led-display/led-outdoor/application" element={Application} />
+<Route path="/led-display/led-outdoor/application?detail=id" element={DetailApplication} />
+
+<Route path="/led-display/led-indoor" element={ProductDetail} />
+<Route path="/led-display/led-indoor/specification" element={Specification} />
+<Route path="/led-display/led-indoor/application" element={Application} />
+<Route path="/led-display/led-indoor/application?detail=id" element={DetailApplication} />
+
+<Route path="/led-display/led-poster" element={ProductDetail} />led-poster
+<Route path="/led-display/led-poster/specification" element={Specification} />
+<Route path="/led-display/led-poster/implementation" element={Implementation} />
+<Route path="/led-display/led-poster/application" element={Application} />
+<Route path="/led-display/led-poster/application?detail=id" element={DetailApplication} />

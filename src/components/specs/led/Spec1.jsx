@@ -25,66 +25,70 @@ export function Spec1_LED({ specs }) {
   const spec = specs[0];
 
   return (
-    <div className="px-8 mt-4">
+    <div className="px-8 mt-12 md:mt-0">
       {/* Desktop Layout */}
-      <table className="hidden md:table table-fixed w-full text-left text-sm text-gray-600 text-[11px] lg:text-sm">
+      <table className="hidden md:table mx-auto table-auto text-left text-sm text-gray-600">
         <tbody>
           <tr>
-            <td className="py-2 px-4 font-medium w-48">
+            <td className="py-3 pr-8 font-medium min-w-[120px]">
               {formatFieldName("refresh_rate")}
             </td>
-            <td className="py-2 px-4 w-60">{formatValue(spec.refresh_rate)}</td>
+            <td className="py-3 pr-12 min-w-[140px]">
+              {formatValue(spec.refresh_rate)}
+            </td>
 
-            <td className="py-2 px-4 font-medium w-48">
+            <td className="py-3 pr-8 font-medium min-w-[120px]">
               {formatFieldName("modul_size")}
             </td>
-            <td className="py-2 px-4 w-60">{formatValue(spec.modul_size)}</td>
+            <td className="py-3 pr-12 min-w-[140px]">
+              {formatValue(spec.modul_size)}
+            </td>
 
-            <td className="py-2 px-4 font-medium w-48">
+            <td className="py-3 pr-8 font-medium min-w-[120px]">
               {formatFieldName("cabinet_size")}
             </td>
-            <td className="py-2 px-4 w-60">{formatValue(spec.cabinet_size)}</td>
+            <td className="py-3 min-w-[140px]">
+              {formatValue(spec.cabinet_size)}
+            </td>
           </tr>
           <tr>
-            <td className="py-2 px-4 font-medium">
+            <td className="py-3 pr-8 font-medium">
               {formatFieldName("brightness")}
             </td>
-            <td className="py-2 px-4">{formatValue(spec.brightness)}</td>
+            <td className="py-3 pr-12">{formatValue(spec.brightness)}</td>
 
-            <td className="py-2 px-4 font-medium">
+            <td className="py-3 pr-8 font-medium">
               {formatFieldName("pixel_resolution")}
             </td>
-            <td className="py-2 px-4">{formatValue(spec.pixel_resolution)}</td>
+            <td className="py-3 pr-12">{formatValue(spec.pixel_resolution)}</td>
 
-            <td className="py-2 px-4 font-medium">
+            <td className="py-3 pr-8 font-medium">
               {formatFieldName("max_power")}
             </td>
-            <td className="py-2 px-4">{formatValue(spec.max_power)}</td>
+            <td className="py-3">{formatValue(spec.max_power)}</td>
           </tr>
           <tr>
-            <td className="py-2 px-4"></td>
-            <td className="py-2 px-4"></td>
-            <td className="py-2 px-4 font-medium">
+            <td className="py-3 pr-8"></td>
+            <td className="py-3 pr-12"></td>
+            <td className="py-3 pr-8 font-medium">
               {formatFieldName("module_weight")}
             </td>
-            <td className="py-2 px-4">{formatValue(spec.module_weight)}</td>
+            <td className="py-3 pr-12">{formatValue(spec.module_weight)}</td>
 
-            <td className="py-2 px-4 font-medium">
+            <td className="py-3 pr-8 font-medium">
               {formatFieldName("cabinet_resolution")}
             </td>
-            <td className="py-2 px-4">
-              {formatValue(spec.cabinet_resolution)}
-            </td>
+            <td className="py-3">{formatValue(spec.cabinet_resolution)}</td>
           </tr>
           <tr>
-            <td className="py-2 px-4"></td>
-            <td className="py-2 px-4"></td>
-            <td className="py-2 px-4"></td>
-            <td className="py-2 px-4"></td>
-            <td className="py-2 px-4 font-medium">
+            <td className="py-3 pr-8"></td>
+            <td className="py-3 pr-12"></td>
+            <td className="py-3 pr-8"></td>
+            <td className="py-3 pr-12"></td>
+            <td className="py-3 pr-8 font-medium">
               {formatFieldName("pixel_density")}
             </td>
-            <td className="py-2 px-4">{formatValue(spec.pixel_density)}</td>
+            <td className="py-3">{formatValue(spec.pixel_density)}</td>
           </tr>
         </tbody>
       </table>

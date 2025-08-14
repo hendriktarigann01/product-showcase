@@ -28,48 +28,48 @@ export function Spec5({ spec, layout = "default" }) {
             <table className="w-full text-left text-xs sm:text-sm text-gray-600">
               <tbody>
                 <tr className="align-top">
-                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
                     {formatFieldName("size")}
                   </td>
-                  <td className="py-2 sm:py-2 text-xs sm:text-sm">{size}</td>
+                  <td className="py-2 sm:py-3 text-xs sm:text-sm">{size}</td>
                 </tr>
                 <tr className="align-top">
-                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
                     {formatFieldName("brightness")}
                   </td>
-                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 text-xs sm:text-sm">
                     {brightness}
                   </td>
                 </tr>
                 <tr className="align-top">
-                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
                     {formatFieldName("resolution")}
                   </td>
-                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 text-xs sm:text-sm">
                     {resolution}
                   </td>
                 </tr>
                 <tr className="align-top">
-                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
                     {formatFieldName("application")}
                   </td>
-                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 text-xs sm:text-sm">
                     {application}
                   </td>
                 </tr>
                 <tr className="align-top">
-                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
                     {formatFieldName("display_ratio")}
                   </td>
-                  <td className="py-2 sm:py-2 text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 text-xs sm:text-sm">
                     {display_ratio}
                   </td>
                 </tr>
                 <tr className="align-top">
-                  <td className="py-2 sm:py-2 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
+                  <td className="py-2 sm:py-3 pr-2 sm:pr-4 font-medium text-xs sm:text-sm">
                     {formatFieldName("power")}
                   </td>
-                  <td className="py-2 sm:py-2 text-xs sm:text-sm">{power}</td>
+                  <td className="py-2 sm:py-3 text-xs sm:text-sm">{power}</td>
                 </tr>
               </tbody>
             </table>
