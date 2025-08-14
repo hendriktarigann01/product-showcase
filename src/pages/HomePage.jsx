@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { products } from "../data/product";
 import { products_led } from "../data/product_led";
 import { useMorphTransition } from "../utils/MorphTransition";
@@ -89,21 +90,36 @@ function Carousel3D({ slides, goToSlide, onSlideChange, currentIndex }) {
   );
 }
 
+// Helper function to get product slug from name - dipindah ke HomePage
+const getProductSlug = (productName) => {
+  const nameToSlug = {
+    // LCD Products
+    "Interactive Whiteboard KMI 7000 Series": "kmi-7000-series",
+    "Video Wall KMI 8000": "kmi-8000",
+    "Digital Signage KMI 2000 Series": "kmi-2000-series",
+    "Digital Signage KMI 2300": "kmi-2300-series",
+    "Digital Kiosk Signage KMI 4100 & 4200": "kmi-4100-and-4200",
+    // LED Products
+    "LED Outdoor for Fixed Installation": "led-outdoor",
+    "LED Indoor for Fixed Installation": "led-indoor",
+    "LED Poster Display": "led-poster",
+  };
+
+  return (
+    nameToSlug[productName] || productName.toLowerCase().replace(/\s+/g, "-")
+  );
+};
+
 // Main HomePage Component
-function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
-  const [currentIndex, setCurrentIndex] = useState(selectedProductIndex || 0);
+function HomePage({ isLED = false }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [goToSlide, setGoToSlide] = useState(null);
   const [carouselVisible, setCarouselVisible] = useState(false);
   const { startTransition, endTransition, isTransitioning } =
     useMorphTransition();
   const imageRefs = useRef({});
-
-  useEffect(() => {
-    if (selectedProductIndex !== undefined && selectedProductIndex !== null) {
-      setCurrentIndex(selectedProductIndex);
-      setGoToSlide(selectedProductIndex);
-    }
-  }, [selectedProductIndex]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (isTransitioning) {
@@ -123,6 +139,41 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
   }, [isTransitioning, endTransition]);
 
   const selectedProducts = isLED ? products_led : products;
+
+  // Set initial currentIndex based on URL query parameter
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const selectedSlug = searchParams.get("selected");
+
+    if (selectedSlug) {
+      // Find product index by slug
+      const slugToName = {
+        "kmi-7000-series": "Interactive Whiteboard KMI 7000 Series",
+        "kmi-8000": "Video Wall KMI 8000",
+        "kmi-2000-series": "Digital Signage KMI 2000 Series",
+        "kmi-2300-series": "Digital Signage KMI 2300",
+        "kmi-4100-and-4200": "Digital Kiosk Signage KMI 4100 & 4200",
+        "led-outdoor": "LED Outdoor for Fixed Installation",
+        "led-indoor": "LED Indoor for Fixed Installation",
+        "led-poster": "LED Poster Display",
+      };
+
+      const productName = slugToName[selectedSlug];
+      const productIndex = selectedProducts.findIndex(
+        (p) => p.name === productName
+      );
+
+      if (productIndex !== -1) {
+        setCurrentIndex(productIndex);
+        setGoToSlide(productIndex);
+
+        // Clean URL after setting the index
+        const newUrl = isLED ? "/led-display" : "/lcd-display";
+        window.history.replaceState({}, "", newUrl);
+      }
+    }
+  }, [location.search, selectedProducts, isLED]);
+
   const handleSelectProduct = (product, imageElement) => {
     const productIndex = selectedProducts.findIndex(
       (p) => p.name === product.name
@@ -133,6 +184,17 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
       return;
     }
 
+    const productSlug = getProductSlug(product.name);
+    const basePath = isLED ? "/led-display" : "/lcd-display";
+    const targetPath = `${basePath}/${productSlug}`;
+
+    console.log("Navigating to:", targetPath); // Debug log
+    console.log("Product:", product.name); // Debug log
+    console.log("Slug:", productSlug); // Debug log
+
+    // Sementara disable transisi untuk debug
+    navigate(targetPath);
+
     if (imageElement && startTransition) {
       startTransition(imageElement, null, {
         startImage: product.image,
@@ -142,10 +204,11 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
       });
 
       setTimeout(() => {
-        onSelectProduct(selectedProducts[productIndex], productIndex, isLED);
+        navigate(targetPath);
       }, 150);
     } else {
-      onSelectProduct(selectedProducts[productIndex], productIndex, isLED);
+      // Kalau imageElement tidak ada, langsung navigasi tanpa animasi
+      navigate(targetPath);
     }
   };
 
@@ -156,7 +219,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
         <div className="flex-1 p-2 flex items-center justify-center">
           <img
             ref={(el) => {
-              if (el) imageRefs.current[selectedProducts[index]?.name] = el;
+              if (el) imageRefs.current[index] = el;
             }}
             src={product.image}
             alt={product.name}
@@ -189,6 +252,11 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
     setGoToSlide(prev);
   };
 
+  const handleToggleDisplay = () => {
+    const newPath = isLED ? "/lcd-display" : "/led-display";
+    navigate(newPath);
+  };
+
   return (
     <div
       className="flex flex-col bg-white overflow-hidden"
@@ -208,6 +276,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
           </div>
         </div>
       </div>
+
       {/* Main Content - Flex grow to fill available space */}
       <div className="flex-grow flex md:items-center md:justify-center px-8 mb-0 lg:mb-10">
         <div className="max-w-7xl mx-auto w-full">
@@ -222,6 +291,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
               {selectedProducts[currentIndex]?.name || ""}
             </p>
           </div>
+
           {/* Background Circle */}
           <div className="relative flex items-center justify-center">
             <div className="absolute inset-0 flex items-center justify-center">
@@ -257,7 +327,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
                 onClick={(e) => {
                   e.stopPropagation();
                   const currentProduct = selectedProducts[currentIndex];
-                  const imageElement = imageRefs.current[currentProduct.name];
+                  const imageElement = imageRefs.current[currentIndex] || null;
                   handleSelectProduct(currentProduct, imageElement);
                 }}
                 className={`bg-teal-500 hover:bg-teal-600 text-white px-8 py-3 rounded-lg transition-all duration-300 font-medium flex items-center justify-center gap-2 ${
@@ -301,6 +371,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
           </div>
         </div>
       </div>
+
       {/* Contact Info - Embedded */}
       <div className="fixed bottom-0 left-0 right-0 bg-white z-50">
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
@@ -318,7 +389,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
                 id="display-toggle"
                 type="checkbox"
                 checked={isLED}
-                onChange={() => setIsLED(!isLED)}
+                onChange={handleToggleDisplay}
                 className="peer appearance-none w-11 h-4 bg-gray-100 align-middle rounded-full checked:bg-gray-100 cursor-pointer transition-colors duration-300"
               />
               <label
@@ -334,6 +405,7 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
               LED Display
             </span>
           </div>
+
           {/* Baris Website & Phone (dan toggle di desktop) */}
           <div className="flex justify-between items-center flex-wrap">
             {/* Website */}
@@ -357,14 +429,14 @@ function HomePage({ onSelectProduct, selectedProductIndex, isLED, setIsLED }) {
               </span>
               <div className="relative inline-block w-11 h-5 mx-3">
                 <input
-                  id="display-toggle"
+                  id="display-toggle-desktop"
                   type="checkbox"
                   checked={isLED}
-                  onChange={() => setIsLED(!isLED)}
+                  onChange={handleToggleDisplay}
                   className="peer appearance-none w-11 h-4 bg-gray-100 align-middle rounded-full checked:bg-gray-100 cursor-pointer transition-colors duration-300"
                 />
                 <label
-                  htmlFor="display-toggle"
+                  htmlFor="display-toggle-desktop"
                   className="absolute top-0 left-0 w-5 h-5 bg-teal-500 rounded-full transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
                 ></label>
               </div>

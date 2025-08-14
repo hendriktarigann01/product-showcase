@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import ImageHotspot from "../components/ImageHotspot";
 import { useMorphTransition } from "../utils/MorphTransition";
 import { Download } from "./menu/Download";
@@ -12,19 +12,15 @@ import {
   getMenuButtons,
 } from "../utils/pages/ProductDetailHelpers";
 
-function ProductDetail({
-  product,
-  productIndex = 0,
-  onBack,
-  onNavigateToSpec,
-  onNavigateToImplementation,
-}) {
+function ProductDetail({ product, productIndex = 0, isLED = false }) {
+  const { slug } = useParams();
   const [selectedView, setSelectedView] = useState("front");
   const [isVisible, setIsVisible] = useState(false);
   const [isDownloadPopupOpen, setIsDownloadPopupOpen] = useState(false);
   const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const { endTransition, isTransitioning, startTransition } =
     useMorphTransition();
   const mainImageRef = useRef(null);
@@ -57,6 +53,25 @@ function ProductDetail({
   }, []);
 
   const handleBackToHome = () => {
+    console.log("Current slug from useParams:", slug); // Debug log
+    console.log("Current product:", product); // Debug log
+    console.log("Current location pathname:", location.pathname); // Debug log
+
+    // Extract slug from current URL if useParams slug is undefined
+    let productSlug = slug;
+    if (!productSlug) {
+      // Extract from pathname: /lcd-display/kmi-8000 -> kmi-8000
+      const pathParts = location.pathname.split("/");
+      productSlug = pathParts[pathParts.length - 1];
+    }
+
+    console.log("Final productSlug:", productSlug); // Debug log
+
+    const homePath = isLED ? "/led-display" : "/lcd-display";
+    const homePathWithSelected = `${homePath}?selected=${productSlug}`;
+
+    console.log("Navigating to:", homePathWithSelected); // Debug log
+
     if (mainImageRef.current && startTransition) {
       const imageElement = mainImageRef.current.querySelector("img");
 
@@ -67,19 +82,32 @@ function ProductDetail({
           direction: "backward",
           productIndex: productIndex,
         });
-        setTimeout(() => onBack(), 150);
+        setTimeout(() => navigate(homePathWithSelected), 150);
       } else {
-        onBack();
+        navigate(homePathWithSelected);
       }
     } else {
-      onBack();
+      navigate(homePathWithSelected);
     }
   };
 
+  const handleNavigateToSpec = () => {
+    const basePath = isLED ? "/led-display" : "/lcd-display";
+    navigate(`${basePath}/${slug}/specification`);
+  };
+
+  const handleNavigateToImplementation = () => {
+    const basePath = isLED ? "/led-display" : "/lcd-display";
+    navigate(`${basePath}/${slug}/implementation`);
+  };
+
+  const handleNavigateToDownload = () => {
+    setIsDownloadPopupOpen(true);
+  };
+
   const handleApplicationClick = () => {
-    localStorage.setItem("selectedProduct", JSON.stringify(product));
-    localStorage.setItem("selectedProductIndex", productIndex);
-    navigate("/application");
+    const basePath = isLED ? "/led-display" : "/lcd-display";
+    navigate(`${basePath}/${slug}/application`);
   };
 
   if (!product) return null;
@@ -102,10 +130,10 @@ function ProductDetail({
   const menuButtons = getMenuButtons(
     product,
     handleBackToHome,
-    onNavigateToSpec,
-    onNavigateToImplementation,
+    handleNavigateToSpec,
+    handleNavigateToImplementation,
     handleApplicationClick,
-    setIsDownloadPopupOpen
+    handleNavigateToDownload
   );
 
   const ViewThumbnail = ({ view }) => {
@@ -161,7 +189,7 @@ function ProductDetail({
                 className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
-                onClick={onBack}
+                onClick={handleBackToHome}
                 className="w-2 h-2 p-5 md:p-7 invisible flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
               >
                 Back

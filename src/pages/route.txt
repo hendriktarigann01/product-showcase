@@ -25,10 +25,10 @@
 <Route path="/lcd-display/kmi-2300-series/application" element={Application} />
 <Route path="/lcd-display/kmi-2300-series/application?detail=id" element={DetailApplication} />
 
-<Route path="/lcd-display/kmi-4100&4200" element={ProductDetail} />
-<Route path="/lcd-display/kmi-4100&4200/specification" element={Specification} />
-<Route path="/lcd-display/kmi-4100&4200/application" element={Application} />
-<Route path="/lcd-display/kmi-4100&4200/application?detail=id" element={DetailApplication} />
+<Route path="/lcd-display/kmi-4100-and-4200" element={ProductDetail} />
+<Route path="/lcd-display/kmi-4100-and-4200/specification" element={Specification} />
+<Route path="/lcd-display/kmi-4100-and-4200/application" element={Application} />
+<Route path="/lcd-display/kmi-4100-and-4200/application?detail=id" element={DetailApplication} />
 
 <Route path="/led-display/led-outdoor" element={ProductDetail} />
 <Route path="/led-display/led-outdoor/specification" element={Specification} />
@@ -40,7 +40,7 @@
 <Route path="/led-display/led-indoor/application" element={Application} />
 <Route path="/led-display/led-indoor/application?detail=id" element={DetailApplication} />
 
-<Route path="/led-display/led-poster" element={ProductDetail} />led-poster
+<Route path="/led-display/led-poster" element={ProductDetail} />
 <Route path="/led-display/led-poster/specification" element={Specification} />
 <Route path="/led-display/led-poster/implementation" element={Implementation} />
 <Route path="/led-display/led-poster/application" element={Application} />
