@@ -603,7 +603,7 @@ export const products = [
         x: 36,
         y: 56,
         style: {
-          left: 87,
+          left: 62,
           top: 105,
           width: 472.8,
           height: 339,
@@ -617,7 +617,7 @@ export const products = [
         x: 53,
         y: 35,
         style: {
-          left: 245,
+          left: 220,
           top: 28,
           width: 472.8,
           height: 339,
@@ -631,7 +631,7 @@ export const products = [
         x: 75,
         y: 70,
         style: {
-          left: 450,
+          left: 422,
           top: 183,
           width: 426,
           height: 315,

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { X } from "lucide-react";
+import { X, FileDown } from "lucide-react";
 
 // Mapping product names to PDF files
 const PDF_MAPPING = {
@@ -80,7 +80,7 @@ export function Download({ isOpen, onClose, product }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 bg-[#4ECDC4] rounded-full flex items-center justify-center text-white hover:bg-[#45b8af] transition-colors shadow-lg"
+          className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center text-white hover:bg-teal-600 transition-colors"
         >
           <X size={16} className="sm:hidden" />
           <X size={20} className="hidden sm:block" />
@@ -112,12 +112,15 @@ export function Download({ isOpen, onClose, product }) {
           </p>
 
           {/* Download Link */}
-          <p
-            className="text-primary text-xs sm:text-sm lg:text-base mb-4 sm:mb-6 underline cursor-pointer hover:text-teal-600 transition-colors px-2 sm:px-0"
-            onClick={handleDownloadPDF}
-          >
-            {getPDFFileName()}
-          </p>
+          <div className="px-5 py-2 mx-auto bg-primary hover:bg-teal-600 flex align-middle cursor-pointer justify-center items-center gap-2 rounded-md">
+            <p
+              className="text-white text-xs md:text-sm lg:text-base transition-colors px-2 sm:px-0"
+              onClick={handleDownloadPDF}
+            >
+              {getPDFFileName()}
+            </p>
+            <FileDown size={20} className="text-white" />
+          </div>
         </div>
       </div>
     </div>

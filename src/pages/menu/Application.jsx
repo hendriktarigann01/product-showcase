@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import DetailApplication from "../menu/details/DetailApplication";
 import { useMorphTransition } from "../../utils/MorphTransitionApp";
+import { NavigationService } from "../../services/NavigationService";
 
-const Application = ({
-  product: propProduct,
-  productIndex: propIndex,
-  onBack,
-}) => {
+const Application = ({ product: propProduct, productIndex: propIndex }) => {
   const [product, setProduct] = useState(propProduct);
   const [selectedApp, setSelectedApp] = useState(null);
   const [selectedAppId, setSelectedAppId] = useState(null);
@@ -19,6 +17,55 @@ const Application = ({
   const containerRef = useRef(null);
   const { startTransition, isTransitioning, endTransition } =
     useMorphTransition();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { slug } = useParams();
+
+  // Helper function untuk extract slug dan isLED dari URL
+  const getUrlInfo = () => {
+    const pathParts = location.pathname.split("/").filter(Boolean);
+
+    // Extract slug - bisa dari useParams atau dari pathname
+    let currentSlug = slug;
+    if (!currentSlug && pathParts.length >= 2) {
+      currentSlug = pathParts[1]; // Index 1 = slug part
+    }
+
+    // Determine isLED from pathname
+    const isLED = location.pathname.includes("/led-display");
+
+    return { currentSlug, isLED };
+  };
+
+  const { currentSlug, isLED } = getUrlInfo();
+
+  // Debug logging
+  useEffect(() => {
+    console.log("Application Debug:", {
+      pathname: location.pathname,
+      pathParts: location.pathname.split("/"),
+      currentSlug,
+      isLED,
+      product: product?.name,
+    });
+  }, [location.pathname, currentSlug, isLED, product]);
+
+  // Navigation handlers dengan validasi slug
+  const NavigationHandlers = currentSlug
+    ? NavigationService.buildMenuNavigationHandlers(
+        navigate,
+        isLED,
+        currentSlug
+      )
+    : {
+        handleBackToProductDetail: () => {
+          console.warn("Cannot navigate back: slug is undefined");
+          // Fallback ke home
+          const basePath = isLED ? "/led-display" : "/lcd-display";
+          navigate(basePath);
+        },
+      };
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
@@ -80,9 +127,11 @@ const Application = ({
 
   useEffect(() => {
     if (!propProduct) {
+      // Try to get from localStorage as fallback
       const savedProduct = localStorage.getItem("selectedProduct");
-
-      if (savedProduct) setProduct(JSON.parse(savedProduct));
+      if (savedProduct) {
+        setProduct(JSON.parse(savedProduct));
+      }
     }
   }, [propProduct, propIndex]);
 
@@ -177,10 +226,16 @@ const Application = ({
 
     setTimeout(() => {
       setSelectedApp(selectedAppData);
+      const slugTitle = selectedAppData.title
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+
       window.history.pushState(
         { view: "detail", appId },
         "",
-        `${window.location.pathname}?detail=${appId}`
+        `${window.location.pathname}?detail=${slugTitle}`
       );
     }, 50);
   };
@@ -197,7 +252,45 @@ const Application = ({
     );
   };
 
-  if (!product) return null;
+  // Error handling untuk missing product atau slug
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
+        <div className="text-center">
+          <h2 className="text-xl text-gray-600 mb-4">Product not found</h2>
+          <button
+            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
+            className="px-4 py-2 bg-primary text-white rounded-md"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!currentSlug) {
+    console.error(
+      "Application: Unable to determine slug from URL:",
+      location.pathname
+    );
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
+        <div className="text-center">
+          <h2 className="text-xl text-gray-600 mb-4">Invalid URL</h2>
+          <p className="text-gray-500 mb-4">
+            Unable to determine product from URL
+          </p>
+          <button
+            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
+            className="px-4 py-2 bg-primary text-white rounded-md"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   if (selectedApp) {
     return (
@@ -253,7 +346,7 @@ const Application = ({
                 className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
-                onClick={onBack}
+                onClick={NavigationHandlers.handleBackToProductDetail}
                 className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white z-[1001] relative"
               >
                 Back

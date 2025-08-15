@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { NavigationService } from "../../services/NavigationService";
 
-const Implementation = ({ product, onBack }) => {
+const Implementation = ({ product }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { slug } = useParams();
   const [selectedOption, setSelectedOption] = useState(
     product.image_implement?.[0]?.id || null
   );
@@ -21,6 +26,38 @@ const Implementation = ({ product, onBack }) => {
     };
   }, []);
 
+  const getUrlInfo = () => {
+    const pathParts = location.pathname.split("/").filter(Boolean);
+
+    // Extract slug - bisa dari useParams atau dari pathname
+    let currentSlug = slug;
+    if (!currentSlug && pathParts.length >= 2) {
+      currentSlug = pathParts[1]; // Index 1 = slug part
+    }
+
+    // Determine isLED from pathname
+    const isLED = location.pathname.includes("/led-display");
+
+    return { currentSlug, isLED };
+  };
+
+  const { currentSlug, isLED } = getUrlInfo();
+
+  const NavigationHandlers = currentSlug
+    ? NavigationService.buildMenuNavigationHandlers(
+        navigate,
+        isLED,
+        currentSlug
+      )
+    : {
+        handleBackToProductDetail: () => {
+          console.warn("Cannot navigate back: slug is undefined");
+          // Fallback ke home
+          const basePath = isLED ? "/led-display" : "/lcd-display";
+          navigate(basePath);
+        },
+      };
+
   return (
     <div className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden">
       {/* Header */}
@@ -34,8 +71,8 @@ const Implementation = ({ product, onBack }) => {
                 className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
-                onClick={onBack}
-                className="w-2 h-2 p-5 md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
+                onClick={NavigationHandlers.handleBackToProductDetail}
+                className="w-2 h-2 p-5  md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
               >
                 Back
               </button>

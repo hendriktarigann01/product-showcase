@@ -3,6 +3,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 
 import EntryPage from "./pages/EntryPage";
+import NotFound from "./pages/NotFoundPage";
 import HomePage from "./pages/HomePage";
 import ProductDetail from "./pages/ProductDetail";
 import Application from "./pages/menu/Application";
@@ -11,6 +12,7 @@ import Implementation from "./pages/menu/Implementation";
 import { MorphTransitionProvider } from "./utils/MorphTransition";
 import { UseDeviceDetection } from "./hooks/UseDeviceDetection";
 import { ProductService } from "./services/ProductService";
+import DetailApplication from "./pages/menu/details/DetailApplication";
 
 function App() {
   const shouldUseMorph = UseDeviceDetection();
@@ -66,11 +68,12 @@ function App() {
       <Route path="/lcd-display" element={<HomePage isLED={false} />} />
       <Route path="/led-display" element={<HomePage isLED={true} />} />
 
-      {/* LCD Display Routes */}
+      {/* LCD & LED Display Routes */}
       {createProductRoutes(false)}
-
-      {/* LED Display Routes */}
       {createProductRoutes(true)}
+
+      {/* Not Found - fallback untuk semua URL yang tidak cocok */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 

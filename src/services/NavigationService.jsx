@@ -1,6 +1,3 @@
-// services/navigationService.js
-import { getProductSlug } from "../constants/ProductMappings";
-
 export class NavigationService {
   static getBasePath(isLED) {
     return isLED ? "/led-display" : "/lcd-display";
@@ -66,7 +63,8 @@ export class NavigationService {
     const basePath = this.getBasePath(isLED);
 
     return {
-      handleNavigateToSpec: () => navigate(`${basePath}/${slug}/specification`),
+      handleNavigateToSpec: () => 
+        navigate(`${basePath}/${slug}/specification`),
       handleNavigateToImplementation: () =>
         navigate(`${basePath}/${slug}/implementation`),
       handleNavigateToApplication: () =>
@@ -74,6 +72,20 @@ export class NavigationService {
       handleBackToHome: (productSlug) => {
         const homeUrl = this.getHomePathWithProduct(isLED, productSlug);
         navigate(homeUrl);
+      },
+    };
+  }
+
+  // Back Navigation
+  static buildMenuNavigationHandlers(navigate, isLED, slug) {
+    const basePath = this.getBasePath(isLED);
+
+    return {
+      handleBackToProductDetail: () => {
+        navigate(`${basePath}/${slug}`);
+      },
+      handleBackToApplication: () => {
+        navigate(`${basePath}/${slug}/application`);
       },
     };
   }

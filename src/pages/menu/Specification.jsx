@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MoveLeft, MoveRight } from "lucide-react";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { NavigationService } from "../../services/NavigationService";
 import { Spec1 } from "../../components/specs/lcd/Spec1";
 import { Spec2 } from "../../components/specs/lcd/Spec2";
 import { Spec3 } from "../../components/specs/lcd/Spec3";
@@ -140,10 +142,13 @@ function SingleImageDisplay({ image, productName }) {
   );
 }
 
-const Specification = ({ product, onBack }) => {
+const Specification = ({ product }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [goToSlide, setGoToSlide] = useState(null);
   const [currentSpec, setCurrentSpec] = useState(product.specs?.[0] || {});
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { slug } = useParams();
 
   const productImages = [
     product.image_spec1,
@@ -153,7 +158,49 @@ const Specification = ({ product, onBack }) => {
     product.image_spec5,
   ].filter(Boolean);
 
+  const getUrlInfo = () => {
+    const pathParts = location.pathname.split("/").filter(Boolean);
+
+    // Extract slug - bisa dari useParams atau dari pathname
+    let currentSlug = slug;
+    if (!currentSlug && pathParts.length >= 2) {
+      currentSlug = pathParts[1]; // Index 1 = slug part
+    }
+
+    // Determine isLED from pathname
+    const isLED = location.pathname.includes("/led-display");
+
+    return { currentSlug, isLED };
+  };
+
+  const { currentSlug, isLED } = getUrlInfo();
+
   const hasMultipleImages = productImages.length > 1;
+
+  useEffect(() => {
+    console.log("Spec Debug:", {
+      pathname: location.pathname,
+      pathParts: location.pathname.split("/"),
+      currentSlug,
+      isLED,
+      product: product?.name,
+    });
+  }, [location.pathname, currentSlug, isLED, product]);
+
+  const NavigationHandlers = currentSlug
+    ? NavigationService.buildMenuNavigationHandlers(
+        navigate,
+        isLED,
+        currentSlug
+      )
+    : {
+        handleBackToProductDetail: () => {
+          console.warn("Cannot navigate back: slug is undefined");
+          // Fallback ke home
+          const basePath = isLED ? "/led-display" : "/lcd-display";
+          navigate(basePath);
+        },
+      };
 
   useEffect(() => {
     // Disable scrolling
@@ -280,7 +327,7 @@ const Specification = ({ product, onBack }) => {
                 className="h-7 sm:h-10 mb-3 sm:mb-0"
               />
               <button
-                onClick={onBack}
+                onClick={NavigationHandlers.handleBackToProductDetail}
                 className="w-2 h-2 p-5  md:p-7 flex justify-center items-center text-xs md:text-sm bg-primary rounded-full text-white"
               >
                 Back

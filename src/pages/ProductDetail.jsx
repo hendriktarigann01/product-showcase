@@ -11,13 +11,13 @@ import {
   getCurrentImageData,
   getMenuButtons,
 } from "../utils/pages/ProductDetailHelpers";
+import { NavigationService } from "../services/navigationService";
 
 function ProductDetail({ product, productIndex = 0, isLED = false }) {
   const { slug } = useParams();
   const [selectedView, setSelectedView] = useState("front");
   const [isVisible, setIsVisible] = useState(false);
   const [isDownloadPopupOpen, setIsDownloadPopupOpen] = useState(false);
-  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -25,6 +25,34 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     useMorphTransition();
   const mainImageRef = useRef(null);
 
+  // Helper function untuk extract slug dari berbagai sumbe
+  const getSlugFromUrl = () => {
+    if (slug) return slug;
+
+    // 2. Extract dari pathname
+    const pathParts = location.pathname.split("/").filter(Boolean);
+    if (pathParts.length >= 2) {
+      return pathParts[1];
+    }
+
+    if (product?.slug) return product.slug;
+
+    return null;
+  };
+
+  const currentSlug = getSlugFromUrl();
+
+  useEffect(() => {
+    console.log("ProductDetail Debug:", {
+      pathname: location.pathname,
+      pathParts: location.pathname.split("/"),
+      currentSlug,
+      product: product?.name,
+      isLED,
+    });
+  }, [location.pathname, currentSlug, product, isLED]);
+
+  // Initialize visibility with transition handling
   useEffect(() => {
     const delay = isTransitioning ? 900 : 0;
     setTimeout(() => {
@@ -33,6 +61,7 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     }, delay);
   }, [isTransitioning, endTransition]);
 
+  // Prevent scrolling
   useEffect(() => {
     document.body.style.overflow = "hidden";
     document.documentElement.style.overflow = "hidden";
@@ -43,34 +72,30 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     };
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setScreenSize(window.innerWidth);
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // Navigation handlers dengan slug validation
+  const NavigationHandlers = currentSlug
+    ? NavigationService.buildProductNavigationHandlers(
+        navigate,
+        product,
+        isLED,
+        currentSlug
+      )
+    : {
+        handleNavigateToSpec: () =>
+          console.warn("Cannot navigate: slug is undefined"),
+        handleNavigateToImplementation: () =>
+          console.warn("Cannot navigate: slug is undefined"),
+        handleNavigateToApplication: () =>
+          console.warn("Cannot navigate: slug is undefined"),
+        handleBackToHome: () => {
+          const basePath = isLED ? "/led-display" : "/lcd-display";
+          navigate(basePath);
+        },
+      };
 
   const handleBackToHome = () => {
-    console.log("Current slug from useParams:", slug); // Debug log
-    console.log("Current product:", product); // Debug log
-    console.log("Current location pathname:", location.pathname); // Debug log
-
     // Extract slug from current URL if useParams slug is undefined
-    let productSlug = slug;
-    if (!productSlug) {
-      // Extract from pathname: /lcd-display/kmi-8000 -> kmi-8000
-      const pathParts = location.pathname.split("/");
-      productSlug = pathParts[pathParts.length - 1];
-    }
-
-    console.log("Final productSlug:", productSlug); // Debug log
-
-    const homePath = isLED ? "/led-display" : "/lcd-display";
-    const homePathWithSelected = `${homePath}?selected=${productSlug}`;
-
-    console.log("Navigating to:", homePathWithSelected); // Debug log
+    let productSlug = currentSlug;
 
     if (mainImageRef.current && startTransition) {
       const imageElement = mainImageRef.current.querySelector("img");
@@ -82,35 +107,57 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
           direction: "backward",
           productIndex: productIndex,
         });
-        setTimeout(() => navigate(homePathWithSelected), 150);
+        setTimeout(() => NavigationHandlers.handleBackToHome(productSlug), 150);
       } else {
-        navigate(homePathWithSelected);
+        NavigationHandlers.handleBackToHome(productSlug);
       }
     } else {
-      navigate(homePathWithSelected);
+      NavigationHandlers.handleBackToHome(productSlug);
     }
-  };
-
-  const handleNavigateToSpec = () => {
-    const basePath = isLED ? "/led-display" : "/lcd-display";
-    navigate(`${basePath}/${slug}/specification`);
-  };
-
-  const handleNavigateToImplementation = () => {
-    const basePath = isLED ? "/led-display" : "/lcd-display";
-    navigate(`${basePath}/${slug}/implementation`);
   };
 
   const handleNavigateToDownload = () => {
     setIsDownloadPopupOpen(true);
   };
 
-  const handleApplicationClick = () => {
-    const basePath = isLED ? "/led-display" : "/lcd-display";
-    navigate(`${basePath}/${slug}/application`);
-  };
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
+        <div className="text-center">
+          <h2 className="text-xl text-gray-600 mb-4">Product not found</h2>
+          <button
+            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
+            className="px-4 py-2 bg-primary text-white rounded-md"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
-  if (!product) return null;
+  if (!currentSlug) {
+    console.error(
+      "ProductDetail: Unable to determine slug from URL:",
+      location.pathname
+    );
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
+        <div className="text-center">
+          <h2 className="text-xl text-gray-600 mb-4">Invalid URL</h2>
+          <p className="text-gray-500 mb-4">
+            Unable to determine product from URL
+          </p>
+          <button
+            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
+            className="px-4 py-2 bg-primary text-white rounded-md"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const availableViews = getAvailableViews(product);
   const currentImageData = getCurrentImageData(
@@ -130,47 +177,10 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
   const menuButtons = getMenuButtons(
     product,
     handleBackToHome,
-    handleNavigateToSpec,
-    handleNavigateToImplementation,
-    handleApplicationClick,
+    NavigationHandlers.handleNavigateToSpec,
+    NavigationHandlers.handleNavigateToImplementation,
+    NavigationHandlers.handleNavigateToApplication,
     handleNavigateToDownload
-  );
-
-  const ViewThumbnail = ({ view }) => {
-    const isActive = selectedView === view.key;
-
-    return (
-      <div className="text-center p-1 flex flex-col justify-center">
-        <button
-          onClick={() => setSelectedView(view.key)}
-          className={`w-[80px] h-[80px] md:w-auto md:h-auto rounded-lg overflow-hidden transition-all duration-200 ${
-            isActive ? "border-2 border-teal-500 shadow-md scale-105" : ""
-          }`}
-        >
-          <div className="w-full h-full p-2 flex flex-col items-center justify-center">
-            <img
-              src={view.src}
-              alt={view.label}
-              className="h-10 lg:h-24 w-full object-contain"
-            />
-            <p className="mt-2 lg:mt-5 text-xs lg:text-sm font-medium text-gray-600">
-              {view.label}
-            </p>
-          </div>
-        </button>
-      </div>
-    );
-  };
-
-  const MenuButton = ({ button }) => (
-    <button
-      key={button.id}
-      className="flex items-center justify-center text-xs lg:text-sm gap-3 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
-      onClick={button.onClick}
-    >
-      <img src={button.icon} alt={button.label} className="w-5 h-5" />
-      {button.label}
-    </button>
   );
 
   return (
@@ -207,6 +217,7 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
               {getProductTitle(product.name)}
             </h1>
           </div>
+
           {/* Main Content */}
           <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16">
             {/* Main Image */}
@@ -228,7 +239,7 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="lg:h-[400px] mt-2 lg:mt-0 flex items-center">
+            <div className="lg:h-[400px] mt-2 md:mt-10 lg:mt-0 flex items-center">
               <div
                 className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible
@@ -236,9 +247,36 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
                     : "opacity-0 transform translate-x-10"
                 }`}
               >
-                {availableViews.map((view) => (
-                  <ViewThumbnail key={view.key} view={view} />
-                ))}
+                {availableViews.map((view) => {
+                  const isActive = selectedView === view.key;
+
+                  return (
+                    <div
+                      key={view.key}
+                      className="text-center p-1 flex flex-col justify-center"
+                    >
+                      <button
+                        onClick={() => setSelectedView(view.key)}
+                        className={`w-[80px] h-[80px] md:w-auto md:h-auto rounded-lg overflow-hidden transition-all duration-200 ${
+                          isActive
+                            ? "border-2 border-teal-500 shadow-md scale-105"
+                            : ""
+                        }`}
+                      >
+                        <div className="w-full h-full p-2 flex flex-col items-center justify-center">
+                          <img
+                            src={view.src}
+                            alt={view.label}
+                            className="h-10 lg:h-24 w-full object-contain"
+                          />
+                          <p className="mt-2 lg:mt-5 text-xs lg:text-sm font-medium text-gray-600">
+                            {view.label}
+                          </p>
+                        </div>
+                      </button>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -252,7 +290,14 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
             }`}
           >
             {menuButtons.map((button) => (
-              <MenuButton key={button.id} button={button} />
+              <button
+                key={button.id}
+                className="flex items-center justify-center text-xs lg:text-sm gap-3 px-4 py-2 rounded-md bg-primary text-white hover:bg-teal-600 transition-colors shadow-md min-w-[140px] basis-[45%] sm:basis-auto"
+                onClick={button.onClick}
+              >
+                <img src={button.icon} alt={button.label} className="w-5 h-5" />
+                {button.label}
+              </button>
             ))}
           </div>
         </div>

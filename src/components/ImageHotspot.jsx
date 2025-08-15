@@ -136,7 +136,7 @@ const ImageHotspot = ({
     if (isOutdoor) {
       // Outdoor: Module area ada di kanan bawah (seperti di gambar Anda)
       return (
-        <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+        <div className="absolute top-1/2 left-1/2 w-[220px] md:w-[300px] md:h-[300px] h-[220px] lg:w-[400px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
           {/* Dark overlay untuk seluruh area kecuali module */}
           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
 
