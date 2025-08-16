@@ -1,96 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { products } from "../data/product";
 import { products_led } from "../data/product_led";
 import { useMorphTransition } from "../utils/MorphTransition";
+import { UseCarousel } from "../hooks/UseCarousel";
+import { Carousel3D } from "../components/Carousel3D";
+import { UseLockScroll } from "../hooks/UseLockScroll";
 
-function Carousel3D({ slides, goToSlide, onSlideChange, currentIndex }) {
-  const [localCurrentIndex, setLocalCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (goToSlide !== null && goToSlide !== localCurrentIndex) {
-      setLocalCurrentIndex(goToSlide);
-      if (onSlideChange) {
-        onSlideChange(goToSlide);
-      }
-    }
-  }, [goToSlide, localCurrentIndex, onSlideChange]);
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
-
-  useEffect(() => {
-    setLocalCurrentIndex(currentIndex);
-  }, [currentIndex]);
-
-  const getSlideStyle = (index) => {
-    const diff = index - localCurrentIndex;
-    const isActive = diff === 0;
-    const isPrev =
-      diff === -1 || (localCurrentIndex === 0 && index === slides.length - 1);
-    const isNext =
-      diff === 1 || (localCurrentIndex === slides.length - 1 && index === 0);
-
-    let transform = "";
-    let opacity = 0.3;
-    let scale = 0.8;
-    let zIndex = 1;
-
-    if (isActive) {
-      transform = "translateX(0) rotateY(0deg) translateZ(0px)";
-      opacity = 1;
-      scale = 1;
-      zIndex = 3;
-    } else if (isPrev) {
-      transform = "translateX(-320px) rotateY(20deg) translateZ(-320px)";
-      opacity = 0.7;
-      zIndex = 2;
-    } else if (isNext) {
-      transform = "translateX(320px) rotateY(-20deg) translateZ(-320px)";
-      opacity = 0.7;
-      zIndex = 2;
-    } else {
-      transform = "translateX(0) rotateY(90deg) translateZ(-320px)";
-      opacity = 0;
-      scale = 0.6;
-      zIndex = 0;
-    }
-
-    return {
-      transform: `${transform} scale(${scale})`,
-      opacity,
-      zIndex,
-      transition: "all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)",
-    };
-  };
-
-  return (
-    <div className="relative w-[95%] sm:w-[92%] md:w-[90%] mx-auto h-[370px] sm:h-[416px]">
-      <div className="relative w-full h-full flex items-center justify-center preserve-3d">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className="absolute w-[352px] h-[352px]"
-            style={getSlideStyle(index)}
-            onClick={() => slide.onClick && slide.onClick()}
-          >
-            {slide.content()}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-// Helper function to get product slug from name - dipindah ke HomePage
+// Helper function to get product slug from name
 const getProductSlug = (productName) => {
   const nameToSlug = {
     // LCD Products
@@ -110,43 +28,44 @@ const getProductSlug = (productName) => {
   );
 };
 
-// Main HomePage Component
 function HomePage({ isLED = false }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [goToSlide, setGoToSlide] = useState(null);
-  const [carouselVisible, setCarouselVisible] = useState(false);
   const { startTransition, endTransition, isTransitioning } =
     useMorphTransition();
   const imageRefs = useRef({});
   const navigate = useNavigate();
   const location = useLocation();
 
+  const selectedProducts = isLED ? products_led : products;
+
+  const {
+    currentIndex,
+    carouselVisible,
+    nextSlide,
+    prevSlide,
+    goToIndex,
+    showCarousel,
+    hideCarousel,
+  } = UseCarousel(selectedProducts.length, 0);
+
   useEffect(() => {
     if (isTransitioning) {
-      setCarouselVisible(false);
-
+      hideCarousel();
       setTimeout(() => {
         endTransition();
         setTimeout(() => {
-          setCarouselVisible(true);
+          showCarousel();
         }, 220);
       }, 900);
     } else {
-      setTimeout(() => {
-        setCarouselVisible(true);
-      }, 100);
+      showCarousel();
     }
-  }, [isTransitioning, endTransition]);
+  }, [isTransitioning, endTransition, showCarousel, hideCarousel]);
 
-  const selectedProducts = isLED ? products_led : products;
-
-  // Set initial currentIndex based on URL query parameter
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     const selectedSlug = searchParams.get("selected");
 
     if (selectedSlug) {
-      // Find product index by slug
       const slugToName = {
         "kmi-7000-series": "Interactive Whiteboard KMI 7000 Series",
         "kmi-8000": "Video Wall KMI 8000",
@@ -164,15 +83,14 @@ function HomePage({ isLED = false }) {
       );
 
       if (productIndex !== -1) {
-        setCurrentIndex(productIndex);
-        setGoToSlide(productIndex);
-
-        // Clean URL after setting the index
+        goToIndex(productIndex);
         const newUrl = isLED ? "/led-display" : "/lcd-display";
         window.history.replaceState({}, "", newUrl);
       }
     }
-  }, [location.search, selectedProducts, isLED]);
+  }, [location.search, selectedProducts, isLED, goToIndex]);
+
+  UseLockScroll();
 
   const handleSelectProduct = (product, imageElement) => {
     const productIndex = selectedProducts.findIndex(
@@ -188,12 +106,9 @@ function HomePage({ isLED = false }) {
     const basePath = isLED ? "/led-display" : "/lcd-display";
     const targetPath = `${basePath}/${productSlug}`;
 
-    console.log("Navigating to:", targetPath); // Debug log
-    console.log("Product:", product.name); // Debug log
-    console.log("Slug:", productSlug); // Debug log
-
-    // Sementara disable transisi untuk debug
-    navigate(targetPath);
+    console.log("Navigating to:", targetPath);
+    console.log("Product:", product.name);
+    console.log("Slug:", productSlug);
 
     if (imageElement && startTransition) {
       startTransition(imageElement, null, {
@@ -207,14 +122,13 @@ function HomePage({ isLED = false }) {
         navigate(targetPath);
       }, 150);
     } else {
-      // Kalau imageElement tidak ada, langsung navigasi tanpa animasi
       navigate(targetPath);
     }
   };
 
   const slides = selectedProducts.map((product, index) => ({
     key: index,
-    content: () => (
+    content: (
       <div className="h-full flex flex-col">
         <div className="flex-1 p-2 flex items-center justify-center">
           <img
@@ -238,19 +152,6 @@ function HomePage({ isLED = false }) {
       </div>
     ),
   }));
-
-  const nextSlide = () => {
-    const next = (currentIndex + 1) % selectedProducts.length;
-    setCurrentIndex(next);
-    setGoToSlide(next);
-  };
-
-  const prevSlide = () => {
-    const prev =
-      (currentIndex - 1 + selectedProducts.length) % selectedProducts.length;
-    setCurrentIndex(prev);
-    setGoToSlide(prev);
-  };
 
   const handleToggleDisplay = () => {
     const newPath = isLED ? "/lcd-display" : "/led-display";
@@ -315,9 +216,8 @@ function HomePage({ isLED = false }) {
             >
               <Carousel3D
                 slides={slides}
-                goToSlide={goToSlide}
-                onSlideChange={setCurrentIndex}
                 currentIndex={currentIndex}
+                variant="home"
               />
             </div>
 

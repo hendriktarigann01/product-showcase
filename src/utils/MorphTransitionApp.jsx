@@ -80,7 +80,6 @@ const findDetailApplicationTarget = () => {
 
   // Fallback: calculate expected position for detail page
   const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
   const headerHeight = 128; // pt-32
   const availableHeight = window.innerHeight - headerHeight - 96; // pb-24
   const detailCenterY = headerHeight + availableHeight / 2;
@@ -118,7 +117,6 @@ const calculateTargetPosition = (direction, appId) => {
 
     // Fallback: approximate hotspot position in center of application area
     const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
     const headerHeight = 128;
     const availableHeight = window.innerHeight - headerHeight - 96;
     const applicationCenterY = headerHeight + availableHeight / 2;

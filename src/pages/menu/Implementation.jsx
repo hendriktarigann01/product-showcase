@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import { NavigationService } from "../../services/NavigationService";
+import { UseLockScroll } from "../../hooks/UseLockScroll";
+import { UseAppNavigation } from "../../hooks/UseAppNavigation";
 
 const Implementation = ({ product }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { slug } = useParams();
+  const { currentSlug, isLED, navigate } = UseAppNavigation();
   const [selectedOption, setSelectedOption] = useState(
     product.image_implement?.[0]?.id || null
   );
@@ -16,32 +15,7 @@ const Implementation = ({ product }) => {
     ImplementationOptions.find((opt) => opt.id === selectedOption) ||
     ImplementationOptions[0];
 
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
-
-  const getUrlInfo = () => {
-    const pathParts = location.pathname.split("/").filter(Boolean);
-
-    // Extract slug - bisa dari useParams atau dari pathname
-    let currentSlug = slug;
-    if (!currentSlug && pathParts.length >= 2) {
-      currentSlug = pathParts[1]; // Index 1 = slug part
-    }
-
-    // Determine isLED from pathname
-    const isLED = location.pathname.includes("/led-display");
-
-    return { currentSlug, isLED };
-  };
-
-  const { currentSlug, isLED } = getUrlInfo();
+  UseLockScroll();
 
   const NavigationHandlers = currentSlug
     ? NavigationService.buildMenuNavigationHandlers(
@@ -85,7 +59,7 @@ const Implementation = ({ product }) => {
       <div className="flex-grow flex flex-col items-center justify-center px-4 lg:px-12 w-full">
         {/* Main Product Image */}
         <div className="w-full relative z-50">
-          <h1 className="text-2xl font-bold text-gray-600 text-center relative z-50">
+          <h1 className="text-2xl  text-gray-600 text-center relative z-50">
             {selectedOptionData?.title}
           </h1>
         </div>
@@ -99,7 +73,7 @@ const Implementation = ({ product }) => {
 
         {/* Implementation Options */}
         <div className="mt-2 md:mt-4 lg:mt-6 w-full max-w-4xl">
-          <div className="flex gap-4 overflow-x-auto pb-2 lg:flex-wrap justify-center justify-center">
+          <div className="flex gap-2 md:gap-4 overflow-x-auto pb-2 md:pb-0 lg:flex-wrap justify-center">
             {product.image_implement?.map((option) => (
               <button
                 key={option.id}

@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { MoveLeft, MoveRight } from "lucide-react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+
 import { NavigationService } from "../../services/NavigationService";
+import { UseCarousel } from "../../hooks/UseCarousel";
+import { Carousel3D } from "../../components/Carousel3D";
 import { Spec1 } from "../../components/specs/lcd/Spec1";
 import { Spec2 } from "../../components/specs/lcd/Spec2";
 import { Spec3 } from "../../components/specs/lcd/Spec3";
@@ -10,122 +12,8 @@ import { Spec5 } from "../../components/specs/lcd/Spec5";
 import { Spec1_LED } from "../../components/specs/led/Spec1";
 import { Spec2_LED } from "../../components/specs/led/Spec2";
 import { Spec3_LED } from "../../components/specs/led/Spec3";
-
-function Carousel3D({ slides, goToSlide, onSlideChange }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    if (goToSlide !== null && goToSlide !== currentIndex) {
-      setCurrentIndex(goToSlide);
-      onSlideChange?.(goToSlide);
-    }
-  }, [goToSlide, currentIndex, onSlideChange]);
-
-  const getSlideStyle = (index) => {
-    const diff = index - currentIndex;
-    const isActive = diff === 0;
-    const isPrev =
-      diff === -1 || (currentIndex === 0 && index === slides.length - 1);
-    const isNext =
-      diff === 1 || (currentIndex === slides.length - 1 && index === 0);
-
-    let transform = "";
-    let opacity = 0.3;
-    let scale = 0.8;
-    let zIndex = 1;
-
-    if (isActive) {
-      transform = "translateX(0) rotateY(0deg) translateZ(0px)";
-      opacity = 1;
-      scale = 1;
-      zIndex = 3;
-    } else if (isPrev) {
-      // Responsive transforms - smaller offsets for mobile
-      transform = "translateX(100px) rotateY(-35deg) translateZ(-100px)";
-      opacity = 0.7;
-      zIndex = 2;
-    } else if (isNext) {
-      transform = "translateX(-100px) rotateY(35deg) translateZ(-100px)";
-      opacity = 0.7;
-      zIndex = 2;
-    } else {
-      transform = "translateX(0) rotateY(90deg) translateZ(-200px)";
-      opacity = 0;
-      scale = 0.6;
-      zIndex = 0;
-    }
-
-    return {
-      transform: `${transform} scale(${scale})`,
-      opacity,
-      zIndex,
-      transition: "all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)",
-    };
-  };
-
-  // Responsive slide styles for desktop
-  const getDesktopSlideStyle = (index) => {
-    const diff = index - currentIndex;
-    const isActive = diff === 0;
-    const isPrev =
-      diff === -1 || (currentIndex === 0 && index === slides.length - 1);
-    const isNext =
-      diff === 1 || (currentIndex === slides.length - 1 && index === 0);
-
-    let transform = "";
-    let opacity = 0.3;
-    let scale = 0.8;
-    let zIndex = 1;
-
-    if (isActive) {
-      transform = "translateX(0) rotateY(0deg) translateZ(0px)";
-      opacity = 1;
-      scale = 1;
-      zIndex = 3;
-    } else if (isPrev) {
-      transform = "translateX(350px) rotateY(-0deg) translateZ(-350px)";
-      opacity = 0.7;
-      zIndex = 2;
-    } else if (isNext) {
-      transform = "translateX(-350px) rotateY(0deg) translateZ(-350px)";
-      opacity = 0.7;
-      zIndex = 2;
-    } else {
-      transform = "translateX(0) rotateY(90deg) translateZ(-400px)";
-      opacity = 0;
-      scale = 0.6;
-      zIndex = 0;
-    }
-
-    return {
-      transform: `${transform} scale(${scale})`,
-      opacity,
-      zIndex,
-      transition: "all 0.6s cubic-bezier(0.4, 0.0, 0.2, 1)",
-    };
-  };
-
-  return (
-    <div className="relative w-full sm:w-4/5 md:w-3/4 lg:w-[72%] mx-auto h-[200px] sm:h-[300px] md:h-[350px] lg:h-[400px]">
-      <div className="relative w-full h-full flex items-center justify-center preserve-3d">
-        {slides.map((slide, index) => (
-          <div
-            key={index}
-            className="absolute justify-center items-center w-[240px] max-h-[200px] sm:w-[400px] sm:max-h-[250px] md:w-[500px] md:max-h-[280px] lg:w-[600px] lg:max-h-[335px] cursor-pointer"
-            style={
-              window.innerWidth >= 1024
-                ? getDesktopSlideStyle(index)
-                : getSlideStyle(index)
-            }
-            onClick={() => slide.onClick?.()}
-          >
-            {slide.content}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import { UseLockScroll } from "../../hooks/UseLockScroll";
+import { UseAppNavigation } from "../../hooks/UseAppNavigation";
 
 // Component untuk single image display
 function SingleImageDisplay({ image, productName }) {
@@ -143,12 +31,8 @@ function SingleImageDisplay({ image, productName }) {
 }
 
 const Specification = ({ product }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [goToSlide, setGoToSlide] = useState(null);
   const [currentSpec, setCurrentSpec] = useState(product.specs?.[0] || {});
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { slug } = useParams();
+  const { currentSlug, isLED, navigate } = UseAppNavigation();
 
   const productImages = [
     product.image_spec1,
@@ -158,34 +42,12 @@ const Specification = ({ product }) => {
     product.image_spec5,
   ].filter(Boolean);
 
-  const getUrlInfo = () => {
-    const pathParts = location.pathname.split("/").filter(Boolean);
-
-    // Extract slug - bisa dari useParams atau dari pathname
-    let currentSlug = slug;
-    if (!currentSlug && pathParts.length >= 2) {
-      currentSlug = pathParts[1]; // Index 1 = slug part
-    }
-
-    // Determine isLED from pathname
-    const isLED = location.pathname.includes("/led-display");
-
-    return { currentSlug, isLED };
-  };
-
-  const { currentSlug, isLED } = getUrlInfo();
-
   const hasMultipleImages = productImages.length > 1;
 
-  useEffect(() => {
-    console.log("Spec Debug:", {
-      pathname: location.pathname,
-      pathParts: location.pathname.split("/"),
-      currentSlug,
-      isLED,
-      product: product?.name,
-    });
-  }, [location.pathname, currentSlug, isLED, product]);
+  const { currentIndex, nextSlide, prevSlide } = UseCarousel(
+    productImages.length,
+    0
+  );
 
   const NavigationHandlers = currentSlug
     ? NavigationService.buildMenuNavigationHandlers(
@@ -202,16 +64,7 @@ const Specification = ({ product }) => {
         },
       };
 
-  useEffect(() => {
-    // Disable scrolling
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
+  UseLockScroll();
 
   useEffect(() => {
     const newSpec = product.specs?.[currentIndex] || product.specs?.[0] || {};
@@ -232,21 +85,6 @@ const Specification = ({ product }) => {
       </div>
     ),
   }));
-
-  const nextSlide = () => {
-    const next = (currentIndex + 1) % productImages.length;
-    setCurrentIndex(next);
-    setGoToSlide(next);
-  };
-
-  const prevSlide = () => {
-    const prev =
-      (currentIndex - 1 + productImages.length) % productImages.length;
-    setCurrentIndex(prev);
-    setGoToSlide(prev);
-  };
-
-  const handleSlideChange = (index) => setCurrentIndex(index);
 
   const getTitle = () => {
     if (currentSpec.type) return currentSpec.type;
@@ -347,14 +185,13 @@ const Specification = ({ product }) => {
           </div>
 
           {hasMultipleImages ? (
-            // Multiple images - gunakan carousel layout yang sudah ada
             <>
               <div className="px-4 sm:px-6 md:px-8 mb-0 md:mb-4">
                 <div className="relative flex items-center justify-center">
                   <Carousel3D
                     slides={slides}
-                    goToSlide={goToSlide}
-                    onSlideChange={handleSlideChange}
+                    currentIndex={currentIndex}
+                    variant="specification"
                   />
                   <button
                     onClick={prevSlide}

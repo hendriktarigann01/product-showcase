@@ -1,6 +1,6 @@
 // App.jsx - Simplified version
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import EntryPage from "./pages/EntryPage";
 import NotFound from "./pages/NotFoundPage";
@@ -12,12 +12,10 @@ import Implementation from "./pages/menu/Implementation";
 import { MorphTransitionProvider } from "./utils/MorphTransition";
 import { UseDeviceDetection } from "./hooks/UseDeviceDetection";
 import { ProductService } from "./services/ProductService";
-import DetailApplication from "./pages/menu/details/DetailApplication";
 
 function App() {
   const shouldUseMorph = UseDeviceDetection();
 
-  // Helper function to create routes dynamically
   const createProductRoutes = (isLED) => {
     const slugs = isLED
       ? ["led-outdoor", "led-indoor", "led-poster"]
@@ -61,18 +59,18 @@ function App() {
 
   const AppContent = () => (
     <Routes>
-      {/* Entry Page */}
+      {/* Entry */}
       <Route path="/" element={<EntryPage />} />
 
-      {/* Home Pages */}
+      {/* Home */}
       <Route path="/lcd-display" element={<HomePage isLED={false} />} />
       <Route path="/led-display" element={<HomePage isLED={true} />} />
 
-      {/* LCD & LED Display Routes */}
+      {/* LCD & LED Display Routes Toggle */}
       {createProductRoutes(false)}
       {createProductRoutes(true)}
 
-      {/* Not Found - fallback untuk semua URL yang tidak cocok */}
+      {/* Fallback Not Found */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

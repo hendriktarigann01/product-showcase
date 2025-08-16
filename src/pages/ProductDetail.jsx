@@ -11,7 +11,8 @@ import {
   getCurrentImageData,
   getMenuButtons,
 } from "../utils/pages/ProductDetailHelpers";
-import { NavigationService } from "../services/navigationService";
+import { NavigationService } from "../services/NavigationService";
+import { UseLockScroll } from "../hooks/UseLockScroll";
 
 function ProductDetail({ product, productIndex = 0, isLED = false }) {
   const { slug } = useParams();
@@ -23,9 +24,9 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
   const location = useLocation();
   const { endTransition, isTransitioning, startTransition } =
     useMorphTransition();
+  UseLockScroll();
   const mainImageRef = useRef(null);
 
-  // Helper function untuk extract slug dari berbagai sumbe
   const getSlugFromUrl = () => {
     if (slug) return slug;
 
@@ -52,7 +53,6 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     });
   }, [location.pathname, currentSlug, product, isLED]);
 
-  // Initialize visibility with transition handling
   useEffect(() => {
     const delay = isTransitioning ? 900 : 0;
     setTimeout(() => {
@@ -61,18 +61,6 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     }, delay);
   }, [isTransitioning, endTransition]);
 
-  // Prevent scrolling
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
-
-  // Navigation handlers dengan slug validation
   const NavigationHandlers = currentSlug
     ? NavigationService.buildProductNavigationHandlers(
         navigate,
@@ -94,7 +82,6 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
       };
 
   const handleBackToHome = () => {
-    // Extract slug from current URL if useParams slug is undefined
     let productSlug = currentSlug;
 
     if (mainImageRef.current && startTransition) {
@@ -120,45 +107,6 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     setIsDownloadPopupOpen(true);
   };
 
-  if (!product) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
-        <div className="text-center">
-          <h2 className="text-xl text-gray-600 mb-4">Product not found</h2>
-          <button
-            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
-            className="px-4 py-2 bg-primary text-white rounded-md"
-          >
-            Back to Home
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (!currentSlug) {
-    console.error(
-      "ProductDetail: Unable to determine slug from URL:",
-      location.pathname
-    );
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
-        <div className="text-center">
-          <h2 className="text-xl text-gray-600 mb-4">Invalid URL</h2>
-          <p className="text-gray-500 mb-4">
-            Unable to determine product from URL
-          </p>
-          <button
-            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
-            className="px-4 py-2 bg-primary text-white rounded-md"
-          >
-            Back to Home
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   const availableViews = getAvailableViews(product);
   const currentImageData = getCurrentImageData(
     product,
@@ -166,7 +114,6 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     processHotspots
   );
 
-  // Handle case when selected view doesn't exist
   if (
     !availableViews.find((view) => view.key === selectedView) &&
     availableViews.length > 0
@@ -210,9 +157,9 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
       </div>
 
       {/* Main Content - Flex grow to fill available space */}
-      <div className="flex-grow flex items-center justify-center mt-0 mx-0 md:mx-5">
+      <div className="flex-grow flex md:items-center md:justify-center mt-0 mx-0 md:mx-5">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="w-full">
+          <div className="w-full mt-20 lg:mt-0">
             <h1 className="text-lg sm:text-2xl text-gray-600 text-center">
               {getProductTitle(product.name)}
             </h1>
@@ -234,12 +181,13 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
                   hotspots={currentImageData.hotspots}
                   productName={product.name}
                   enableZoom={ZOOM_ENABLED_PRODUCTS.includes(product.name)}
+                  selectedView={selectedView}
                 />
               </div>
             </div>
 
             {/* Thumbnail Grid */}
-            <div className="lg:h-[400px] mt-2 md:mt-10 lg:mt-0 flex items-center">
+            <div className="lg:h-[400px] mt-3 md:mt-8 lg:mt-0 flex items-center">
               <div
                 className={`flex overflow-hidden gap-2 sm:gap-4 lg:grid lg:grid-cols-2 lg:gap-12 w-full max-w-[400px] transition-all duration-700 delay-200 ${
                   isVisible
@@ -283,7 +231,7 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
 
           {/* Menu Buttons */}
           <div
-            className={`text-xs lg:text-sm flex flex-wrap items-center mt-0 md:mt-5 justify-center gap-2 md:gap-5 transition-all duration-700 delay-400 ${
+            className={`text-xs lg:text-sm flex flex-wrap items-center mt-0 lg:mt-5 justify-center gap-2 md:gap-5 transition-all duration-700 delay-400 ${
               isVisible
                 ? "opacity-100 transform translate-y-0"
                 : "opacity-0 transform translate-y-5"

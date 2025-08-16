@@ -3,15 +3,15 @@ import ImageHotspot from "../../../components/ImageHotspot";
 import { Check } from "lucide-react";
 import { useMorphTransition } from "../../../utils/MorphTransitionApp";
 import { processHotspots } from "../../../utils/ResponsiveHotspot";
+import { UseLockScroll } from "../../../hooks/UseLockScroll";
 
 const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
   const imageRef = useRef(null);
   const [showContent, setShowContent] = useState(false);
   const [responsiveHotspots, setResponsiveHotspots] = useState([]);
-  const [screenSize, setScreenSize] = useState(window.innerWidth);
   const { endTransition } = useMorphTransition();
 
-  // Update hotspots when screen size changes or selectedApp changes
+  UseLockScroll();
   useEffect(() => {
     const updateHotspots = () => {
       if (selectedApp?.hotspots) {
@@ -23,8 +23,6 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
     updateHotspots();
 
     const handleResize = () => {
-      const newScreenSize = window.innerWidth;
-      setScreenSize(newScreenSize);
       updateHotspots();
     };
 
@@ -35,10 +33,9 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
   useEffect(() => {
     if (selectedApp) {
       if (isTransitioning) {
-        // Delay showing content to allow morphing animation to complete
         const timer = setTimeout(() => {
           setShowContent(true);
-          // End transition after content is shown
+
           setTimeout(() => {
             endTransition();
           }, 100);
@@ -46,21 +43,10 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
 
         return () => clearTimeout(timer);
       } else {
-        // Show immediately if no transition
         setShowContent(true);
       }
     }
   }, [selectedApp, isTransitioning, endTransition]);
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
 
   const handleBack = () => {
     if (onBack) {
@@ -119,13 +105,13 @@ const DetailApplication = ({ selectedApp, onBack, isTransitioning }) => {
       <div className="flex-grow flex md:items-center md:justify-center">
         <div className="max-w-7xl mx-auto w-full z-10 md:z-[9999]">
           <div className="px-4 sm:px-6 md:px-8">
-            <h1 className="text-lg z-[1000] mt-[70px] md:text-2xl  lg:mt-0 text-gray-600 text-center">
+            <h1 className="text-lg md:text-2xl mt-[70px] lg:mt-0 text-gray-600 text-center">
               Applications
             </h1>
           </div>
 
           {/* Applications Content */}
-          <div className="px-4 sm:px-6 md:px-12 lg:px-20 flex items-center justify-center">
+          <div className="px-4 sm:px-6 md:px-12 lg:px-20 h-auto lg:h-[500px] flex items-center justify-center">
             <div className="flex flex-col mt-10 lg:flex-row lg:items-center lg:justify-center gap-6 lg:gap-12 w-full max-w-[1600px]">
               {/* Image Section  */}
               <div className="w-full lg:flex-1 flex justify-center items-center">

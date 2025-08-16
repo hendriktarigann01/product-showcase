@@ -7,6 +7,7 @@ const ImageHotspot = ({
   productName = "",
   enableZoom = false,
   zoomScale = 2,
+  selectedView = "front",
 }) => {
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [isZooming, setIsZooming] = useState(false);
@@ -131,27 +132,20 @@ const ImageHotspot = ({
   const getHighlightOverlay = () => {
     if (!showHighlight) return null;
 
+    if (!showHighlight || selectedView !== "front") return null;
     const isOutdoor = productName === "LED Outdoor for Fixed Installation";
 
     if (isOutdoor) {
-      // Outdoor: Module area ada di kanan bawah (seperti di gambar Anda)
       return (
         <div className="absolute top-1/2 left-1/2 w-[220px] md:w-[300px] md:h-[300px] h-[220px] lg:w-[400px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
-          {/* Dark overlay untuk seluruh area kecuali module */}
           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-
-          {/* Area module kanan bawah tetap terang */}
           <div className="absolute bottom-10 right-25 w-1/3 h-1/5 bg-white bg-opacity-90 transition-all duration-300"></div>
         </div>
       );
     } else {
-      // Indoor: Module area ada di tengah (seperti di gambar Anda)
       return (
-        <div className="absolute top-1/2 left-1/2 w-[534px] h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
-          {/* Dark overlay untuk seluruh area kecuali module */}
+        <div className="absolute top-1/2 left-1/2 w-[293px] h-[220px] md:w-[320px] md:h-[260px] lg:w-[534px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-
-          {/* Area module tengah tetap terang */}
           <div className="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30%] bg-white bg-opacity-90 transition-all duration-300"></div>
         </div>
       );
@@ -261,7 +255,7 @@ const ImageHotspot = ({
       data-hotspot-container
     >
       {/* Main Image */}
-      <div className="w-[320px] h-[220px] md:h-[300px] lg:w-[650px] lg:h-[400px] flex items-center justify-center overflow-hidden">
+      <div className="w-[320px] h-[220px] md:h-[280px] lg:w-[650px] lg:h-[400px] flex items-center justify-center overflow-hidden">
         <img
           src={imageSrc}
           alt={`${productName}`}

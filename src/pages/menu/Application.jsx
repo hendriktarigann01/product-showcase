@@ -1,57 +1,56 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import React, { useRef } from "react";
 import DetailApplication from "../menu/details/DetailApplication";
 import { useMorphTransition } from "../../utils/MorphTransitionApp";
 import { NavigationService } from "../../services/NavigationService";
+import { UseLockScroll } from "../../hooks/UseLockScroll";
+
+// Hooks
+import { UseAppResponsive } from "../../hooks/UseAppResponsive";
+import { UseAppNavigation } from "../../hooks/UseAppNavigation";
+import { UseAppState } from "../../hooks/UseAppState";
+import { UseAppInteraction } from "../../hooks/UseAppInteraction";
+
+// Utils
+import {
+  getImageSource,
+  getResponsiveStyle,
+  getResponsiveHotspotPosition,
+  generateCompositeHotspots,
+} from "../../utils/pages/ApplicationHelpers";
 
 const Application = ({ product: propProduct, productIndex: propIndex }) => {
-  const [product, setProduct] = useState(propProduct);
-  const [selectedApp, setSelectedApp] = useState(null);
-  const [selectedAppId, setSelectedAppId] = useState(null);
-  const [containerDimensions, setContainerDimensions] = useState({
-    width: 1092,
-    height: 588,
-  });
-  const imageRefs = useRef({});
-  const hotspotRefs = useRef({});
   const containerRef = useRef(null);
   const { startTransition, isTransitioning, endTransition } =
     useMorphTransition();
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { slug } = useParams();
+  UseLockScroll();
+  const containerDimensions = UseAppResponsive(containerRef);
+  const { currentSlug, isLED, navigate } = UseAppNavigation();
+  const {
+    product,
+    selectedApp,
+    setSelectedApp,
+    selectedAppId,
+    setSelectedAppId,
+  } = UseAppState(propProduct, propIndex);
 
-  // Helper function untuk extract slug dan isLED dari URL
-  const getUrlInfo = () => {
-    const pathParts = location.pathname.split("/").filter(Boolean);
+  const {
+    imageRefs,
+    hotspotRefs,
+    handleImageClick,
+    handleBackFromDetailExternal,
+  } = UseAppInteraction(
+    product,
+    selectedApp,
+    setSelectedApp,
+    selectedAppId,
+    setSelectedAppId,
+    startTransition,
+    endTransition,
+    isTransitioning
+  );
 
-    // Extract slug - bisa dari useParams atau dari pathname
-    let currentSlug = slug;
-    if (!currentSlug && pathParts.length >= 2) {
-      currentSlug = pathParts[1]; // Index 1 = slug part
-    }
-
-    // Determine isLED from pathname
-    const isLED = location.pathname.includes("/led-display");
-
-    return { currentSlug, isLED };
-  };
-
-  const { currentSlug, isLED } = getUrlInfo();
-
-  // Debug logging
-  useEffect(() => {
-    console.log("Application Debug:", {
-      pathname: location.pathname,
-      pathParts: location.pathname.split("/"),
-      currentSlug,
-      isLED,
-      product: product?.name,
-    });
-  }, [location.pathname, currentSlug, isLED, product]);
-
-  // Navigation handlers dengan validasi slug
+  // Navigation handlers
   const NavigationHandlers = currentSlug
     ? NavigationService.buildMenuNavigationHandlers(
         navigate,
@@ -61,236 +60,10 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
     : {
         handleBackToProductDetail: () => {
           console.warn("Cannot navigate back: slug is undefined");
-          // Fallback ke home
           const basePath = isLED ? "/led-display" : "/lcd-display";
           navigate(basePath);
         },
       };
-
-  useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
-    };
-  }, []);
-
-  useEffect(() => {
-    const calculateDimensions = () => {
-      if (!containerRef.current) return;
-
-      const screenWidth = window.innerWidth;
-      const screenHeight = window.innerHeight;
-
-      // Base dimensions
-      const baseWidth = 910;
-      const baseHeight = 490;
-      const aspectRatio = baseWidth / baseHeight;
-
-      let newWidth, newHeight;
-
-      if (screenWidth <= 768) {
-        // Mobile: use most of screen width with padding
-        const availableWidth = screenWidth * 0.95;
-        const availableHeight = screenHeight * 0.6;
-
-        if (availableWidth / aspectRatio <= availableHeight) {
-          newWidth = availableWidth;
-          newHeight = availableWidth / aspectRatio;
-        } else {
-          newHeight = availableHeight;
-          newWidth = availableHeight * aspectRatio;
-        }
-      } else if (screenWidth <= 1024) {
-        // Tablet: scale down proportionally
-        const scale = Math.min((screenWidth / baseWidth) * 0.8, 1);
-        newWidth = baseWidth * scale;
-        newHeight = baseHeight * scale;
-      } else {
-        // Desktop: use base dimensions
-        newWidth = baseWidth;
-        newHeight = baseHeight;
-      }
-
-      setContainerDimensions({
-        width: Math.floor(newWidth),
-        height: Math.floor(newHeight),
-      });
-    };
-
-    calculateDimensions();
-    window.addEventListener("resize", calculateDimensions);
-    return () => window.removeEventListener("resize", calculateDimensions);
-  }, []);
-
-  useEffect(() => {
-    if (!propProduct) {
-      // Try to get from localStorage as fallback
-      const savedProduct = localStorage.getItem("selectedProduct");
-      if (savedProduct) {
-        setProduct(JSON.parse(savedProduct));
-      }
-    }
-  }, [propProduct, propIndex]);
-
-  useEffect(() => {
-    const handleBackFromDetail = () => {
-      setSelectedApp(null);
-      setSelectedAppId(null);
-      endTransition();
-
-      window.history.pushState(
-        { view: "application" },
-        "",
-        window.location.pathname
-      );
-    };
-
-    const handlePopState = () => {
-      if (selectedApp) {
-        handleBackFromDetail();
-      }
-    };
-
-    window.addEventListener("popstate", handlePopState);
-    return () => window.removeEventListener("popstate", handlePopState);
-  }, [selectedApp, endTransition]);
-
-  // Helper function to determine if this is LED Outdoor product
-  const isLEDOutdoorProduct = (product) => {
-    return (
-      product?.name?.toLowerCase().includes("outdoor") &&
-      product?.name?.toLowerCase().includes("led")
-    );
-  };
-
-  // Helper function to get the correct image source
-  const getImageSource = (appImage) => {
-    if (isLEDOutdoorProduct(product)) {
-      return appImage.image_full;
-    }
-    return appImage.image;
-  };
-
-  // Calculate responsive positioning and sizing
-  const getResponsiveStyle = (originalStyle) => {
-    const scaleX = containerDimensions.width / 910;
-    const scaleY = containerDimensions.height / 490;
-
-    return {
-      left: originalStyle.left * scaleX,
-      top: originalStyle.top * scaleY,
-      width: originalStyle.width * scaleX,
-      height: originalStyle.height * scaleY,
-      zIndex: originalStyle.zIndex,
-    };
-  };
-
-  // Calculate responsive hotspot positioning
-  const getResponsiveHotspotPosition = (x, y) => {
-    return {
-      x: x,
-      y: y,
-    };
-  };
-
-  const handleImageClick = (appId) => {
-    const appImages = product?.app || [];
-    const selectedAppData = appImages.find((item) => item.id === appId);
-    if (!selectedAppData || isTransitioning) return;
-
-    const clickedImageElement = imageRefs.current[appId];
-    const hotspotElement = hotspotRefs.current[appId];
-
-    if (clickedImageElement && hotspotElement) {
-      const imageSource = getImageSource(selectedAppData);
-
-      startTransition(clickedImageElement, null, {
-        direction: "forward",
-        appId: appId,
-        selectedApp: selectedAppData,
-        startImage: imageSource,
-        endImage: imageSource,
-      });
-    }
-
-    setSelectedAppId(appId);
-
-    window.history.pushState(
-      { view: "detail", appId },
-      "",
-      window.location.pathname
-    );
-
-    setTimeout(() => {
-      setSelectedApp(selectedAppData);
-      const slugTitle = selectedAppData.title
-        .toLowerCase()
-        .replace(/[^a-z0-9\s-]/g, "")
-        .trim()
-        .replace(/\s+/g, "-");
-
-      window.history.pushState(
-        { view: "detail", appId },
-        "",
-        `${window.location.pathname}?detail=${slugTitle}`
-      );
-    }, 50);
-  };
-
-  const handleBackFromDetailExternal = () => {
-    setSelectedApp(null);
-    setSelectedAppId(null);
-    endTransition();
-
-    window.history.pushState(
-      { view: "application" },
-      "",
-      window.location.pathname
-    );
-  };
-
-  // Error handling untuk missing product atau slug
-  if (!product) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
-        <div className="text-center">
-          <h2 className="text-xl text-gray-600 mb-4">Product not found</h2>
-          <button
-            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
-            className="px-4 py-2 bg-primary text-white rounded-md"
-          >
-            Back to Home
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (!currentSlug) {
-    console.error(
-      "Application: Unable to determine slug from URL:",
-      location.pathname
-    );
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#e7f4f3]">
-        <div className="text-center">
-          <h2 className="text-xl text-gray-600 mb-4">Invalid URL</h2>
-          <p className="text-gray-500 mb-4">
-            Unable to determine product from URL
-          </p>
-          <button
-            onClick={() => navigate(isLED ? "/led-display" : "/lcd-display")}
-            className="px-4 py-2 bg-primary text-white rounded-md"
-          >
-            Back to Home
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   if (selectedApp) {
     return (
@@ -304,31 +77,11 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
 
   const appImages = product.app || [];
   const appRooms = product.app_room || [];
-
-  let compositeHotspots = [];
-
-  if (appRooms.length > 0) {
-    compositeHotspots = appRooms.map((room) => ({
-      ...room,
-      onClick: () => handleImageClick(room.appId),
-    }));
-  } else if (appImages.length > 0) {
-    compositeHotspots = appImages.map((app, index) => ({
-      id: `hotspot-${app.id}`,
-      appId: app.id,
-      title: app.title,
-      x: 20 + index * 25,
-      y: 30 + index * 20,
-      onClick: () => handleImageClick(app.id),
-      style: {
-        width: 200,
-        height: 150,
-        left: 10 + index * 30,
-        top: 20 + index * 25,
-        zIndex: 1,
-      },
-    }));
-  }
+  const compositeHotspots = generateCompositeHotspots(
+    appRooms,
+    appImages,
+    handleImageClick
+  );
 
   return (
     <div
@@ -356,7 +109,7 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
         </div>
       </div>
 
-      {/* Main Content - Flex grow to fill available space */}
+      {/* Main Content */}
       <div className="flex-grow flex md:items-center md:justify-center">
         <div className="max-w-7xl mx-auto w-full z-10 md:z-[9999]">
           <div className="px-4 sm:px-6 md:px-8">
@@ -366,7 +119,7 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
           </div>
 
           {/* Applications Content */}
-          <div className="px-4 sm:px-6 md:px-12 lg:px-20 flex items-center justify-center">
+          <div className="px-0 sm:px-6 md:px-12 lg:px-20 h-auto lg:h-[500px] flex items-center justify-center">
             <div className="flex flex-col mt-10 lg:items-center lg:justify-center gap-6 lg:gap-12 w-full max-w-[1600px]">
               {/* Applications Display */}
               <div className="w-full flex justify-center items-center">
@@ -390,10 +143,11 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
 
                       const isSelected = selectedAppId === hotspot.appId;
                       const shouldHide = isTransitioning && isSelected;
-                      const imageSource = getImageSource(appImage);
-
-                      // Calculate responsive style
-                      const responsiveStyle = getResponsiveStyle(hotspot.style);
+                      const imageSource = getImageSource(appImage, product);
+                      const responsiveStyle = getResponsiveStyle(
+                        hotspot.style,
+                        containerDimensions
+                      );
 
                       return (
                         <img
@@ -421,8 +175,6 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
                     {compositeHotspots.map((hotspot) => {
                       const isSelected = selectedAppId === hotspot.appId;
                       const shouldHide = isTransitioning && isSelected;
-
-                      // Use original percentage positioning for hotspots
                       const responsivePosition = getResponsiveHotspotPosition(
                         hotspot.x,
                         hotspot.y
@@ -445,7 +197,7 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
                             data-hotspot-id={hotspot.appId}
                           >
                             <div className="relative flex items-center justify-center">
-                              {/* Animated Rings - responsive size */}
+                              {/* Animated Rings */}
                               {!shouldHide && (
                                 <>
                                   <div className="absolute w-4 h-4 md:w-6 md:h-6 rounded-full bg-teal-500 border opacity-40 animate-ping"></div>
@@ -493,7 +245,6 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
       <div className="fixed bottom-0 left-0 right-0 bg-[#e7f4f3]">
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
           <div className="flex justify-between items-center flex-wrap">
-            {/* Website */}
             <div className="flex items-start gap-2 w-auto lg:mx-0">
               <img
                 src="/icons/icon-web.svg"
@@ -502,8 +253,6 @@ const Application = ({ product: propProduct, productIndex: propIndex }) => {
               />
               <span className="text-xs lg:text-sm">mjsolution.co.id</span>
             </div>
-
-            {/* Phone */}
             <div className="flex items-end gap-2 w-auto lg:mx-0">
               <img src="/icons/icon-call.svg" alt="Call" className="w-4 h-4" />
               <span className="text-xs lg:text-sm">(+62) 811-1122-492</span>

@@ -35,7 +35,7 @@ export function Spec3({ specs }) {
           <div key={specIndex} className="p-4">
             <div className="space-y-2">
               {allFields.map((field) => (
-                <div key={field} className="flex items-center py-1">
+                <div key={field} className="flex items-center">
                   <div className="w-40">
                     <span className="text-xs font-medium text-gray-600">
                       {formatFieldName(field)}
