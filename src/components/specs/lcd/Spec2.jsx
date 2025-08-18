@@ -26,7 +26,7 @@ export function Spec2({ spec }) {
               <td className="py-2 w-16">{formatFieldName("brightness")}</td>
               {/* First variant */}
               <td
-                className="px-2 py-2 text-center"
+                className="px-2 py-2 w-[186px] text-center"
                 colSpan={spec.variants[0]?.options.length || 1}
               >
                 <span>{formatValue(spec.variants[0]?.brightness)}</span>
@@ -40,7 +40,7 @@ export function Spec2({ spec }) {
               {/* Second variant */}
               {spec.variants.length > 1 && (
                 <td
-                  className="px-2 py-2 text-center"
+                  className="px-2 py-2 w-[186px] text-center"
                   colSpan={spec.variants[1]?.options.length || 1}
                 >
                   <span>{formatValue(spec.variants[1]?.brightness)}</span>
@@ -53,7 +53,10 @@ export function Spec2({ spec }) {
               <td className="py-2 w-16">{formatFieldName("b2b")}</td>
               {/* First variant options */}
               {spec.variants[0]?.options.map((option, optIndex) => (
-                <td key={`first-${optIndex}`} className="px-2 py-2 text-center">
+                <td
+                  key={`first-${optIndex}`}
+                  className="px-2 py-2 w-[186px] text-center"
+                >
                   <span>{formatValue(option.b2b)}</span>
                 </td>
               ))}
@@ -68,7 +71,7 @@ export function Spec2({ spec }) {
                 spec.variants[1]?.options.map((option, optIndex) => (
                   <td
                     key={`second-${optIndex}`}
-                    className="px-2 py-2 text-center"
+                    className="px-2 py-2 w-[186px] text-center"
                   >
                     <span>{formatValue(option.b2b)}</span>
                   </td>
@@ -80,7 +83,10 @@ export function Spec2({ spec }) {
               <td className="py-2 w-16">{formatFieldName("unit_size_mm")}</td>
               {/* First variant options */}
               {spec.variants[0]?.options.map((option, optIndex) => (
-                <td key={`first-${optIndex}`} className="px-2 py-2 text-center">
+                <td
+                  key={`first-${optIndex}`}
+                  className="px-2 py-2 w-[186px] text-center"
+                >
                   <span>{formatValue(option.unit_size_mm)}</span>
                 </td>
               ))}
@@ -95,7 +101,7 @@ export function Spec2({ spec }) {
                 spec.variants[1]?.options.map((option, optIndex) => (
                   <td
                     key={`second-${optIndex}`}
-                    className="px-2 py-2 text-center"
+                    className="px-2 py-2 w-[186px] text-center"
                   >
                     <span>{formatValue(option.unit_size_mm)}</span>
                   </td>

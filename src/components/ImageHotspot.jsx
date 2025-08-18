@@ -33,7 +33,6 @@ const ImageHotspot = ({
   };
 
   const openHotspot = (hotspotId, hotspotData) => {
-    // Untuk LED products, tampilkan highlight effect
     if (
       productName === "LED Outdoor for Fixed Installation" ||
       productName === "LED Indoor for Fixed Installation"
@@ -96,35 +95,64 @@ const ImageHotspot = ({
 
     const { x, y } = adjustHotspotPosition(hotspot.x, hotspot.y);
     const width = window.innerWidth;
+    const height = window.innerHeight;
 
     // Calculate hotspot position in viewport
-    const hotspotX = containerRect.left + (x / 100) * containerRect.width;
-    const hotspotY = containerRect.top + (y / 100) * containerRect.height;
+    const hotspotX = containerRect.left + (x / 97) * containerRect.width;
+    const hotspotY = containerRect.top + (y / 50) * containerRect.height;
 
-    // Card dimensions
-    let cardWidth = width < 640 ? 250 : width < 768 ? 300 : 350;
+    // Card dimensions - Updated sizes
+    let cardWidth = width < 640 ? 250 : 300;
+    let cardHeight = width < 640 ? 250 : 300;
     const cardOffset = 20;
+    const margin = 10;
 
-    // Position horizontally
-    let left = hotspotX + cardOffset;
-    if (left + cardWidth > width) {
+    // Determine vertical position strategy
+    const spaceAbove = hotspotY - margin;
+    const spaceBelow = height - hotspotY - margin;
+    const centerY = height / 2;
+
+    let top;
+    let left;
+
+    // Vertical positioning logic
+    if (hotspotY < centerY) {
+      // Hotspot di bagian atas, prioritas card di bawah
+      if (spaceBelow >= cardHeight) {
+        top = hotspotY + cardOffset;
+      } else {
+        // Jika tidak cukup ruang di bawah, paksa di atas
+        top = Math.max(margin, hotspotY - cardHeight - cardOffset);
+      }
+    } else {
+      // Hotspot di bagian bawah, prioritas card di atas
+      if (spaceAbove >= cardHeight) {
+        top = hotspotY - cardHeight - cardOffset;
+      } else {
+        // Jika tidak cukup ruang di atas, paksa di bawah
+        top = Math.min(height - cardHeight - margin, hotspotY + cardOffset);
+      }
+    }
+
+    // Horizontal positioning
+    left = hotspotX + cardOffset;
+    if (left + cardWidth > width - margin) {
       left = hotspotX - cardWidth - cardOffset;
     }
-    if (left < 10) left = 10;
-
-    // Position vertically
-    let top = hotspotY + cardOffset;
-    const cardHeight = 200;
-    if (top + cardHeight > window.innerHeight) {
-      top = hotspotY - cardHeight - cardOffset;
+    if (left < margin) {
+      left = margin;
     }
-    if (top < 10) top = 10;
+
+    // Final boundary checks
+    top = Math.max(margin, Math.min(top, height - cardHeight - margin));
+    left = Math.max(margin, Math.min(left, width - cardWidth - margin));
 
     return {
       position: "fixed",
       left: `${left}px`,
       top: `${top}px`,
       width: `${cardWidth}px`,
+      height: `${cardHeight}px`,
       zIndex: 99999,
     };
   };
@@ -139,14 +167,14 @@ const ImageHotspot = ({
       return (
         <div className="absolute top-1/2 left-1/2 w-[220px] md:w-[300px] md:h-[300px] h-[220px] lg:w-[400px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-          <div className="absolute bottom-10 right-25 w-1/3 h-1/5 bg-white bg-opacity-90 transition-all duration-300"></div>
+          <div className="absolute bottom-10 right-25 w-1/3 h-1/5 bg-white bg-opacity-80 transition-all duration-300"></div>
         </div>
       );
     } else {
       return (
         <div className="absolute top-1/2 left-1/2 w-[293px] h-[220px] md:w-[320px] md:h-[260px] lg:w-[534px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-          <div className="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30%] bg-white bg-opacity-90 transition-all duration-300"></div>
+          <div className="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30%] bg-white bg-opacity-80 transition-all duration-300"></div>
         </div>
       );
     }
@@ -200,16 +228,16 @@ const ImageHotspot = ({
 
     const cardElement = (
       <div
-        className="bg-white rounded-xl shadow-2xl animate-in fade-in-0 slide-in-from-top-4 duration-300"
+        className="bg-white rounded-xl animate-in fade-in-0 slide-in-from-top-4 duration-300 flex flex-col overflow-hidden"
         style={cardStyle}
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={closeHotspot}
-          className="absolute top-3 right-3 w-7 h-7 flex items-center justify-center text-white transition-colors rounded-full bg-primary hover:bg-teal-700"
+          className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center text-white transition-colors rounded-full bg-primary hover:bg-teal-700 z-10"
         >
           <svg
-            className="w-4 h-4"
+            className="w-3 h-3"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -223,23 +251,24 @@ const ImageHotspot = ({
           </svg>
         </button>
 
-        <div className="p-5 space-y-1">
+        <div className="p-3 flex flex-col h-full">
           {hotspot.img && (
-            <div className="w-full aspect-[16/9] flex items-center justify-center overflow-hidden mx-auto">
+            <div className="w-full h-[60%] flex items-center justify-center overflow-hidden mb-2">
               <img
                 src={hotspot.img}
                 alt={hotspot.title}
-                className="w-full h-full rounded-md lg:rounded-lg object-contain object-center"
+                className="w-full h-full rounded-md object-contain"
               />
             </div>
           )}
-          <h3 className="text-sm lg:text-base text-center font-bold text-gray-800">
-            {hotspot.title}
-          </h3>
-
-          <p className="text-gray-600 text-center text-xs lg:text-sm leading-relaxed">
-            {hotspot.sub_title}
-          </p>
+          <div className="flex-1 flex flex-col justify-center space-y-1">
+            <h3 className="text-xs sm:text-sm text-center font-bold text-gray-800 leading-tight">
+              {hotspot.title}
+            </h3>
+            <p className="text-gray-600 text-center text-xs leading-tight line-clamp-3">
+              {hotspot.sub_title}
+            </p>
+          </div>
         </div>
       </div>
     );

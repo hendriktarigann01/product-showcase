@@ -205,7 +205,7 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
                     >
                       <button
                         onClick={() => setSelectedView(view.key)}
-                        className={`w-[80px] h-[80px] md:w-auto md:h-auto rounded-lg overflow-hidden transition-all duration-200 ${
+                        className={`w-[80px] h-[80px] lg:w-[160px] lg:h-[160px] rounded-lg overflow-hidden transition-all duration-200 ${
                           isActive
                             ? "border-2 border-teal-500 shadow-md scale-105"
                             : ""
