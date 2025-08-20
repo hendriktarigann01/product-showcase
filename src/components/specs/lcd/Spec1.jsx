@@ -100,8 +100,8 @@ export function Spec1({ spec }) {
                             <Check size={12} className="text-white" />
                           </div>
                         ) : (
-                          <div className="w-5 h-5 border-2 border-teal-500 rounded-full flex justify-center items-center">
-                            <X size={12} className="text-teal-500" />
+                          <div className="w-5 h-5 bg-teal-500 rounded-full flex justify-center items-center">
+                            <X size={12} className="text-white" />
                           </div>
                         )
                       ) : (

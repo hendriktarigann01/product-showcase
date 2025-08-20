@@ -3,7 +3,7 @@ import { Check } from "lucide-react";
 
 const fieldMappings = {
   size: "Size",
-  brightness: "Brightness (nits)",
+  touchscreen: "Touchscreen",
   resolution: "Resolution",
   os: "OS",
   display: "Display",
@@ -25,7 +25,7 @@ export function Spec4({ spec, layout = "default" }) {
 
   const {
     size,
-    brightness,
+    touchscreen,
     resolution,
     os,
     optional_components,
@@ -52,10 +52,10 @@ export function Spec4({ spec, layout = "default" }) {
               </tr>
               <tr className="align-top">
                 <td className="py-2 font-medium w-44 sm:w-36 sm:table-cell">
-                  {formatFieldName("brightness")}
+                  {formatFieldName("touchscreen")}
                 </td>
                 <td className="px-0 sm:px-4 py-1 sm:py-3 sm:table-cell">
-                  {brightness}
+                  {touchscreen}
                 </td>
               </tr>
               <tr className="align-top">

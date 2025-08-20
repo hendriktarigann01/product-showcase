@@ -10,7 +10,17 @@ const fieldMappings = {
 };
 
 const formatFieldName = (key) => fieldMappings[key] || key;
-const formatValue = (value) => value || "-";
+const formatValue = (value) => {
+  if (value === null || value === "no" || value === "unavailable") {
+    return (
+      <div className="w-5 h-5 bg-teal-500 rounded-full flex justify-center items-center mx-auto">
+        <X size={12} className="text-white" />
+      </div>
+    );
+  }
+
+  return <span>{value}</span>;
+};
 
 export function Spec2({ spec }) {
   if (!spec || !Array.isArray(spec.variants)) return null;
@@ -29,7 +39,7 @@ export function Spec2({ spec }) {
                 className="px-2 py-2 w-[186px] text-center"
                 colSpan={spec.variants[0]?.options.length || 1}
               >
-                <span>{formatValue(spec.variants[0]?.brightness)}</span>
+                {formatValue(spec.variants[0]?.brightness)}
               </td>
 
               {/* Label column for second variant */}
@@ -43,7 +53,7 @@ export function Spec2({ spec }) {
                   className="px-2 py-2 w-[186px] text-center"
                   colSpan={spec.variants[1]?.options.length || 1}
                 >
-                  <span>{formatValue(spec.variants[1]?.brightness)}</span>
+                  {formatValue(spec.variants[1]?.brightness)}
                 </td>
               )}
             </tr>
@@ -57,7 +67,7 @@ export function Spec2({ spec }) {
                   key={`first-${optIndex}`}
                   className="px-2 py-2 w-[186px] text-center"
                 >
-                  <span>{formatValue(option.b2b)}</span>
+                  {formatValue(option.b2b)}
                 </td>
               ))}
 
@@ -73,7 +83,7 @@ export function Spec2({ spec }) {
                     key={`second-${optIndex}`}
                     className="px-2 py-2 w-[186px] text-center"
                   >
-                    <span>{formatValue(option.b2b)}</span>
+                    {formatValue(option.b2b)}
                   </td>
                 ))}
             </tr>
@@ -87,7 +97,7 @@ export function Spec2({ spec }) {
                   key={`first-${optIndex}`}
                   className="px-2 py-2 w-[186px] text-center"
                 >
-                  <span>{formatValue(option.unit_size_mm)}</span>
+                  {formatValue(option.unit_size_mm)}
                 </td>
               ))}
 
@@ -103,7 +113,7 @@ export function Spec2({ spec }) {
                     key={`second-${optIndex}`}
                     className="px-2 py-2 w-[186px] text-center"
                   >
-                    <span>{formatValue(option.unit_size_mm)}</span>
+                    {formatValue(option.unit_size_mm)}
                   </td>
                 ))}
             </tr>

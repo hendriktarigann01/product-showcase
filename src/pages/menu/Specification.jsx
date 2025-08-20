@@ -19,11 +19,11 @@ import { UseAppNavigation } from "../../hooks/UseAppNavigation";
 function SingleImageDisplay({ image, productName }) {
   return (
     <div className="flex justify-center h-full">
-      <div className="max-w-full lg:max-w-2xl flex items-center mt-14 md:mt-0">
+      <div className="max-w-full lg:max-w-2xl flex items-center">
         <img
           src={image}
           alt={`${productName} specification`}
-          className="w-full max-h-[180px] sm:max-h-[250px] md:max-h-[300px] lg:max-h-[350px] object-contain"
+          className="w-full max-h-[180px] sm:max-h-[250px] md:max-h-[300px] lg:max-h-[425px] object-contain"
         />
       </div>
     </div>
@@ -127,8 +127,8 @@ const Specification = ({ product }) => {
     }
 
     // 5. Spec2_LED - module_pixels field (hanya ada di Spec2_LED)
-    if (currentSpec?.module_pixels) {
-      console.log("Using Spec2_LED - module_pixels detected");
+    if (currentSpec?.brightness_led) {
+      console.log("Using Spec2_LED - Brightness LED detected");
       return <Spec2_LED specs={[currentSpec]} layout={layoutType} />;
     }
 

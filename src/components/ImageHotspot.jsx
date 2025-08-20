@@ -8,6 +8,7 @@ const ImageHotspot = ({
   enableZoom = false,
   zoomScale = 2,
   selectedView = "front",
+  onModuleToggle,
 }) => {
   const [activeHotspot, setActiveHotspot] = useState(null);
   const [isZooming, setIsZooming] = useState(false);
@@ -37,8 +38,8 @@ const ImageHotspot = ({
       productName === "LED Outdoor for Fixed Installation" ||
       productName === "LED Indoor for Fixed Installation"
     ) {
-      setShowHighlight(true);
       setActiveHotspot(hotspotId);
+      if (onModuleToggle) onModuleToggle(true); // Show module image
     }
     // Untuk produk lain dengan zoom
     else if (enableZoom) {
@@ -55,8 +56,8 @@ const ImageHotspot = ({
       productName === "LED Outdoor for Fixed Installation" ||
       productName === "LED Indoor for Fixed Installation"
     ) {
-      setShowHighlight(false);
       setActiveHotspot(null);
+      if (onModuleToggle) onModuleToggle(false);
     } else if (enableZoom) {
       setIsZooming(false);
       setTimeout(() => setActiveHotspot(null), 300);
@@ -98,8 +99,8 @@ const ImageHotspot = ({
     const height = window.innerHeight;
 
     // Calculate hotspot position in viewport
-    const hotspotX = containerRect.left + (x / 97) * containerRect.width;
-    const hotspotY = containerRect.top + (y / 50) * containerRect.height;
+    const hotspotX = containerRect.left + (x / 100) * containerRect.width;
+    const hotspotY = containerRect.top + (y / 100) * containerRect.height;
 
     // Card dimensions - Updated sizes
     let cardWidth = width < 640 ? 250 : 300;
@@ -157,28 +158,28 @@ const ImageHotspot = ({
     };
   };
 
-  const getHighlightOverlay = () => {
-    if (!showHighlight) return null;
+  //   const getHighlightOverlay = () => {
+  //     if (!showHighlight) return null;
 
-    if (!showHighlight || selectedView !== "front") return null;
-    const isOutdoor = productName === "LED Outdoor for Fixed Installation";
+  //     if (!showHighlight || selectedView !== "front") return null;
+  //     const isOutdoor = productName === "LED Outdoor for Fixed Installation";
 
-    if (isOutdoor) {
-      return (
-        <div className="absolute top-1/2 left-1/2 w-[220px] md:w-[300px] md:h-[300px] h-[220px] lg:w-[400px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
-          <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-          <div className="absolute bottom-10 right-25 w-1/3 h-1/5 bg-white bg-opacity-80 transition-all duration-300"></div>
-        </div>
-      );
-    } else {
-      return (
-        <div className="absolute top-1/2 left-1/2 w-[293px] h-[220px] md:w-[320px] md:h-[260px] lg:w-[534px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
-          <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-          <div className="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30%] bg-white bg-opacity-80 transition-all duration-300"></div>
-        </div>
-      );
-    }
-  };
+  //     if (isOutdoor) {
+  //       return (
+  //         <div className="absolute top-1/2 left-1/2 w-[220px] md:w-[300px] md:h-[300px] h-[220px] lg:w-[400px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+  //           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
+  //           <div className="absolute bottom-10 right-25 w-1/3 h-1/5 bg-white bg-opacity-80 transition-all duration-300"></div>
+  //         </div>
+  //       );
+  //     } else {
+  //       return (
+  //         <div className="absolute top-1/2 left-1/2 w-[293px] h-[220px] md:w-[320px] md:h-[260px] lg:w-[534px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
+  //           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
+  //           <div className="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30%] bg-white bg-opacity-80 transition-all duration-300"></div>
+  //         </div>
+  //       );
+  //     }
+  //   };
 
   const RadarEffect = () => (
     <>
@@ -292,9 +293,6 @@ const ImageHotspot = ({
           style={getImageStyle()}
         />
       </div>
-
-      {/* LED Module Highlight Overlay */}
-      {getHighlightOverlay()}
 
       {/* Hotspots Overlay */}
       <div className="absolute inset-0">

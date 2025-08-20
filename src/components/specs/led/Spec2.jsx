@@ -2,15 +2,15 @@ import React from "react";
 
 const fieldMappings = {
   refresh_rate: "Refresh Rate",
-  brightness: "Brightness",
+  brightness_led: "Brightness",
   module_size: "Module Size",
-  module_pixels: "Module pixels",
-  module_resolution: "Module Resolution",
-  module_weight: "Module weight",
+  pixel_resolution: "Pixel Resolution",
+  module_weight: "Module Weight",
   cabinet_size: "Cabinet Size",
-  max_power: "Max power",
+  max_power: "Max Power",
   cabinet_resolution: "Cabinet Resolution",
-  weight: "Weight",
+  pixel_density: "Pixel Density",
+  type: "Type",
 };
 
 const formatFieldName = (key) => fieldMappings[key] || key;
@@ -31,12 +31,10 @@ export function Spec2_LED({ specs }) {
       <table className="hidden md:table mx-auto table-auto text-left text-sm text-gray-600">
         <tbody>
           <tr>
-            <td className="py-3 pr-8 font-medium min-w-[120px]">
+            <td className="py-3 pr-8 font-medium">
               {formatFieldName("refresh_rate")}
             </td>
-            <td className="py-3 pr-12 min-w-[140px]">
-              {formatValue(spec.refresh_rate)}
-            </td>
+            <td className="py-3 pr-12">{formatValue(spec.refresh_rate)}</td>
 
             <td className="py-3 pr-8 font-medium min-w-[120px]">
               {formatFieldName("module_size")}
@@ -55,15 +53,13 @@ export function Spec2_LED({ specs }) {
 
           <tr>
             <td className="py-3 pr-8 font-medium">
-              {formatFieldName("brightness")}
+              {formatFieldName("Brightness")}
             </td>
-            <td className="py-3 pr-12">{formatValue(spec.brightness)}</td>
-
+            <td className="py-3 pr-12">{formatValue(spec.brightness_led)}</td>
             <td className="py-3 pr-8 font-medium">
-              {formatFieldName("module_pixels")}
+              {formatFieldName("pixel_resolution")}
             </td>
-            <td className="py-3 pr-12">{formatValue(spec.module_pixels)}</td>
-
+            <td className="py-3 pr-12">{formatValue(spec.pixel_resolution)}</td>
             <td className="py-3 pr-8 font-medium">
               {formatFieldName("max_power")}
             </td>
@@ -74,12 +70,9 @@ export function Spec2_LED({ specs }) {
             <td className="py-3 pr-8"></td>
             <td className="py-3 pr-12"></td>
             <td className="py-3 pr-8 font-medium">
-              {formatFieldName("module_resolution")}
+              {formatFieldName("module_weight")}
             </td>
-            <td className="py-3 pr-12">
-              {formatValue(spec.module_resolution)}
-            </td>
-
+            <td className="py-3 pr-12">{formatValue(spec.module_weight)}</td>
             <td className="py-3 pr-8 font-medium">
               {formatFieldName("cabinet_resolution")}
             </td>
@@ -89,21 +82,28 @@ export function Spec2_LED({ specs }) {
           <tr>
             <td className="py-3 pr-8"></td>
             <td className="py-3 pr-12"></td>
-            <td className="py-3 pr-8 font-medium">
-              {formatFieldName("module_weight")}
-            </td>
-            <td className="py-3 pr-12">{formatValue(spec.module_weight)}</td>
+            <td className="py-3 pr-8"></td>
+            <td className="py-3 pr-12"></td>
 
             <td className="py-3 pr-8 font-medium">
-              {formatFieldName("weight")}
+              {formatFieldName("pixel_density")}
             </td>
-            <td className="py-3">{formatValue(spec.weight)}</td>
+            <td className="py-3">{formatValue(spec.pixel_density)}</td>
           </tr>
         </tbody>
       </table>
 
       {/* Mobile Layout */}
       <div className="md:hidden space-y-2">
+        <div className="flex py-1">
+          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
+            {formatFieldName("type")}
+          </span>
+          <span className="text-gray-600 text-[11px] lg:text-sm">
+            {formatValue(spec.type)}
+          </span>
+        </div>
+
         <div className="flex py-1">
           <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
             {formatFieldName("refresh_rate")}
@@ -133,19 +133,10 @@ export function Spec2_LED({ specs }) {
 
         <div className="flex py-1">
           <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
-            {formatFieldName("module_pixels")}
+            {formatFieldName("pixel_resolution")}
           </span>
           <span className="text-gray-600 text-[11px] lg:text-sm">
-            {formatValue(spec.module_pixels)}
-          </span>
-        </div>
-
-        <div className="flex py-1">
-          <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
-            {formatFieldName("module_resolution")}
-          </span>
-          <span className="text-gray-600 text-[11px] lg:text-sm">
-            {formatValue(spec.module_resolution)}
+            {formatValue(spec.pixel_resolution)}
           </span>
         </div>
 
@@ -187,10 +178,10 @@ export function Spec2_LED({ specs }) {
 
         <div className="flex py-1">
           <span className="font-medium text-gray-600 text-[11px] lg:text-sm w-32">
-            {formatFieldName("weight")}
+            {formatFieldName("pixel_density")}
           </span>
           <span className="text-gray-600 text-[11px] lg:text-sm">
-            {formatValue(spec.weight)}
+            {formatValue(spec.pixel_density)}
           </span>
         </div>
       </div>

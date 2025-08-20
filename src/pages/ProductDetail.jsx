@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import ImageHotspot from "../components/ImageHotspot";
+import ModuleImage from "../components/ModuleImage";
 import { useMorphTransition } from "../utils/MorphTransition";
 import { Download } from "./menu/Download";
 import { processHotspots } from "../utils/ResponsiveHotspot";
@@ -19,6 +20,7 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
   const [selectedView, setSelectedView] = useState("front");
   const [isVisible, setIsVisible] = useState(false);
   const [isDownloadPopupOpen, setIsDownloadPopupOpen] = useState(false);
+  const [showModuleImage, setShowModuleImage] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -130,6 +132,10 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
     handleNavigateToDownload
   );
 
+  const handleModuleImageToggle = (show) => {
+    setShowModuleImage(show);
+  };
+
   return (
     <div
       className="min-h-screen flex flex-col bg-[#e7f4f3] overflow-hidden"
@@ -167,23 +173,33 @@ function ProductDetail({ product, productIndex = 0, isLED = false }) {
 
           {/* Main Content */}
           <div className="flex my-2 flex-col lg:flex-row items-center justify-center flex-grow gap-x-8 lg:gap-x-16">
-            {/* Main Image */}
-            <div
-              className={`w-[320px] h-[220px] md:h-[280px] lg:w-[650px] lg:h-[400px] flex items-center justify-center z-[60] transition-all duration-700 ${
-                isVisible
-                  ? "opacity-100 transform translate-y-0"
-                  : "opacity-0 transform translate-y-5"
-              }`}
-            >
-              <div ref={mainImageRef} className="w-full h-full">
-                <ImageHotspot
-                  imageSrc={currentImageData.src}
-                  hotspots={currentImageData.hotspots}
-                  productName={product.name}
-                  enableZoom={ZOOM_ENABLED_PRODUCTS.includes(product.name)}
-                  selectedView={selectedView}
-                />
+            <div className="relative">
+              {/* Main Image */}
+              <div
+                className={`w-[320px] h-[220px] md:h-[280px] lg:w-[650px] lg:h-[400px] flex items-center justify-center z-[60] transition-all duration-700 ${
+                  isVisible
+                    ? "opacity-100 transform translate-y-0"
+                    : "opacity-0 transform translate-y-5"
+                }`}
+              >
+                <div ref={mainImageRef} className="w-full h-full">
+                  <ImageHotspot
+                    imageSrc={currentImageData.src}
+                    hotspots={currentImageData.hotspots}
+                    productName={product.name}
+                    enableZoom={ZOOM_ENABLED_PRODUCTS.includes(product.name)}
+                    selectedView={selectedView}
+                    onModuleToggle={handleModuleImageToggle}
+                  />
+                </div>
               </div>
+
+              {/* Module Image - Separate Component */}
+              <ModuleImage
+                showModuleImage={showModuleImage}
+                product={product}
+                selectedView={selectedView}
+              />
             </div>
 
             {/* Thumbnail Grid */}

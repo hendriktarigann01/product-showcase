@@ -1068,8 +1068,8 @@ export const products = [
     ],
     specs: [
       {
-        size: "KMI 2300",
-        brightness: "350cd/m2",
+        size: "43”",
+        touchscreen: "Infrared Touchscreen",
         resolution: "1920 x 1080 or 3840 x 2160",
         os: "Android 9.0",
         optional_components: [
@@ -1242,7 +1242,7 @@ export const products = [
         img: "/products/KMI4100&4200/hotspots/hotspot_3.webp",
         title: "Main Power Panel",
         sub_title:
-          "This device has DC, HDMI, VGA, USB 3.0/2.0, RJ45, and audio and mic ports, supporting power, display, data, network, and audio connections.",
+          "This panel contains switches, power switches, and sockets for the main power supply to the device.",
       },
     ],
     specs: [
@@ -1304,15 +1304,15 @@ export const products = [
       {
         id: 1,
         image: "/products/KMI4100&4200/application/app_1.webp",
-        title: "SHOPPING AREA",
+        title: "MALL DIRECTORY",
         content:
-          "An interactive touch screen that displays maps and information of shops within a shopping center. This tool helps visitors find store locations, public facilities, as well as the fastest way to reach them. Such us:",
+          "Find stores and facilities easily through an interactive screen that displays maps and shopping center information.",
         type: [
           {
-            fashion: true,
-            shoes: true,
-            accessories: true,
-            electronics_and_more: true,
+            airport: true,
+            train_station: true,
+            bus_terminal: true,
+            ferry_ports_and_more: true,
           },
         ],
       },

@@ -81,7 +81,10 @@ export function Spec3({ specs }) {
                         {formatFieldName(rightField)}
                       </td>
                       {specs.map((spec, index) => (
-                        <td key={`right-${i}-${index}`} className="py-2">
+                        <td
+                          key={`right-${i}-${index}`}
+                          className="py-2 w-[155px]"
+                        >
                           {formatValue(spec[rightField])}
                         </td>
                       ))}
