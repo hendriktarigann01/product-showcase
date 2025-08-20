@@ -158,29 +158,6 @@ const ImageHotspot = ({
     };
   };
 
-  //   const getHighlightOverlay = () => {
-  //     if (!showHighlight) return null;
-
-  //     if (!showHighlight || selectedView !== "front") return null;
-  //     const isOutdoor = productName === "LED Outdoor for Fixed Installation";
-
-  //     if (isOutdoor) {
-  //       return (
-  //         <div className="absolute top-1/2 left-1/2 w-[220px] md:w-[300px] md:h-[300px] h-[220px] lg:w-[400px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
-  //           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-  //           <div className="absolute bottom-10 right-25 w-1/3 h-1/5 bg-white bg-opacity-80 transition-all duration-300"></div>
-  //         </div>
-  //       );
-  //     } else {
-  //       return (
-  //         <div className="absolute top-1/2 left-1/2 w-[293px] h-[220px] md:w-[320px] md:h-[260px] lg:w-[534px] lg:h-[400px] flex items-center justify-center pointer-events-none transform -translate-x-1/2 -translate-y-1/2">
-  //           <div className="absolute inset-0 bg-black bg-opacity-30 transition-opacity duration-300"></div>
-  //           <div className="absolute top-1/2 left-3/4 transform -translate-x-1/2 -translate-y-1/2 w-1/2 h-[30%] bg-white bg-opacity-80 transition-all duration-300"></div>
-  //         </div>
-  //       );
-  //     }
-  //   };
-
   const RadarEffect = () => (
     <>
       <div className="absolute w-4 md:w-6 h-4 md:h-6 rounded-full bg-teal-500 border opacity-40 animate-ping" />
