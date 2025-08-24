@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { products } from "../data/product";
@@ -34,6 +34,10 @@ function HomePage({ isLED = false }) {
   const imageRefs = useRef({});
   const navigate = useNavigate();
   const location = useLocation();
+
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const carouselRef = useRef(null);
 
   const selectedProducts = isLED ? products_led : products;
 
@@ -92,6 +96,32 @@ function HomePage({ isLED = false }) {
 
   UseLockScroll();
 
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe && carouselVisible) {
+      nextSlide();
+    }
+    if (isRightSwipe && carouselVisible) {
+      prevSlide();
+    }
+  };
+
   const handleSelectProduct = (product, imageElement) => {
     const productIndex = selectedProducts.findIndex(
       (p) => p.name === product.name
@@ -126,6 +156,14 @@ function HomePage({ isLED = false }) {
     }
   };
 
+  const handleImageClick = (product, index) => {
+    // Hanya gambar yang di tengah (currentIndex) yang bisa diklik
+    if (index === currentIndex) {
+      const imageElement = imageRefs.current[index] || null;
+      handleSelectProduct(product, imageElement);
+    }
+  };
+
   const slides = selectedProducts.map((product, index) => ({
     key: index,
     content: (
@@ -137,13 +175,16 @@ function HomePage({ isLED = false }) {
             }}
             src={product.image}
             alt={product.name}
-            className="w-full max-h-full object-contain transition-all duration-300"
+            className={`w-full max-h-full object-contain transition-all duration-300 ${
+              index === currentIndex ? "cursor-pointer" : "cursor-default"
+            }`}
             data-carousel-image="true"
             data-carousel-index={index}
             style={{
               opacity: carouselVisible ? 1 : 0,
               transform: carouselVisible ? "scale(1)" : "scale(0.4)",
             }}
+            onClick={() => handleImageClick(product, index)}
           />
         </div>
         <div className="p-4 bg-transparent rounded-b-2xl">
@@ -204,8 +245,9 @@ function HomePage({ isLED = false }) {
               </div>
             </div>
 
-            {/* Carousel */}
+            {/* Carousel with touch handlers */}
             <div
+              ref={carouselRef}
               className="transition-all duration-500"
               style={{
                 opacity: carouselVisible ? 1 : 0,
@@ -213,6 +255,9 @@ function HomePage({ isLED = false }) {
                   ? "translateY(0)"
                   : "translateY(20px)",
               }}
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
             >
               <Carousel3D
                 slides={slides}
@@ -237,7 +282,7 @@ function HomePage({ isLED = false }) {
                 }`}
                 disabled={!carouselVisible}
               >
-                Select{" "}
+                Select
                 <span>
                   <ArrowUpRight size={18} />
                 </span>
@@ -277,6 +322,7 @@ function HomePage({ isLED = false }) {
         <div className="my-6 mx-3 sm:mx-7 text-sm text-gray-600">
           {/* Toggle Mobile */}
           <div className="flex justify-center mb-2 lg:hidden">
+            {/* LCD Display Label */}
             <span
               className={`text-sm font-medium ${
                 !isLED ? "text-gray-600" : "text-gray-300"
@@ -284,19 +330,23 @@ function HomePage({ isLED = false }) {
             >
               LCD Display
             </span>
-            <div className="relative inline-block w-11 h-5 mx-3">
+
+            {/* Toggle Switch */}
+            <div className="relative inline-block w-9 h-4 mx-3 my-auto">
               <input
                 id="display-toggle"
                 type="checkbox"
                 checked={isLED}
                 onChange={handleToggleDisplay}
-                className="peer appearance-none w-11 h-4 bg-gray-100 align-middle rounded-full checked:bg-gray-100 cursor-pointer transition-colors duration-300"
+                className="peer appearance-none w-9 h-4 bg-gray-100 rounded-full checked:bg-gray-100 cursor-pointer transition-colors duration-300"
               />
               <label
                 htmlFor="display-toggle"
-                className="absolute top-0 left-0 w-5 h-5 bg-teal-500 rounded-full transition-transform duration-300 peer-checked:translate-x-6 peer-checked:border-teal-500 cursor-pointer"
+                className="absolute top-0 left-0 w-4 h-4 bg-teal-500 rounded-full transition-transform duration-300 peer-checked:translate-x-5 peer-checked:border-teal-500 cursor-pointer"
               ></label>
             </div>
+
+            {/* LED Display Label */}
             <span
               className={`text-sm font-medium ${
                 isLED ? "text-gray-600" : "text-gray-300"
@@ -306,7 +356,7 @@ function HomePage({ isLED = false }) {
             </span>
           </div>
 
-          {/* Baris Website & Phone (dan toggle di desktop) */}
+          {/* Toggle Desktop */}
           <div className="flex justify-between items-center flex-wrap">
             {/* Website */}
             <div className="flex items-start gap-2 w-auto lg:mx-0">
